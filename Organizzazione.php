@@ -12,5 +12,40 @@
  * @author gianl
  */
 class Organizzazione {
-    //put your code here
+    private $id;
+    private $nome;
+    private $logo;
+    
+    function getId() {
+        return $this->id;
+    }
+
+    function getNome() {
+        return $this->nome;
+    }
+
+    function getLogo() {
+        return $this->logo;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    function setLogo($logo) {
+        $this->logo = $logo;
+    }
+    
+    function __construct($id, $nome, $logo) {
+        $this->id = $id;
+        $this->nome = $nome;
+        $this->logo = $logo;
+    }
+
+
+
 }
