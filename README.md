@@ -7,15 +7,15 @@ CHAT
 
 
 esami
-select all
-select by id utenti
+select all    OKKKKKKKK
+select by id utenti 
 select sostenuti/sostenere esami
 select by certificazione
 
 
 utente
-insert da fare
-
+insert da fare  OKKKKKKKK
+check utente se esiste   
 
 AMMINISTRATORE
 select all di tutti utenti
