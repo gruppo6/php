@@ -23,6 +23,7 @@ Database::disconnect();
 
     <body>
         <div>
+            <h1>Bentornato <?php echo $login_session; ?></h1> 
             <table>
                 <thead>
                     <tr>
@@ -43,6 +44,7 @@ Database::disconnect();
                     ?>
                 </tbody>
             </table>
+            <p><button><a href = "logout.php">Disconnetti</a></button></p>
         </div>
     </body>
 </html>
