@@ -158,7 +158,7 @@ class Iscrizione {
         return $list;                
     }
     
-
+    
 
 
 }
