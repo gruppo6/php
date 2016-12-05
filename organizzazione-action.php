@@ -1,6 +1,6 @@
 <?php
 
-require_once "Iscrizione.php";
+require_once "Organizzazione.php";
 
 if (!isset($_GET["action"])) {
     die("Errore! Nessuna azione specificata.");
@@ -33,30 +33,26 @@ function eseguiInsert() {
     extract($_POST);    // Creo da $_POST
     /*
     private $id;
-    private $id_utente;
-    private $id_esame;
-    private $pagato;
-    private $sostenuto;
-    private $voto;
-    private $voto_massimo;
+    private $nome;
+    private $logo;
      */
-    $iscrizione = new Iscrizione($id, $id_utente, $id_esame, $pagato, $sostenuto, $voto, $voto_massimo);
-    return $iscrizione->insert();
+    $organizzazione = new Organizzazione($id, $nome, $logo);
+    return $organizzazione->insert();
 }
 
 function eseguiUpdate() {
     validaForm();
     extract($_POST);
-    $iscrizione = new Iscrizione($id, $id_utente, $id_esame, $pagato, $sostenuto, $voto, $voto_massimo);
-    return $iscrizione->update();
+    $organizzazione = new Organizzazione($id, $nome, $logo);
+    return $organizzazione->update();
 }
 
 function eseguiDelete() {
     if( !isset($_GET["id"]) || !is_numeric($_GET["id"]) || $_GET["id"] < 1 ) {
         die("Errore! Id mancante o non valido");
     }
-    $iscrizione = new Iscrizione($_GET["id"]);
-    return $iscrizione->delete();
+    $organizzazione = new Organizzazione($_GET["id"]);
+    return $organizzazione->delete();
 }
 
 function validaForm() {
@@ -65,7 +61,7 @@ function validaForm() {
         die("Attenzione! Non è stato inviato nessun form");
     }
     $messaggio_errore = "";
-    $campi = array($id_utente, $id_esame, $pagato, $sostenuto, $voto, $voto_massimo);
+    $campi = array($nome, $logo);
     foreach ($campi as $c) {
         if (!isset($_POST[$c]) || trim($_POST[$c]) == "") {
             $messaggio_errore .= "<p>Il campo <mark>$c</mark> è obbligatorio.</p>";
@@ -77,4 +73,3 @@ function validaForm() {
 }
 
 ?>
-

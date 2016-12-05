@@ -19,6 +19,7 @@ $pagato = "";
 $sostenuto = "";
 $voto = "";
 $voto_massimo = "";
+
 if ($action == "update") {
     if (!isset($_GET["id"])) {
         die("Errore! Non è stato specificato l'id del comune da modificare.");
@@ -41,7 +42,7 @@ if ($action == "update") {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Iscrizione</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -57,19 +58,19 @@ if ($action == "update") {
             </div>
             <div class="form-group">
                 <label for="pagato">Pagato:</label>
-                <input type="file" class="pagato" name="pagato" id="pagato" value="<?php echo $pagato; ?>" class="form-control">
+                <input type="text" name="pagato" id="pagato" value="<?php echo $pagato; ?>" class="form-control">
             </div>
             <div class="form-group">
                 <label for="sostenuto">Sostenuto:</label>
-                <input type="file" class="sostenuto" name="sostenuto" id="Sostenuto" value="<?php echo $sostenuto; ?>" class="form-control">
+                <input type="text" name="sostenuto" id="sostenuto" value="<?php echo $sostenuto; ?>" class="form-control">
             </div>
             <div class="form-group">
                 <label for="voto">Voto:</label>
-                <input type="file" class="voto" name="Voto" id="voto" value="<?php echo $voto; ?>" class="form-control">
+                <input type="number" name="voto" id="voto" value="<?php echo $voto; ?>" class="form-control">
             </div>
             <div class="form-group">
                 <label for="voto_massimo">voto_massimo:</label>
-                <input type="file" class="voto_massimo" name="voto_massimo" id="voto_massimo" value="<?php echo $voto_massimo; ?>" class="form-control">
+                <input type="number" name="voto_massimo" id="voto_massimo" value="<?php echo $voto_massimo; ?>" class="form-control">
             </div>
             
             <input type="hidden" name="id" value="<?php echo $id; ?>">
