@@ -1,32 +1,35 @@
 # esami-6
-Brief per piattaforma esami onlin
+Brief per piattaforma esami online
 
-studente e amministratore
+
+DA FARE
+---
+
+--CLASSI studente e amministratore
 MESSAGGIO
 CHAT
 
 
-esami
+--CLASSE esami
 select all
 select by id utenti
 select sostenuti/sostenere esami
 select by certificazione
 
 
-utente
+--CLASSE utente
 insert da fare
 
 
-AMMINISTRATORE
+--CLASSE AMMINISTRATORE
 select all di tutti utenti
 
-pagina contatti
+--pagina contatti
 funzione invio email
 
-iscrizione 
+--CLASSE iscrizione 
 insert
 select by id esame(risultati e iscrizioni)
 
-
-power point
+-- power point del progetto
 
