@@ -1,0 +1,12 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.c-layout-header .c-topbar-light.c-solid-bg {
+    background: #2b69af !important;
+}
+.c-content-accordion-1.c-theme .panel > .panel-collapse > .panel-body {
+    background-color: #2b69af !important;
+}
+.c-content-accordion-1.c-theme .panel > .panel-heading > .panel-title > a {
+    background-color: #2b69af !important;
+}
