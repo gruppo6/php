@@ -18,7 +18,7 @@ select by certificazione
 
 --CLASSE utente
 insert da fare OKKKKKKKK
-check utente se esiste
+check utente se esiste okkkkk
 
 --CLASSE AMMINISTRATORE
 select all di tutti utenti

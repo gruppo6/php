@@ -42,11 +42,27 @@ if (!empty($_POST)) {
     if ($valid) {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO utenti (nome,cognome,username,"
-                . "password, amministratore"
-                . ") values(?, ?, ?, ?, ?)";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($nome, $cognome, $username, md5($password), 0));
+
+        // Apro la connessione al db
+        $link = mysqli_connect("localhost", "root", "", "corsi");
+        mysqli_set_charset($link, "utf8");
+        // Preparo la query
+        $sql = "SELECT * FROM utenti WHERE username = '$username'";
+
+        // Eseguo la query
+        $result = mysqli_query($link, $sql);
+        // Chiudo la connessione al db
+        mysqli_close($link);
+        $num_rows = mysqli_num_rows($result);
+        if ($num_rows==0) {
+            $sql = "INSERT INTO utenti (nome,cognome,username,"
+                    . "password, amministratore"
+                    . ") values(?, ?, ?, ?, ?)";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($nome, $cognome, $username, md5($password), 0));      
+        } else {
+            echo "Utente già presente nel database";
+        }
         Database::disconnect();
         header("Location: index.php");
     }
