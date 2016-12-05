@@ -1,7 +1,5 @@
 <?php
 
-
-
 class Utente {
     private $id;
     private $nome;
@@ -67,17 +65,78 @@ class Utente {
         $this->amministratore = $amministratore;
     }
     
-    function eseguiInsert(){
-        
-        return 0;
+    public function insert() {
+        $sql = "INSERT INTO utente(nome, cognome, username, password, amministratore) "
+                . "VALUES('$this->nome', '$this->cognome', '$this->username', '$this->password', '$this->amministratore')";
+        return Helpers::executeCommand($sql);
     }
     
-    function eseguiUpdate(){
-        return 0;
+    /**
+     * Modifica una certificazione esistente nel database
+     * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
+     */
+    public function update() {
+        $sql = "UPDATE utente
+                SET nome = '$this->nome',
+                cognome = '$this->cognome',
+                username = '$this->username',
+                password = '$this->password',
+                amministratore = '$this->amministratore',
+                WHERE id = '$this->id'";
+        return Helpers::executeCommand($sql);
     }
     
-    function eseguiDelete(){
-        return 0;
+    /**
+     * Cancella una certificazione dal database
+     * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
+     */
+    public function delete() {
+        $sql = "DELETE FROM utente WHERE id = '$this->id'";
+        return Helpers::executeCommand($sql);
+    }
+    
+    /**
+     * Riempie i campi dell'oggetto recuperando i dati dal DB a partire dall'id
+     * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
+     */
+    public function select() {
+        $sql = "SELECT *
+                FROM utente
+                WHERE id = '$this->id'";
+        $link = Helpers::openConnection();
+        $result = mysqli_query($link, $sql);
+        if(!$result) return false;
+        $row = mysqli_fetch_assoc($result);
+        mysqli_close($link);
+        if($row) {
+            $this->nome = $row["nome"];
+            $this->cognome = $row["cognome"];
+            $this->username = $row["username"];
+            $this->password = $row["password"];
+            $this->amministratore = $row["amministratore"];
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Estrae tutti i certificazioni dal DB
+     * @return mixed Una lista di oggetti certificazione oppure false in caso di errore
+     */
+    public static function selectAll() {
+        $sql = "SELECT *    
+                FROM utente";
+        $link = Helpers::openConnection();
+        $result = mysqli_query($link, $sql);
+        if(!$result) return false;
+        $list = array();
+        while( $row = mysqli_fetch_assoc($result) ) {
+            $c = new Proprietario($row["id"], $row["nome"], $row["cognome"], $row["username"], $row["password"], $row["amministratore"]);
+            $list[] = $c;
+        }
+        mysqli_close($link);
+        return $list;                
     }
     
 }
