@@ -82,6 +82,82 @@ class Iscrizione {
     }
     
     
+    public function insert() {
+        $sql = "INSERT INTO iscrizione(id_utente, id_esame, pagato, sostenuto, voto, voto_massimo) "
+                . "VALUES($this->id_utente, '$this->id_esame', '$this->pagato', '$this->sostenuto', '$this->voto', '$this->voto_massimo')";
+        return Helpers::executeCommand($sql);
+    }
+    
+    /**
+     * Modifica una certificazione esistente nel database
+     * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
+     */
+    public function update() {
+        $sql = "UPDATE iscrizione
+                SET id_utente = '$this->id_utente', 
+                id_esame = '$this->id_esame',
+                pagato = '$this->pagato',
+                sostenuto = '$this->sostenuto',
+                voto = '$this->voto',
+                voto_massimo = '$this->voto_massimo',
+                WHERE id = '$this->id'";
+        return Helpers::executeCommand($sql);
+    }
+    
+    /**
+     * Cancella una certificazione dal database
+     * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
+     */
+    public function delete() {
+        $sql = "DELETE FROM iscrizione WHERE id = '$this->id'";
+        return Helpers::executeCommand($sql);
+    }
+    
+    /**
+     * Riempie i campi dell'oggetto recuperando i dati dal DB a partire dall'id
+     * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
+     */
+    public function select() {
+        $sql = "SELECT *
+                FROM iscrizione
+                WHERE id = '$this->id'";
+        $link = Helpers::openConnection();
+        $result = mysqli_query($link, $sql);
+        if(!$result) return false;
+        $row = mysqli_fetch_assoc($result);
+        mysqli_close($link);
+        if($row) {
+            $this->id_utente = $row["id_utente"];
+            $this->id_esame = $row["id_esame"];
+            $this->pagato = $row["pagato"];
+            $this->sostenuto = $row["sostenuto"];
+            $this->voto = $row["voto"];
+            $this->voto_massimo = $row["voto_massimo"];
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Estrae tutti i certificazioni dal DB
+     * @return mixed Una lista di oggetti certificazione oppure false in caso di errore
+     */
+    public static function selectAll() {
+        $sql = "SELECT *    
+                FROM iscrizione";
+        $link = Helpers::openConnection();
+        $result = mysqli_query($link, $sql);
+        if(!$result) return false;
+        $list = array();
+        while( $row = mysqli_fetch_assoc($result) ) {
+            $c = new Proprietario($row["id"], $row["id_utente"], $row["id_esame"], $row["pagato"], $row["sostenuto"], $row["voto"], $row["voto_massimo"]);
+            $list[] = $c;
+        }
+        mysqli_close($link);
+        return $list;                
+    }
+    
 
 
 

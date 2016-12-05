@@ -12,5 +12,5 @@
  * @author gianl
  */
 class Conversazione {
-    //put your code here
+    
 }
