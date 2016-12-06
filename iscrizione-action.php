@@ -23,7 +23,7 @@ switch ($action) {
 }
 
 if ($esito) {    // Se è andato tutto bene torno alla lista dei certificazione
-    header("Location: controllo.php");
+    header("Location: backend.php");
 } else {    // Altrimenti mostro un messaggio di errore
     die("Attenzione! Errore nel database.");
 }

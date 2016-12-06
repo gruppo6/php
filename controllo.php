@@ -40,11 +40,11 @@ Database::disconnect();
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.php"><img src="img/logo.png"/></a>
+                    <a class="navbar-brand" href="backend.php"><img src="img/logo.png"/></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="controllo.php">Pannello Di Controllo</a></li>
+                        <li><a href="backend.php">Pannello Di Controllo</a></li>
                         <li><a href="logout.php">Disconnetti</a></li>
                     </ul>
                 </div>

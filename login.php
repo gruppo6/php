@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($count == 1) {
         $_SESSION['login_user'] = $myusername;
         $check = 'Bentornato!';
-        header("location: controllo.php");
+        header("location: backend.php");
     } else {
         $check = '<p>Errore Password o Login errata</p>';
     }
