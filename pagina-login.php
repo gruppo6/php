@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="c-line-left c-theme-bg"></div>
                                                 <p>Iscriviti a infobasic.</p>
                                             </div>
-                                            <div class = "c-form-register"><a href="registrazioneUtente.php">Clicca qui.</a></div>
+                                            <div class = "c-form-register"><a href="pagina-registrazione-utente.php">Clicca qui.</a></div>
                                         </div>
                                     </div>
                                 </div>

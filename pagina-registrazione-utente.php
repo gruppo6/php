@@ -79,7 +79,7 @@ if (!empty($_POST)) {
         <div class="c-layout-page">
             <div class="c-content-box c-size-md c-bg-grey">
                 <div class="container">
-                    <form action="registrazioneUtente.php" method="post" enctype="multipart/form-data">
+                    <form action="pagina-registrazione-utente.php" method="post" enctype="multipart/form-data">
                         <div class="c-shop-login-register-1">
                             <div class="c-content-title-1">
                                 <h3 class="c-font-uppercase c-font-bold">Registrati</h3>

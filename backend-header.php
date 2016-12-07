@@ -5,7 +5,7 @@
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="index.html">
-                <img src="img/logo.png" alt="logo" class="logo-default" /> </a>
+                <img src="assets/base/img/logo.png" alt="logo" class="logo-default" /> </a>
             <div class="menu-toggler sidebar-toggler">
                 <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
             </div>
@@ -396,7 +396,7 @@
                                     <i class="icon-lock"></i> Lock Screen </a>
                             </li> -->
                             <li>
-                                <a href="logout.php">
+                                <a href="pagina-logout.php">
                                     <i class="icon-key"></i> Disconnetti </a>
                             </li>
                         </ul>

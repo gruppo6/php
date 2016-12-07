@@ -6,9 +6,9 @@
             <div class="c-navbar-wrapper clearfix">
                 <div class="c-brand c-pull-left">
                     <a href="index.php" class="c-logo">
-                        <img src="img/logo.png" alt="Infobasic" class="c-desktop-logo">
-                        <img src="img/logo.png" alt="Infobasic" class="c-desktop-logo-inverse">
-                        <img src="img/logo.png" alt="Infobasic" class="c-mobile-logo">
+                        <img src="assets/base/img/logo.png" alt="Infobasic" class="c-desktop-logo">
+                        <img src="assets/base/img/logo.png" alt="Infobasic" class="c-desktop-logo-inverse">
+                        <img src="assets/base/img/logo.png" alt="Infobasic" class="c-mobile-logo">
                     </a>
                     <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
                         <span class="c-line"></span>
@@ -40,10 +40,10 @@
                         </li>
                         <?php if (!isset($login_session)) { ?>
                             <li class="c-menu-type-classic">
-                                <a href="registrazioneUtente.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-user"></i> Registrati</a>
+                                <a href="pagina-registrazione-utente.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-user"></i> Registrati</a>
                             </li>
                             <li class="c-menu-type-classic">
-                                <a href="login.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-login"></i> Accedi</a>
+                                <a href="pagina-login.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-login"></i> Accedi</a>
                             </li>
                         <?php } ?>
                         <?php if (isset($login_session)) { ?>

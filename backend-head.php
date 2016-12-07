@@ -29,5 +29,5 @@
     <link href="assets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="img/favicon.png" /> </head>
+    <link rel="shortcut icon" href="assets/base/img/favicon.png" /> </head>
 <!-- END HEAD -->
