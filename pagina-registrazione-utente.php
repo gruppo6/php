@@ -59,21 +59,21 @@ if (!empty($_POST)) {
                     . "password, amministratore"
                     . ") values(?, ?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($nome, $cognome, $username, md5($password), 0));      
+            $q->execute(array($nome, $cognome, $username, md5($password), 0));   
+            header("Location: index.php");
         } else {
-            echo "Utente già presente nel database";
+            $usernameError = "Utente già presente nel database";
         }
-        Database::disconnect();
-        header("Location: index.php");
+        Database::disconnect();   
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="it_IT" dir="ltr">
-    <?php include 'frontend-head.php';?>
+    <?php include 'index-head.php';?>
     <body class="c-layout-header-fixed">
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
-        <?php include 'frontend-header.php';?>
+        <?php include 'index-header.php';?>
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->        
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
@@ -90,35 +90,35 @@ if (!empty($_POST)) {
                                 <div class="col-md-12">
                                     <div class="panel panel-default c-panel">
                                         <div class="panel-body c-panel-body">
-                                            <div class="form-group" <?php echo!empty($nomeError) ? 'error' : ''; ?>">
+                                            <div class="form-group <?php echo!empty($nomeError) ? 'has-error' : ''; ?>">
                                                 <label>Nome</label>
                                                 <input class="form-control c-square c-theme input-lg required" name="nome" type="text"  placeholder="Nome" value="<?php echo!empty($nome) ? $nome : ''; ?>">
                                                 <?php if (!empty($nomeError)): ?>
-                                                    <span><?php echo $nomeError; ?></span>
+                                                    <span class="help-block"><?php echo $nomeError; ?></span>
                                                 <?php endif; ?>
                                             </div>
 
-                                            <div class="form-group" <?php echo!empty($cognomeError) ? 'error' : ''; ?>">
+                                            <div class="form-group <?php echo!empty($cognomeError) ? 'has-error' : ''; ?>">
                                                 <label>Cognome</label>
                                                 <input class="form-control c-square c-theme input-lg required" name="cognome" type="text"  placeholder="Cognome" value="<?php echo!empty($cognome) ? $cognome : ''; ?>">
                                                 <?php if (!empty($cognomeError)): ?>
-                                                    <span><?php echo $cognomeError; ?></span>
+                                                    <span class="help-block"><?php echo $cognomeError; ?></span>
                                                 <?php endif; ?>
                                             </div>
 
-                                            <div class="form-group" <?php echo!empty($usernameError) ? 'error' : ''; ?>">
+                                            <div class="form-group <?php echo!empty($usernameError) ? 'has-error' : ''; ?>">
                                                 <label>Nome Utente</label>
                                                 <input class="form-control c-square c-theme input-lg required" name="username" type="text"  placeholder="Nome Utente" value="<?php echo!empty($username) ? $username : ''; ?>">
                                                 <?php if (!empty($usernameError)): ?>
-                                                    <span><?php echo $usernameError; ?></span>
+                                                    <span class="help-block"><?php echo $usernameError; ?></span>
                                                 <?php endif; ?>
                                             </div>
 
-                                            <div class="form-group" <?php echo!empty($passwordError) ? 'error' : ''; ?>">
+                                            <div class="form-group <?php echo!empty($passwordError) ? 'has-error' : ''; ?>">
                                                 <label>Password</label>
                                                 <input class="form-control c-square c-theme input-lg required" name="password" type="password"  placeholder="Password" value="<?php echo!empty($password) ? $password : ''; ?>">
                                                 <?php if (!empty($passwordError)): ?>
-                                                    <span><?php echo $passwordError; ?></span>
+                                                    <span class="help-block"><?php echo $passwordError; ?></span>
                                                 <?php endif; ?>
                                             </div>                
 
@@ -135,6 +135,6 @@ if (!empty($_POST)) {
             </div>
         </div>
         <!-- END: PAGE CONTAINER -->
-        <?php include 'frontend-footer.php';?>
+        <?php include 'index-footer.php';?>
     </body>
 </html>

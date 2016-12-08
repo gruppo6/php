@@ -1,5 +1,5 @@
 <?php
-require_once "Certificazione.php";
+require_once "Utente.php";
 // Validazione: verifico se è stato passato il parametro "action" in GET...
 if (!isset($_GET["action"])) {
     die("Errore! Nessuna azione specificata.");
@@ -45,7 +45,7 @@ if ($action == "update") {
     </head>
     <body>
         <h1>Utente</h1>
-        <form method="post" action="utente-action.php?action=<?php echo $action; ?>">
+        <form method="post" action="backend-utente-action.php?action=<?php echo $action; ?>">
             <div class="form-group">
                 <label for="nome">Nome: </label>
                 <input type="text" name="nome" id="nome" value="<?php echo $nome; ?>" class="form-control">

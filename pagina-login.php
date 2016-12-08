@@ -4,18 +4,17 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // username and password sent from form 
-
     $myusername = mysqli_real_escape_string($db, $_POST['username']);
     $mypassword = mysqli_real_escape_string($db, md5($_POST['password']));
     $check = "";
-    $sql = "SELECT id FROM utenti WHERE username = '$myusername' and password = '$mypassword'";
+    $sql = "SELECT id, amministratore FROM utenti "
+            . "WHERE username = '$myusername' and password = '$mypassword'";
     $result = mysqli_query($db, $sql);
     $count = mysqli_num_rows($result);
 
     // If result matched $myusername and $mypassword, table row must be 1 row
-
     if ($count == 1) {
-        $_SESSION['login_user'] = $myusername;
+        $_SESSION['login_user'] = $myusername; //salvo in sessione la username
         $check = 'Bentornato!';
         header("location: backend.php");
     } else {
@@ -25,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="it_IT" dir="ltr">
-    <?php include 'frontend-head.php';?>
+    <?php include 'index-head.php'; ?>
     <body class="c-layout-header-fixed">
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
-        <?php include 'frontend-header.php';?>
+        <?php include 'index-header.php'; ?>
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->        
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
@@ -46,25 +45,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="panel panel-default c-panel">
                                         <div class="panel-body c-panel-body">
                                             <div class="form-item form-type-textfield form-item-name">
-                                                <div class = "form-group has-feedback">
+                                                <div class = "form-group has-feedback <?php echo!empty($check) ? 'has-error' : ''; ?>">
                                                     <input placeholder="Username" type="text" class="form-control c-square c-theme input-lg required" id="edit-name" name="username" value="" size="60" maxlength="60" />
                                                     <span class="glyphicon glyphicon-user form-control-feedback c-font-grey"></span>
+                                                    <?php if (!empty($check)): ?>
+                                                        <span class="help-block"><?php echo $check; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="form-item form-type-password form-item-pass">
-                                                <div class = "form-group has-feedback">
+                                                <div class = "form-group has-feedback <?php echo!empty($check) ? 'has-error' : ''; ?>">
                                                     <input placeholder="Password" type="password" id="edit-pass" name="password" value="" size="60" maxlength="128" class="form-control c-square c-theme input-lg required" />
                                                     <span class="glyphicon glyphicon-lock form-control-feedback c-font-grey"></span>
+                                                    <?php if (!empty($check)): ?>
+                                                        <span class="help-block"><?php echo $check; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="form-actions form-wrapper" id="edit-actions">
                                                 <input class="btn-medium btn btn-mod form-submit btn c-btn c-btn-square c-theme-btn c-font-bold c-font-uppercase c-font-white" type="submit" id="edit-submit" name="op" value="Log in" />
                                             </div>    
-                                            <?php
-                                            if (isset($check)) {
-                                                echo $check;
-                                            }
-                                            ?> 
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
         <!-- END: PAGE CONTAINER -->
-        <?php include 'frontend-footer.php';?>
+        <?php include 'index-footer.php'; ?>
     </body>
 </html>
 

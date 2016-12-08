@@ -39,117 +39,169 @@
             <li class="heading">
                 <h3 class="uppercase">Utilità</h3>
             </li>
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-docs"></i>
-                    <span class="title">Esami</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-plus"></i>
-                            <span class="title">Nuovo Esame</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-calendar"></i>
-                            <span class="title">In Programma</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-check"></i>
-                            <span class="title">Svolti</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-list"></i>
-                            <span class="title">Visualizza Tutti</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-badge"></i>
-                    <span class="title">Certificazioni</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-plus"></i>
-                            <span class="title">Nuova Certificazione</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-list"></i>
-                            <span class="title">Visualizza Tutti</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-briefcase"></i>
-                    <span class="title">Organizzazioni</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-plus"></i>
-                            <span class="title">Nuova Organizzazione</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="#" class="nav-link ">
-                            <i class="icon-list"></i>
-                            <span class="title">Visualizza Tutti</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-emoticon-smile"></i>
-                    <span class="title">Messaggistica</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="elements_steps.html" class="nav-link ">
-                            <i class="icon-plus"></i>
-                            <span class="title">Nuovo Messaggio</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="elements_lists.html" class="nav-link ">
-                            <i class="icon-list"></i>
-                            <span class="title">Visualizza Tutti</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-user"></i>
-                    <span class="title">Utenti</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="elements_steps.html" class="nav-link ">
-                            <i class="icon-list"></i>
-                            <span class="title">Visualizza Tutti</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            <?php if ($_SESSION['amministratore'] == 1) { ?>
+                <li class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-docs"></i>
+                        <span class="title">Esami</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-plus"></i>
+                                <span class="title">Nuovo Esame</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-calendar"></i>
+                                <span class="title">In Programma</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-check"></i>
+                                <span class="title">Svolti</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-list"></i>
+                                <span class="title">Visualizza Tutti</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item  ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-badge"></i>
+                        <span class="title">Certificazioni</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-plus"></i>
+                                <span class="title">Nuova Certificazione</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-list"></i>
+                                <span class="title">Visualizza Tutti</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item  ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-briefcase"></i>
+                        <span class="title">Organizzazioni</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-plus"></i>
+                                <span class="title">Nuova Organizzazione</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-list"></i>
+                                <span class="title">Visualizza Tutti</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item  ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-emoticon-smile"></i>
+                        <span class="title">Messaggistica</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="elements_steps.html" class="nav-link ">
+                                <i class="icon-plus"></i>
+                                <span class="title">Nuovo Messaggio</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="elements_lists.html" class="nav-link ">
+                                <i class="icon-list"></i>
+                                <span class="title">Visualizza Tutti</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item  ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-user"></i>
+                        <span class="title">Utenti</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="backend-utente.php" class="nav-link ">
+                                <i class="icon-list"></i>
+                                <span class="title">Visualizza Tutti</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            <?php } ?>
+            <?php if ($_SESSION['amministratore'] == 0) { ?>
+                <li class="nav-item">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-docs"></i>
+                        <span class="title">Esami</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-calendar"></i>
+                                <span class="title">In Programma</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-check"></i>
+                                <span class="title">Svolti</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="#" class="nav-link ">
+                                <i class="icon-call-in"></i>
+                                <span class="title">Prenota Esame</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item  ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-emoticon-smile"></i>
+                        <span class="title">Messaggistica</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  ">
+                            <a href="elements_steps.html" class="nav-link ">
+                                <i class="icon-plus"></i>
+                                <span class="title">Nuovo Messaggio</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="elements_lists.html" class="nav-link ">
+                                <i class="icon-list"></i>
+                                <span class="title">Visualizza Tutti</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            <?php } ?>
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

@@ -3,10 +3,10 @@ include('session.php');
 ?>
 <!DOCTYPE html>
 <html lang="it_IT" dir="ltr">
-    <?php include 'frontend-head.php';?>
+    <?php include 'index-head.php';?>
     <body class="c-layout-header-fixed">
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
-        <?php include 'frontend-header.php';?>
+        <?php include 'index-header.php';?>
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
@@ -669,6 +669,6 @@ include('session.php');
             <!-- END: PAGE CONTENT -->
         </div>
         <!-- END: PAGE CONTAINER -->
-        <?php include 'frontend-footer.php';?>
+        <?php include 'index-footer.php';?>
     </body>
 </html>

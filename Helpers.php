@@ -15,7 +15,7 @@ class Helpers {
      * @return resource Il collegamento alla connessione creata
      */
     public static function openConnection() {
-        $link = mysqli_connect(DB_SERVER, DB_USER, DB_PWD, DB_NAME);
+        $link = mysqli_connect(Helpers::DB_SERVER, Helpers::DB_USER, Helpers::DB_PWD, Helpers::DB_NAME);
         mysqli_set_charset($link, "utf8");
         return $link;
     }

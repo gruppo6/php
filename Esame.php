@@ -96,7 +96,7 @@ class Esame {
     }
     
     /**
-     * Estrae tutti i certificazioni dal DB
+     * Estrae tutti gli esami dal DB
      * @return mixed Una lista di oggetti certificazione oppure false in caso di errore
      */
     public static function selectAll() {

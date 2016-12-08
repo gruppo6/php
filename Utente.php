@@ -1,5 +1,7 @@
 <?php
 
+require_once "Helpers.php";
+
 class Utente {
     private $id;
     private $nome;
@@ -56,7 +58,7 @@ class Utente {
         $this->amministratore = $amministratore;
     }
     
-    function __construct($id, $nome, $cognome, $username, $password, $amministratore) {
+    function __construct($id, $nome="", $cognome="", $username="", $password="", $amministratore="") {
         $this->id = $id;
         $this->nome = $nome;
         $this->cognome = $cognome;
@@ -66,7 +68,7 @@ class Utente {
     }
     
     public function insert() {
-        $sql = "INSERT INTO utente(nome, cognome, username, password, amministratore) "
+        $sql = "INSERT INTO utenti(nome, cognome, username, password, amministratore) "
                 . "VALUES('$this->nome', '$this->cognome', '$this->username', '$this->password', '$this->amministratore')";
         return Helpers::executeCommand($sql);
     }
@@ -76,7 +78,7 @@ class Utente {
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
      */
     public function update() {
-        $sql = "UPDATE utente
+        $sql = "UPDATE utenti
                 SET nome = '$this->nome',
                 cognome = '$this->cognome',
                 username = '$this->username',
@@ -91,7 +93,7 @@ class Utente {
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
      */
     public function delete() {
-        $sql = "DELETE FROM utente WHERE id = '$this->id'";
+        $sql = "DELETE FROM utenti WHERE id = '$this->id'";
         return Helpers::executeCommand($sql);
     }
     
@@ -101,7 +103,7 @@ class Utente {
      */
     public function select() {
         $sql = "SELECT *
-                FROM utente
+                FROM utenti
                 WHERE id = '$this->id'";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
@@ -126,13 +128,13 @@ class Utente {
      */
     public static function selectAll() {
         $sql = "SELECT *    
-                FROM utente";
+                FROM utenti";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
         if(!$result) return false;
         $list = array();
         while( $row = mysqli_fetch_assoc($result) ) {
-            $c = new Proprietario($row["id"], $row["nome"], $row["cognome"], $row["username"], $row["password"], $row["amministratore"]);
+            $c = new Utente($row["id"], $row["nome"], $row["cognome"], $row["username"], $row["password"], $row["amministratore"]);
             $list[] = $c;
         }
         mysqli_close($link);
