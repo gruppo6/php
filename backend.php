@@ -7,7 +7,7 @@ include 'connessione_db.php';
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="it">
     <!--<![endif]-->
     <?php include 'backend-head.php' ?>
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">

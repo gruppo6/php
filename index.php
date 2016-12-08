@@ -2,7 +2,7 @@
 include('session.php');
 ?>
 <!DOCTYPE html>
-<html lang="it_IT" dir="ltr">
+<html lang="it" dir="ltr">
     <?php include 'index-head.php';?>
     <body class="c-layout-header-fixed">
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
