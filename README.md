@@ -1,24 +1,22 @@
-# esami-6
-Brief per piattaforma esami online
+Progetto :
+Brief Infobasic per piattaforma esami online
 
---------------------------------------------------------------------------------
-DA FARE
---------------------------------------------------------------------------------
+Autori :
+Andrea Vicoli
+Cinzia Russo
+Gianluca Tortorella
+
+Da Fare:
 
 --CLASSI studente e amministratore
 MESSAGGIO
 CHAT
-
 
 --CLASSE esami
 select all    OKKKKKKKK
 select by id utenti 
 select sostenuti/sostenere esami
 select by certificazione
-
---CLASSE utente
-insert da fare OKKKKKKKK
-check utente se esiste okkkkk
 
 --CLASSE AMMINISTRATORE
 select all di tutti utenti
@@ -29,10 +27,3 @@ funzione invio email
 --CLASSE iscrizione 
 insert
 select by id esame(risultati e iscrizioni)
-
--- power point del progetto
-
---------------------------------------------------------------------------------
-GIANLUCA
--- Sostituire connessione_db con helpers
-

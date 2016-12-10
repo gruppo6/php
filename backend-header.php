@@ -1,3 +1,15 @@
+<?php
+
+include('session.php');
+include 'connessione_db.php';
+include 'Esame.php';
+include 'Messaggio.php';
+
+$esamiPrenotati = count(Esame::selectPrenotati($_SESSION['idUtente']));
+$esamiSostenuti = 0;
+$esamiDaFare = 0;
+$messaggiNuovi = 0;
+?>
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
@@ -180,7 +192,9 @@
                     <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-envelope-open"></i>
-                            <span class="badge badge-danger"> 4 </span>
+                            <?php if ($messaggiNuovi != 0): ?>
+                            <span class="badge badge-danger"> <?php echo $messaggiNuovi; ?> </span>
+                            <?php endif; ?>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="external">
@@ -256,7 +270,9 @@
                     <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark" id="header_task_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-calendar"></i>
-                            <span class="badge badge-primary"> 3 </span>
+                            <?php if ($esamiDaFare != 0): ?>
+                            <span class="badge badge-primary"> <?php echo $esamiDaFare; ?> </span>
+                            <?php endif; ?>
                         </a>
                         <ul class="dropdown-menu extended tasks">
                             <li class="external">

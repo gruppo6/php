@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<?php
-include('session.php');
-include 'connessione_db.php';
-?>
-<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -134,8 +129,8 @@ include 'connessione_db.php';
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-green-sharp">
-                                            <span data-counter="counterup" data-value="7800">0</span>
-                                            <small class="font-green-sharp">$</small>
+                                            <span data-counter="counterup" data-value="<?php echo $esamiPrenotati; ?>">0</span>
+                                            <small class="font-green-sharp"></small>
                                         </h3>
                                         <small>ESAMI PRENOTATI</small>
                                     </div>
@@ -153,7 +148,7 @@ include 'connessione_db.php';
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-red-haze">
-                                            <span data-counter="counterup" data-value="1349">0</span>
+                                            <span data-counter="counterup" data-value="<?php echo $esamiSostenuti; ?>">0</span>
                                         </h3>
                                         <small>ESAMI SOSTENUTI</small>
                                     </div>
@@ -171,7 +166,7 @@ include 'connessione_db.php';
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-blue-sharp">
-                                            <span data-counter="counterup" data-value="567"></span>
+                                            <span data-counter="counterup" data-value="<?php echo $esamiDaFare; ?>"></span>
                                         </h3>
                                         <small>ESAMI DA SOSTENERE</small>
                                     </div>
@@ -191,7 +186,7 @@ include 'connessione_db.php';
                                 <div class="display">
                                     <div class="number">
                                         <h3 class="font-purple-soft">
-                                            <span data-counter="counterup" data-value="276"></span>
+                                            <span data-counter="counterup" data-value="<?php echo $messaggiNuovi; ?>"></span>
                                         </h3>
                                         <small>NUOVI MESSAGGI</small>
                                     </div>
