@@ -1,19 +1,19 @@
 <?php
-include('session.php');
-include 'connessione_db.php';
 require_once "Helpers.php";
 require_once "Utente.php";
 
 // Validazione: verifico se è stato passato il parametro "action" in GET...
 if (!isset($_GET["action"])) {
-    $messaggio = "notifyError('Errore', 'Nessuna azione specificata')";
+    $_SESSION['messaggio'] = "notifyError('Errore', 'Nessuna azione specificata')";
+    header("Location: backend-utente.php");
 }
 
 // ...e se ha un valore corretto
 $action = $_GET["action"];
 
 if ($action != "insert" && $action != "update" && $action != "delete") {
-    $messaggio = "notifyError('Errore', 'Azione Non Prevista')";
+    $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
+    header("Location: backend-utente.php");
 }
 
 if ($action == "update" && empty($_POST)) {
@@ -33,7 +33,6 @@ if ($action == "update" && empty($_POST)) {
     $password = $utente->getPassword();
     $amministratore = $utente->getAmministratore();
 }
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->

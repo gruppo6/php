@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<?php
-include('session.php');
-include 'connessione_db.php';
-require_once "Helpers.php";
-require_once "Utente.php";
-?>
+<?php require_once 'Utente.php'; ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -37,7 +31,7 @@ require_once "Utente.php";
                     <!-- BEGIN PAGE BREADCRUMB -->
                     <ul class="page-breadcrumb breadcrumb">
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="backend.php">Home</a>
                             <i class="fa fa-circle"></i>
                         </li>
                         <li>
@@ -68,10 +62,13 @@ require_once "Utente.php";
                                                         <th class="all sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 47px;" aria-sort="ascending" aria-label="Nome: activate to sort column descending">
                                                             Nome
                                                         </th>
-                                                        <th class="min-phone-l sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Cognome: activate to sort column ascending">
+                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Cognome: activate to sort column ascending">
                                                             Cognome
                                                         </th>
-                                                        <th class="all sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 34px;" aria-label="Azioni: activate to sort column ascending">
+                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Admin: activate to sort column ascending">
+                                                            Tipo Utente
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 34px;" aria-label="Azioni: activate to sort column ascending">
                                                             Azioni
                                                         </th>
                                                     </tr>
@@ -81,9 +78,15 @@ require_once "Utente.php";
                                                     $listaUtenti = Utente::selectAll();
                                                     foreach ($listaUtenti as $utente) {
                                                         $id = $utente->getId(); // echo $some_var ? 'true': 'false';
+                                                        if ($utente->getAmministratore() == 1) {
+                                                            $adminIcon = "<i class='icon-star'></i>";
+                                                        } elseif ($utente->getAmministratore() == 0) {
+                                                            $adminIcon = "<i class='icon-user'></i>";
+                                                        }
                                                         echo "<tr role='row' class='" . (($id % 2 == 0) ? 'even' : 'odd') . "'>";
                                                         echo "<td tabindex='0' class='sorting_1'>" . $utente->getNome() . "</td>";
                                                         echo "<td>" . $utente->getCognome() . "</td>";
+                                                        echo "<td>" . $adminIcon . "</td>";
                                                         echo "<td>
                                                                 <div class='btn-group pull-right'>
                                                                     <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni

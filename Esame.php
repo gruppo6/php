@@ -54,9 +54,8 @@ class Esame {
     function setData($data) {
         $this->data = $data;
     }
-    
-    function __construct($id, $id_certificazione="", $nome="", 
-            $descrizione="", $data="") {
+
+    function __construct($id, $id_certificazione = "", $nome = "", $descrizione = "", $data = "") {
         $this->id = $id;
         $this->id_certificazione = $id_certificazione;
         $this->nome = $nome;
@@ -64,6 +63,10 @@ class Esame {
         $this->data = $data;
     }
 
+    /**
+     * crea un esame esistente nel database
+     * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
+     */
     public function insert() {
         $sql = "INSERT INTO esami(id_certificazione, nome, descrizione, data) "
                 . "VALUES($this->id_certificazione, '$this->nome', "
@@ -72,7 +75,7 @@ class Esame {
     }
 
     /**
-     * Modifica una certificazione esistente nel database
+     * Modifica un esame esistente nel database
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
      */
     public function update() {
@@ -86,7 +89,7 @@ class Esame {
     }
 
     /**
-     * Cancella una certificazione dal database
+     * Cancella un esame dal database
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
      */
     public function delete() {
@@ -104,8 +107,9 @@ class Esame {
                 WHERE id = '$this->id'";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
-        if (!$result)
+        if (!$result) {
             return false;
+        }
         $row = mysqli_fetch_assoc($result);
         mysqli_close($link);
         if ($row) {
@@ -128,12 +132,13 @@ class Esame {
                 FROM esami";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
-        if (!$result)
+        if (!$result) {
             return false;
+        }
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
-            $c = new Esame($row["id"], $row["id_certificazione"], $row["nome"],
-                    $row["descrizione"], $row["data"]);
+            $c = new Esame($row["id"], $row["id_certificazione"], 
+                    $row["nome"], $row["descrizione"], $row["data"]);
             $list[] = $c;
         }
         mysqli_close($link);
@@ -145,21 +150,73 @@ class Esame {
      * @return mixed Una lista di oggetti esami oppure false in caso di errore
      */
     public static function selectPrenotati($idUtente) {
-        $sql = "SELECT t1.id, t1.nome, t1.descrizione, t1.data FROM esami " . 
-                " AS t1 INNER JOIN iscrizioni AS t2 ON t1.id = t2.id_esame " . 
+        $sql = "SELECT t1.id, t1.id_certificazione, t1.nome, t1.descrizione, " .
+                " t1.data FROM esami " .
+                " AS t1 INNER JOIN iscrizioni AS t2 ON t1.id = t2.id_esame " .
                 " WHERE t2.sostenuto = 0 " .
-                " AND t2.id_utente = '$idUtente'";
+                " AND t2.id_utente = '$idUtente' AND t1.data > NOW()";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
-        if (!$result)
+        if (!$result) {
             return false;
+        }
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
-            $c = new Esame($row["id"]);
+            $c = new Esame($row["id"], $row["id_certificazione"], 
+                    $row["nome"], $row["descrizione"], $row["data"]);
             $list[] = $c;
         }
         mysqli_close($link);
         return $list;
     }
 
+    /**
+     * Estrae tutti gli esami da fare (attivi) per utente dal DB
+     * @return mixed Una lista di oggetti esami oppure false in caso di errore
+     */
+    public static function selectDaFare($idUtente) {
+        $sql = "SELECT t1.id, t1.id_certificazione, t1.nome, " .
+                " t1.descrizione, t1.data FROM esami " .
+                " AS t1 INNER JOIN iscrizioni AS t2 ON t1.id = t2.id_esame " .
+                " WHERE t2.sostenuto = 0 " .
+                " AND t2.id_utente = '$idUtente'";
+        $link = Helpers::openConnection();
+        $result = mysqli_query($link, $sql);
+        if (!$result) {
+            return false;
+        }
+        $list = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $c = new Esame($row["id"], $row["id_certificazione"], 
+                    $row["nome"], $row["descrizione"], $row["data"]);
+            $list[] = $c;
+        }
+        mysqli_close($link);
+        return $list;
+    }
+
+    /**
+     * Estrae tutti gli esami fatti per utente dal DB
+     * @return mixed Una lista di oggetti esami oppure false in caso di errore
+     */
+    public static function selectFatti($idUtente) {
+        $sql = "SELECT t1.id, t1.id_certificazione, t1.nome, t1.descrizione, " .
+                " t1.data FROM esami " .
+                " AS t1 INNER JOIN iscrizioni AS t2 ON t1.id = t2.id_esame " .
+                " WHERE t2.sostenuto = 1 " .
+                " AND t2.id_utente = '$idUtente'";
+        $link = Helpers::openConnection();
+        $result = mysqli_query($link, $sql);
+        if (!$result) {
+            return false;
+        }
+        $list = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $c = new Esame($row["id"], $row["id_certificazione"], 
+                    $row["nome"], $row["descrizione"], $row["data"]);
+            $list[] = $c;
+        }
+        mysqli_close($link);
+        return $list;
+    }
 }

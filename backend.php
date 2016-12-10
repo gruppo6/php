@@ -5,7 +5,7 @@
 <html lang="it">
     <!--<![endif]-->
     <?php include 'backend-head.php' ?>
-    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" >
         <?php include 'backend-header.php' ?>
         <!-- BEGIN CONTAINER -->
         <div class="page-container">

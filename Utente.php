@@ -2,6 +2,11 @@
 
 require_once "Helpers.php";
 
+/**
+ * Description of Utente
+ *
+ * @author gianl
+ */
 class Utente {
     private $id;
     private $nome;

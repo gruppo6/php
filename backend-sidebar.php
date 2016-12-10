@@ -48,25 +48,25 @@
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item  ">
-                            <a href="#" class="nav-link ">
+                            <a href="backend-esame.php?q=fuck" class="nav-link ">
                                 <i class="icon-plus"></i>
                                 <span class="title">Nuovo Esame</span>
                             </a>
                         </li>
                         <li class="nav-item  ">
-                            <a href="#" class="nav-link ">
+                            <a href="backend-esame.php?q=todo" class="nav-link ">
                                 <i class="icon-calendar"></i>
                                 <span class="title">In Programma</span>
                             </a>
                         </li>
                         <li class="nav-item  ">
-                            <a href="#" class="nav-link ">
+                            <a href="backend-esame.php?q=done" class="nav-link ">
                                 <i class="icon-check"></i>
                                 <span class="title">Svolti</span>
                             </a>
                         </li>
                         <li class="nav-item  ">
-                            <a href="#" class="nav-link ">
+                            <a href="backend-esame.php?q=all" class="nav-link ">
                                 <i class="icon-list"></i>
                                 <span class="title">Visualizza Tutti</span>
                             </a>

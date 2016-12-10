@@ -12,12 +12,6 @@ Da Fare:
 MESSAGGIO
 CHAT
 
---CLASSE esami
-select all    OKKKKKKKK
-select by id utenti 
-select sostenuti/sostenere esami
-select by certificazione
-
 --CLASSE AMMINISTRATORE
 select all di tutti utenti
 
@@ -27,3 +21,8 @@ funzione invio email
 --CLASSE iscrizione 
 insert
 select by id esame(risultati e iscrizioni)
+
+--Gianluca
+classe esame : bisogna fare la form dove visualizzo, oltre i dati dell'esame:
+               i dettagli della certificazione (tutti)
+               le iscrizioni e i voti (solo admin)

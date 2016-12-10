@@ -1,14 +1,14 @@
 <?php
 
-include('session.php');
+include 'session.php';
 include 'connessione_db.php';
-include 'Esame.php';
-include 'Messaggio.php';
+require_once 'Esame.php';
+require_once 'Messaggio.php';
 
 $esamiPrenotati = count(Esame::selectPrenotati($_SESSION['idUtente']));
-$esamiSostenuti = 0;
-$esamiDaFare = 0;
-$messaggiNuovi = 0;
+$esamiSostenuti = count(Esame::selectFatti($_SESSION['idUtente']));
+$esamiDaFare = count(Esame::selectDaFare($_SESSION['idUtente']));
+$messaggiNuovi = 99;
 ?>
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
@@ -384,7 +384,7 @@ $messaggiNuovi = 0;
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <span class="username username-hide-on-mobile"> <?php echo $login_session; ?> </span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                            <img alt="" class="img-circle" src="assets/layouts/layout4/img/avatar9.jpg" /> </a>
+                            <img alt="" class="img-circle" src="assets/pages/media/profile/profile_user.jpg" /> </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
                                 <a href="page_user_profile_1.html">
