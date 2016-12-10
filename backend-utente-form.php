@@ -3,15 +3,17 @@ include('session.php');
 include 'connessione_db.php';
 require_once "Helpers.php";
 require_once "Utente.php";
+
 // Validazione: verifico se è stato passato il parametro "action" in GET...
 if (!isset($_GET["action"])) {
-    die("Errore! Nessuna azione specificata.");
+    $messaggio = "notifyError('Errore', 'Nessuna azione specificata')";
 }
 
 // ...e se ha un valore corretto
 $action = $_GET["action"];
-if ($action != "insert" && $action != "update") {
-    die("Errore! Azione non prevista.");
+
+if ($action != "insert" && $action != "update" && $action != "delete") {
+    $messaggio = "notifyError('Errore', 'Azione Non Prevista')";
 }
 
 // Preparo i contenitori per i valori del form
@@ -22,7 +24,7 @@ $username = "";
 $password = "";
 $amministratore = "";
 
-if ($action == "update") {
+if ($action == "update" && empty($_POST)) {
     if (!isset($_GET["id"])) {
         die("Errore! Non è stato specificato l'id del comune da modificare.");
     }
@@ -30,13 +32,115 @@ if ($action == "update") {
     $utente = new Utente($id);
     $esito = $utente->select();  // In base all'id riempio l'oggetto
     if ($esito === false) {
-        die("Errore in fase di lettura dal DB.");
+        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
+        header("Location: backend-utente.php");
     }
     $nome = $utente->getNome();
     $cognome = $utente->getCognome();
     $username = $utente->getUsername();
     $password = $utente->getPassword();
     $amministratore = $utente->getAmministratore();
+}
+
+$esito = true;  // Flag in cui memorizzare se la query è andata bene
+switch ($action) {
+    case "insert":
+        $esito = eseguiInsert();
+        break;
+    case "update":
+        $esito = eseguiUpdate();
+        break;
+    case "delete":
+        $esito = eseguiDelete();
+        break;
+    default:    // sostituisce la validazione con if()
+        $_SESSION['messaggio'] = "notifyError('Errore', 'Validazione della form')";
+        header("Location: backend-utente.php");
+}
+
+if (!empty($_POST) or ( $action == "delete" && empty($_POST))) {
+    if ($esito) {    // Se è andato tutto bene torno alla lista dei certificazione
+        $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Modifiche Effettuate')";
+        header("Location: backend-utente.php");
+    } else {    // Altrimenti mostro un messaggio di errore  
+        $_SESSION['messaggio'] = "notifyError('Impossibile salvare', 'Errore')";
+        //header("Location: backend-utente.php");
+    }
+}
+
+function eseguiInsert() {
+    validaForm();
+    extract($_POST);    // Creo $_POST
+    /*
+      private $id;
+      private $nome;
+      private $cognome;
+      private $username;
+      private $password;
+      private $amministratore;
+     */
+    $utente = new Utente($id, $nome, $cognome, $username, $password, $amministratore);
+    return $utente->insert();
+}
+
+function eseguiUpdate() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (validaForm()) {
+            extract($_POST);
+            $utente = new Utente($id, $nome, $cognome, $username, $password, $amministratore);
+            return $utente->update();
+        } else {
+            return false;
+        }
+    } else {
+        return true;
+    }
+}
+
+function eseguiDelete() {
+    if (!isset($_GET["id"]) || !is_numeric($_GET["id"]) || $_GET["id"] < 1) {
+        die("Errore! Id mancante o non valido");
+    }
+    $utente = new Utente($_GET["id"]);
+    return $utente->delete();
+}
+
+function validaForm() {
+    // variabili che gestiscono gli errori del form
+    $nomeError = null;
+    $cognomeError = null;
+    $usernameError = null;
+    $passwordError = null;
+
+    // variabili dove salviamo il valore del form
+    $nome = $_POST['nome'];
+    $cognome = $_POST['cognome'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $amministratore = $_POST['amministratore'];
+
+    // controlli sui campi
+    $valid = true;
+    if (empty($nome)) {
+        $nomeError = 'Per favore inserisci il nome';
+        $valid = false;
+    }
+
+    if (empty($cognome)) {
+        $cognomeError = 'Per favore inserisci il cognome';
+        $valid = false;
+    }
+
+    if (empty($username)) {
+        $usernameError = 'Per favore inserisci il nome utente';
+        $valid = false;
+    }
+
+    if (empty($password)) {
+        $passwordError = 'Per favore inserisci la password';
+        $valid = false;
+    }
+    return $valid;
 }
 ?>
 <!DOCTYPE html>
@@ -46,12 +150,12 @@ if ($action == "update") {
 <html lang="it">
     <!--<![endif]-->
     <?php include 'backend-head.php' ?>
-    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+
+    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" >
         <?php include 'backend-header.php' ?>
         <!-- BEGIN CONTAINER -->
         <div class="page-container">
             <?php include 'backend-sidebar.php' ?>
-            <!-- BEGIN CONTENT -->
             <!-- BEGIN CONTENT -->
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
@@ -65,93 +169,16 @@ if ($action == "update") {
                             </h1>
                         </div>
                         <!-- END PAGE TITLE -->
-                        <!-- BEGIN PAGE TOOLBAR -->
-                        <div class="page-toolbar">
-                            <!-- BEGIN THEME PANEL -->
-                            <div class="btn-group btn-theme-panel">
-                                <a href="javascript:;" class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <i class="icon-settings"></i>
-                                </a>
-                                <div class="dropdown-menu theme-panel pull-right dropdown-custom hold-on-click">
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
-                                            <h3>HEADER</h3>
-                                            <ul class="theme-colors">
-                                                <li class="theme-color theme-color-default active" data-theme="default">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Dark Header</span>
-                                                </li>
-                                                <li class="theme-color theme-color-light " data-theme="light">
-                                                    <span class="theme-color-view"></span>
-                                                    <span class="theme-color-name">Light Header</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-8 col-sm-8 col-xs-12 seperator">
-                                            <h3>LAYOUT</h3>
-                                            <ul class="theme-settings">
-                                                <li> Theme Style
-                                                    <select class="layout-style-option form-control input-small input-sm">
-                                                        <option value="square">Square corners</option>
-                                                        <option value="rounded" selected="selected">Rounded corners</option>
-                                                    </select>
-                                                </li>
-                                                <li> Layout
-                                                    <select class="layout-option form-control input-small input-sm">
-                                                        <option value="fluid" selected="selected">Fluid</option>
-                                                        <option value="boxed">Boxed</option>
-                                                    </select>
-                                                </li>
-                                                <li> Header
-                                                    <select class="page-header-option form-control input-small input-sm">
-                                                        <option value="fixed" selected="selected">Fixed</option>
-                                                        <option value="default">Default</option>
-                                                    </select>
-                                                </li>
-                                                <li> Top Dropdowns
-                                                    <select class="page-header-top-dropdown-style-option form-control input-small input-sm">
-                                                        <option value="light">Light</option>
-                                                        <option value="dark" selected="selected">Dark</option>
-                                                    </select>
-                                                </li>
-                                                <li> Sidebar Mode
-                                                    <select class="sidebar-option form-control input-small input-sm">
-                                                        <option value="fixed">Fixed</option>
-                                                        <option value="default" selected="selected">Default</option>
-                                                    </select>
-                                                </li>
-                                                <li> Sidebar Menu
-                                                    <select class="sidebar-menu-option form-control input-small input-sm">
-                                                        <option value="accordion" selected="selected">Accordion</option>
-                                                        <option value="hover">Hover</option>
-                                                    </select>
-                                                </li>
-                                                <li> Sidebar Position
-                                                    <select class="sidebar-pos-option form-control input-small input-sm">
-                                                        <option value="left" selected="selected">Left</option>
-                                                        <option value="right">Right</option>
-                                                    </select>
-                                                </li>
-                                                <li> Footer
-                                                    <select class="page-footer-option form-control input-small input-sm">
-                                                        <option value="fixed">Fixed</option>
-                                                        <option value="default" selected="selected">Default</option>
-                                                    </select>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END THEME PANEL -->
-                        </div>
-                        <!-- END PAGE TOOLBAR -->
                     </div>
                     <!-- END PAGE HEAD-->
                     <!-- BEGIN PAGE BREADCRUMB -->
                     <ul class="page-breadcrumb breadcrumb">
                         <li>
                             <a href="backend.php">Home</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <a href="backend-utente.php">Elenco Utenti</a>
                             <i class="fa fa-circle"></i>
                         </li>
                         <li>
@@ -168,12 +195,13 @@ if ($action == "update") {
                                 <div class="portlet light profile-sidebar-portlet bordered">
                                     <!-- SIDEBAR USERPIC -->
                                     <div class="profile-userpic">
-                                        <img src="assets/pages/media/profile/profile_user.jpg" class="img-responsive" alt=""> </div>
+                                        <img src="assets/pages/media/profile/profile_user.jpg" class="img-responsive" alt=""> 
+                                    </div>
                                     <!-- END SIDEBAR USERPIC -->
                                     <!-- SIDEBAR USER TITLE -->
                                     <div class="profile-usertitle">
                                         <div class="profile-usertitle-name"> <?php echo (ucfirst($nome) . " " . ucfirst($cognome)); ?></div>
-                                        <div class="profile-usertitle-job"> <?php echo (($amministratore) ? 'Amministratore': 'Utente Semplice'); ?> </div>
+                                        <div class="profile-usertitle-job"> <?php echo (($amministratore) ? 'Amministratore' : 'Utente Semplice'); ?> </div>
                                     </div>
                                     <!-- END SIDEBAR USER TITLE -->
                                     <!-- SIDEBAR BUTTONS -->
@@ -205,44 +233,78 @@ if ($action == "update") {
                                                     <li class="active">
                                                         <a href="#tab_1_1" data-toggle="tab">Informazioni Personali</a>
                                                     </li>
-                                                    <li>
+                                                    <!--<li>
                                                         <a href="#tab_1_2" data-toggle="tab">Cambia Immagine</a>
                                                     </li>
                                                     <li>
                                                         <a href="#tab_1_3" data-toggle="tab">Cambia Password</a>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                             <div class="portlet-body">
                                                 <div class="tab-content">
                                                     <!-- PERSONAL INFO TAB -->
                                                     <div class="tab-pane active" id="tab_1_1">
-                                                        <form role="form" action="#">
-                                                            <div class="form-group">
-                                                                <label class="control-label">First Name</label>
-                                                                <input type="text" placeholder="John" class="form-control" /> </div>
-                                                            <div class="form-group">
-                                                                <label class="control-label">Last Name</label>
-                                                                <input type="text" placeholder="Doe" class="form-control" /> </div>
-                                                            <div class="form-group">
-                                                                <label class="control-label">Mobile Number</label>
-                                                                <input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control" /> </div>
-                                                            <div class="form-group">
-                                                                <label class="control-label">Interests</label>
-                                                                <input type="text" placeholder="Design, Web etc." class="form-control" /> </div>
-                                                            <div class="form-group">
-                                                                <label class="control-label">Occupation</label>
-                                                                <input type="text" placeholder="Web Developer" class="form-control" /> </div>
-                                                            <div class="form-group">
-                                                                <label class="control-label">About</label>
-                                                                <textarea class="form-control" rows="3" placeholder="We are KeenThemes!!!"></textarea>
+                                                        <form method="post" action="backend-utente-form.php?action=<?php echo $action; ?>">
+                                                            <div class="form-group <?php echo!empty($nomeError) ? 'has-error' : ''; ?>">
+                                                                <label class="control-label" 
+                                                                       for="nome">Nome
+                                                                </label>
+                                                                <input type="text" 
+                                                                       placeholder="<?php echo!empty($nome) ? $nome : 'Inserisci Nome...'; ?>" 
+                                                                       name="nome" 
+                                                                       value="<?php echo!empty($nome) ? $nome : ''; ?>" 
+                                                                       class="form-control" /> 
+                                                                <?php if (!empty($nomeError)): ?><span class="help-block"><?php echo $nomeError; ?></span>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <div class="form-group <?php echo!empty($cognomeError) ? 'has-error' : ''; ?>">
+                                                                <label class="control-label" 
+                                                                       for="cognome">Cognome
+                                                                </label>
+                                                                <input type="text" 
+                                                                       placeholder="<?php echo!empty($cognome) ? $cognome : 'Inserisci Cognome...'; ?>" 
+                                                                       name="cognome" 
+                                                                       value="<?php echo!empty($cognome) ? $cognome : ''; ?>" 
+                                                                       class="form-control" /> 
+                                                                <?php if (!empty($cognomeError)): ?><span class="help-block"><?php echo $cognomeError; ?></span>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <div class="form-group <?php echo!empty($usernameError) ? 'has-error' : ''; ?>">
+                                                                <label class="control-label" 
+                                                                       for="username">Nome Utente
+                                                                </label>
+                                                                <input type="text" 
+                                                                       placeholder="<?php echo!empty($username) ? $username : 'Inserisci Nome utente...'; ?>" 
+                                                                       name="username" 
+                                                                       value="<?php echo!empty($username) ? $username : ''; ?>" 
+                                                                       class="form-control" /> 
+                                                                <?php if (!empty($usernameError)): ?><span class="help-block"><?php echo $usernameError; ?></span>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <div class="form-group <?php echo!empty($passwordError) ? 'has-error' : ''; ?>">
+                                                                <label class="control-label" 
+                                                                       for="password">Password
+                                                                </label>
+                                                                <input type="password" 
+                                                                       placeholder="<?php echo!empty($password) ? $password : 'Inserisci Password...'; ?>" 
+                                                                       name="password" 
+                                                                       value="<?php echo!empty($password) ? $password : ''; ?>" 
+                                                                       class="form-control" /> 
+                                                                <?php if (!empty($passwordError)): ?><span class="help-block"><?php echo $passwordError; ?></span>
+                                                                <?php endif; ?>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label">Website Url</label>
-                                                                <input type="text" placeholder="http://www.mywebsite.com" class="form-control" /> </div>
+                                                                <label for="amministratore">Select list:</label>
+                                                                <select class="form-control" name="amministratore">
+                                                                    <option <?php if ($amministratore): ?>selected<?php endif; ?> value="1">Amministratore</option>
+                                                                    <option <?php if (!$amministratore): ?>selected<?php endif; ?> value="0">Utente Semplice</option>
+                                                                </select>
+                                                            </div>
+                                                            <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                            <input type="hidden" name="action" value="<?php echo $action; ?>">
                                                             <div class="margiv-top-10">
-                                                                <a href="javascript:;" class="btn green"> Save Changes </a>
-                                                                <a href="javascript:;" class="btn default"> Cancel </a>
+                                                                <input type="submit" value="Salva" class="btn green" />
                                                             </div>
                                                         </form>
                                                     </div>
@@ -310,50 +372,9 @@ if ($action == "update") {
                 <!-- END CONTENT BODY -->
             </div>
             <!-- END CONTENT -->
-            <!-- END CONTENT -->
             <?php include 'backend-quick-sidebar.php' ?>
         </div>
         <!-- END CONTAINER -->
         <?php include 'backend-footer.php' ?>
     </body>
 </html>
-<!-- <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Utente</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <h1>Utente</h1>
-        <form method="post" action="backend-utente-action.php?action=<?php echo $action; ?>">
-            <div class="form-group">
-                <label for="nome">Nome: </label>
-                <input type="text" name="nome" id="nome" value="<?php echo $nome; ?>" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="cognome">Cognome</label>
-                <input type="text" class="file" name="cognome" id="cognome" value="<?php echo $cognome; ?>" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username" value="<?php echo $username; ?>" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="text" name="password" id="password" value="<?php echo $password; ?>" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="amministratore">Amministratore:</label>
-                <input type="text" name="amministratore" id="amministratore" value="<?php echo $amministratore; ?>" class="form-control">
-            </div>
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <input type="submit" value="Invia" class="btn btn-default">
-        </form>
-
-        <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-    </body>
-</html> -->
-
-

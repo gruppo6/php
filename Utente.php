@@ -69,7 +69,7 @@ class Utente {
     
     public function insert() {
         $sql = "INSERT INTO utenti(nome, cognome, username, password, amministratore) "
-                . "VALUES('$this->nome', '$this->cognome', '$this->username', '$this->password', '$this->amministratore')";
+                . "VALUES('$this->nome', '$this->cognome', '$this->username', '". md5($this->password) ."', $this->amministratore)";
         return Helpers::executeCommand($sql);
     }
     
@@ -78,13 +78,13 @@ class Utente {
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
      */
     public function update() {
-        $sql = "UPDATE utenti
-                SET nome = '$this->nome',
-                cognome = '$this->cognome',
-                username = '$this->username',
-                password = '$this->password',
-                amministratore = '$this->amministratore',
-                WHERE id = '$this->id'";
+        $sql = "UPDATE utenti"
+                . " SET nome = '$this->nome',"
+                . " cognome = '$this->cognome',"
+                . " username = '$this->username',"
+                . " password = '". md5($this->password) ."',"
+                . " amministratore = $this->amministratore"
+                . " WHERE id = $this->id";
         return Helpers::executeCommand($sql);
     }
     
@@ -93,7 +93,7 @@ class Utente {
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
      */
     public function delete() {
-        $sql = "DELETE FROM utenti WHERE id = '$this->id'";
+        $sql = "DELETE FROM utenti WHERE id = $this->id";
         return Helpers::executeCommand($sql);
     }
     

@@ -26,7 +26,7 @@ class Helpers {
      * @return bool Vero se il comando è andato a buon fine, falso altrimenti
      */
     public static function executeCommand($sql) {
-        $link = openConnection();
+        $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
         mysqli_close($link);
         return $result;

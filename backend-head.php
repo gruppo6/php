@@ -21,6 +21,7 @@
     <link href="assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
@@ -35,5 +36,28 @@
     <link href="assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="assets/base/img/favicon.png" /> 
+    <script type="text/javascript">
+        // Toastr
+
+        function notifyInfo(title, msg) {
+            // Display an info toast with no title
+            toastr.info(msg, title);
+        }
+
+        function notifySuccess(title, msg) {
+            // Display a success toast with no title
+            toastr.success(msg, title);
+        }
+
+        function notifyWarning(title, msg) {
+            // Display a warning toast with no title
+            toastr.warning(msg, title);
+        }
+
+        function notifyError(title, msg) {
+            // Display a warning toast with no title
+            toastr.error(msg, title);
+        }
+    </script>
 </head>
 <!-- END HEAD -->
