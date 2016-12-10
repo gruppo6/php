@@ -13,9 +13,9 @@ require_once "Utente.php";
     <!--<![endif]-->
     <?php include 'backend-head.php' ?>
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo"
-          <?php if (!empty($_SESSION['messaggio'])): ?>onload="<?php echo $_SESSION['messaggio']; ?>"<?php endif; ?>
+          <?php if (!empty($_SESSION['messaggio'])): ?>onload="<?php echo $_SESSION['messaggio']; $_SESSION['messaggio'] = NULL; ?>"<?php endif; ?>
           >
-        <?php include 'backend-header.php' ?>
+              <?php include 'backend-header.php' ?>
         <!-- BEGIN CONTAINER -->
         <div class="page-container">
             <?php include 'backend-sidebar.php' ?>
@@ -81,7 +81,7 @@ require_once "Utente.php";
                                                     $listaUtenti = Utente::selectAll();
                                                     foreach ($listaUtenti as $utente) {
                                                         $id = $utente->getId(); // echo $some_var ? 'true': 'false';
-                                                        echo "<tr role='row' class='". (($id % 2  == 0) ? 'even': 'odd') ."'>";
+                                                        echo "<tr role='row' class='" . (($id % 2 == 0) ? 'even' : 'odd') . "'>";
                                                         echo "<td tabindex='0' class='sorting_1'>" . $utente->getNome() . "</td>";
                                                         echo "<td>" . $utente->getCognome() . "</td>";
                                                         echo "<td>
@@ -95,7 +95,7 @@ require_once "Utente.php";
                                                                                             <i class='fa fa-info'></i> Visualizza </a>
                                                                             </li>
                                                                             <li>
-                                                                                    <a href='backend-utente-form.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
+                                                                                    <a href='backend-utente-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
                                                                                             <i class='fa fa-trash'></i> Elimina </a>
                                                                             </li>
                                                                     </ul>

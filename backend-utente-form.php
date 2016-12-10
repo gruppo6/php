@@ -16,14 +16,6 @@ if ($action != "insert" && $action != "update" && $action != "delete") {
     $messaggio = "notifyError('Errore', 'Azione Non Prevista')";
 }
 
-// Preparo i contenitori per i valori del form
-$id = "";
-$nome = "";
-$cognome = "";
-$username = "";
-$password = "";
-$amministratore = "";
-
 if ($action == "update" && empty($_POST)) {
     if (!isset($_GET["id"])) {
         die("Errore! Non è stato specificato l'id del comune da modificare.");
@@ -42,106 +34,6 @@ if ($action == "update" && empty($_POST)) {
     $amministratore = $utente->getAmministratore();
 }
 
-$esito = true;  // Flag in cui memorizzare se la query è andata bene
-switch ($action) {
-    case "insert":
-        $esito = eseguiInsert();
-        break;
-    case "update":
-        $esito = eseguiUpdate();
-        break;
-    case "delete":
-        $esito = eseguiDelete();
-        break;
-    default:    // sostituisce la validazione con if()
-        $_SESSION['messaggio'] = "notifyError('Errore', 'Validazione della form')";
-        header("Location: backend-utente.php");
-}
-
-if (!empty($_POST) or ( $action == "delete" && empty($_POST))) {
-    if ($esito) {    // Se è andato tutto bene torno alla lista dei certificazione
-        $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Modifiche Effettuate')";
-        header("Location: backend-utente.php");
-    } else {    // Altrimenti mostro un messaggio di errore  
-        $_SESSION['messaggio'] = "notifyError('Impossibile salvare', 'Errore')";
-        //header("Location: backend-utente.php");
-    }
-}
-
-function eseguiInsert() {
-    validaForm();
-    extract($_POST);    // Creo $_POST
-    /*
-      private $id;
-      private $nome;
-      private $cognome;
-      private $username;
-      private $password;
-      private $amministratore;
-     */
-    $utente = new Utente($id, $nome, $cognome, $username, $password, $amministratore);
-    return $utente->insert();
-}
-
-function eseguiUpdate() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (validaForm()) {
-            extract($_POST);
-            $utente = new Utente($id, $nome, $cognome, $username, $password, $amministratore);
-            return $utente->update();
-        } else {
-            return false;
-        }
-    } else {
-        return true;
-    }
-}
-
-function eseguiDelete() {
-    if (!isset($_GET["id"]) || !is_numeric($_GET["id"]) || $_GET["id"] < 1) {
-        die("Errore! Id mancante o non valido");
-    }
-    $utente = new Utente($_GET["id"]);
-    return $utente->delete();
-}
-
-function validaForm() {
-    // variabili che gestiscono gli errori del form
-    $nomeError = null;
-    $cognomeError = null;
-    $usernameError = null;
-    $passwordError = null;
-
-    // variabili dove salviamo il valore del form
-    $nome = $_POST['nome'];
-    $cognome = $_POST['cognome'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $amministratore = $_POST['amministratore'];
-
-    // controlli sui campi
-    $valid = true;
-    if (empty($nome)) {
-        $nomeError = 'Per favore inserisci il nome';
-        $valid = false;
-    }
-
-    if (empty($cognome)) {
-        $cognomeError = 'Per favore inserisci il cognome';
-        $valid = false;
-    }
-
-    if (empty($username)) {
-        $usernameError = 'Per favore inserisci il nome utente';
-        $valid = false;
-    }
-
-    if (empty($password)) {
-        $passwordError = 'Per favore inserisci la password';
-        $valid = false;
-    }
-    return $valid;
-}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
@@ -245,7 +137,7 @@ function validaForm() {
                                                 <div class="tab-content">
                                                     <!-- PERSONAL INFO TAB -->
                                                     <div class="tab-pane active" id="tab_1_1">
-                                                        <form method="post" action="backend-utente-form.php?action=<?php echo $action; ?>">
+                                                        <form method="post" action="backend-utente-action.php?action=<?php echo $action; ?>">
                                                             <div class="form-group <?php echo!empty($nomeError) ? 'has-error' : ''; ?>">
                                                                 <label class="control-label" 
                                                                        for="nome">Nome
@@ -254,7 +146,7 @@ function validaForm() {
                                                                        placeholder="<?php echo!empty($nome) ? $nome : 'Inserisci Nome...'; ?>" 
                                                                        name="nome" 
                                                                        value="<?php echo!empty($nome) ? $nome : ''; ?>" 
-                                                                       class="form-control" /> 
+                                                                       class="form-control" required /> 
                                                                 <?php if (!empty($nomeError)): ?><span class="help-block"><?php echo $nomeError; ?></span>
                                                                 <?php endif; ?>
                                                             </div>
@@ -266,7 +158,7 @@ function validaForm() {
                                                                        placeholder="<?php echo!empty($cognome) ? $cognome : 'Inserisci Cognome...'; ?>" 
                                                                        name="cognome" 
                                                                        value="<?php echo!empty($cognome) ? $cognome : ''; ?>" 
-                                                                       class="form-control" /> 
+                                                                       class="form-control" required /> 
                                                                 <?php if (!empty($cognomeError)): ?><span class="help-block"><?php echo $cognomeError; ?></span>
                                                                 <?php endif; ?>
                                                             </div>
@@ -278,7 +170,7 @@ function validaForm() {
                                                                        placeholder="<?php echo!empty($username) ? $username : 'Inserisci Nome utente...'; ?>" 
                                                                        name="username" 
                                                                        value="<?php echo!empty($username) ? $username : ''; ?>" 
-                                                                       class="form-control" /> 
+                                                                       class="form-control" required /> 
                                                                 <?php if (!empty($usernameError)): ?><span class="help-block"><?php echo $usernameError; ?></span>
                                                                 <?php endif; ?>
                                                             </div>
@@ -290,12 +182,12 @@ function validaForm() {
                                                                        placeholder="<?php echo!empty($password) ? $password : 'Inserisci Password...'; ?>" 
                                                                        name="password" 
                                                                        value="<?php echo!empty($password) ? $password : ''; ?>" 
-                                                                       class="form-control" /> 
+                                                                       class="form-control" required /> 
                                                                 <?php if (!empty($passwordError)): ?><span class="help-block"><?php echo $passwordError; ?></span>
                                                                 <?php endif; ?>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="amministratore">Select list:</label>
+                                                                <label for="amministratore">Seleziona tipologia utente:</label>
                                                                 <select class="form-control" name="amministratore">
                                                                     <option <?php if ($amministratore): ?>selected<?php endif; ?> value="1">Amministratore</option>
                                                                     <option <?php if (!$amministratore): ?>selected<?php endif; ?> value="0">Utente Semplice</option>
@@ -304,7 +196,7 @@ function validaForm() {
                                                             <input type="hidden" name="id" value="<?php echo $id; ?>">
                                                             <input type="hidden" name="action" value="<?php echo $action; ?>">
                                                             <div class="margiv-top-10">
-                                                                <input type="submit" value="Salva" class="btn green" />
+                                                                <input name="submit" type="submit" value="Salva" class="btn green" />
                                                             </div>
                                                         </form>
                                                     </div>
