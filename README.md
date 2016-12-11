@@ -26,3 +26,5 @@ select by id esame(risultati e iscrizioni)
 classe esame : bisogna fare la form dove visualizzo, oltre i dati dell'esame:
                i dettagli della certificazione (tutti)
                le iscrizioni e i voti (solo admin)
+               fare modal per modificare l'esame (titolo e descrizione)
+               eliminare esame da lista esami (se non ci sono iscrizioni)

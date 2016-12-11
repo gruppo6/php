@@ -1,4 +1,7 @@
-<?php require_once 'Esame.php'; 
+<?php 
+
+require_once 'session.php';
+require_once 'Esame.php'; 
 
 // Validazione: verifico se è stato passato il tipo query "q" in GET...
 if (!isset($_GET["q"])) {

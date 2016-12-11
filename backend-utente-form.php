@@ -18,7 +18,8 @@ if ($action != "insert" && $action != "update" && $action != "delete") {
 
 if ($action == "update" && empty($_POST)) {
     if (!isset($_GET["id"])) {
-        die("Errore! Non è stato specificato l'id del comune da modificare.");
+        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Non è stato specificato l'id dell'utente da modificare.')";
+        header("Location: backend-utente.php");
     }
     $id = $_GET["id"];
     $utente = new Utente($id);

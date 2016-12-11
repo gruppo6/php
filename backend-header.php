@@ -1,7 +1,7 @@
 <?php
 
-include 'session.php';
-include 'connessione_db.php';
+require_once 'session.php';
+require_once 'connessione_db.php';
 require_once 'Esame.php';
 require_once 'Messaggio.php';
 

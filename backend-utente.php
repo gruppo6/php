@@ -1,4 +1,7 @@
-<?php require_once 'Utente.php'; ?>
+<?php 
+require_once 'session.php';
+require_once 'Utente.php'; 
+?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -79,9 +82,9 @@
                                                     foreach ($listaUtenti as $utente) {
                                                         $id = $utente->getId(); // echo $some_var ? 'true': 'false';
                                                         if ($utente->getAmministratore() == 1) {
-                                                            $adminIcon = "<i class='icon-star'></i>";
+                                                            $adminIcon = "<span class='label label-sm label-success'> Amministratore </span>";
                                                         } elseif ($utente->getAmministratore() == 0) {
-                                                            $adminIcon = "<i class='icon-user'></i>";
+                                                            $adminIcon = "<span class='label label-sm label-warning'> Utente Semplice </span>";
                                                         }
                                                         echo "<tr role='row' class='" . (($id % 2 == 0) ? 'even' : 'odd') . "'>";
                                                         echo "<td tabindex='0' class='sorting_1'>" . $utente->getNome() . "</td>";

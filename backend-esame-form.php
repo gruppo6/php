@@ -1,6 +1,7 @@
 <?php
 require_once "Helpers.php";
 require_once "Esame.php";
+require_once "Iscrizione.php";
 
 // Validazione: verifico se è stato passato il parametro "action" in GET...
 if (!isset($_GET["action"])) {
@@ -18,7 +19,8 @@ if ($action != "insert" && $action != "update" && $action != "delete") {
 
 if ($action == "update" && empty($_POST)) {
     if (!isset($_GET["id"])) {
-        die("Errore! Non è stato specificato l'id del comune da modificare.");
+        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Non è stato specificato l'id dell'esame da modificare.')";
+        header("Location: backend-esame.php");
     }
     $id = $_GET["id"];
     $esame = new Esame($id);
@@ -31,6 +33,7 @@ if ($action == "update" && empty($_POST)) {
     $nome = $esame->getNome();
     $descrizione = $esame->getDescrizione();
     $data = $esame->getData();
+    $listaIscrizioni = Iscrizione::selectIscrizioniByIdEsame($id);
 }
 ?>
 <!DOCTYPE html>
@@ -40,7 +43,6 @@ if ($action == "update" && empty($_POST)) {
 <html lang="it">
     <!--<![endif]-->
     <?php include 'backend-head.php' ?>
-
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" >
         <?php include 'backend-header.php' ?>
         <!-- BEGIN CONTAINER -->
@@ -107,13 +109,12 @@ if ($action == "update" && empty($_POST)) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <!-- BEGIN Portlet PORTLET-->
+                        <div class="col-md-12">
                             <div class="portlet light bordered">
                                 <div class="portlet-title">
                                     <div class="caption font-dark">
                                         <i class="icon-settings font-dark"></i>
-                                        <span class="caption-subject bold uppercase">Elenco Iscrizioni</span>
+                                        <span class="caption-subject bold uppercase">Elenco Iscrizioni e Risultati</span>
                                     </div>
                                     <div class="tools"> </div>
                                 </div>
@@ -127,74 +128,16 @@ if ($action == "update" && empty($_POST)) {
                                                             Nome
                                                         </th>
                                                         <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Cognome: activate to sort column ascending">
-                                                            Descrizione
+                                                            Cognome
                                                         </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Admin: activate to sort column ascending">
-                                                            Data
+                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Pagato: activate to sort column ascending">
+                                                            Pagato
                                                         </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 34px;" aria-label="Azioni: activate to sort column ascending">
-                                                            Azioni
+                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Sostenuto: activate to sort column ascending">
+                                                            Sostenuto
                                                         </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    foreach ($listaEsami as $esame) {
-                                                        $id = $esame->getId(); // echo $some_var ? 'true': 'false';
-                                                        echo "<tr role='row' class='" . (($id % 2 == 0) ? 'even' : 'odd') . "'>";
-                                                        echo "<td tabindex='0' class='sorting_1'>" . $esame->getNome() . "</td>";
-                                                        echo "<td>" . $esame->getDescrizione() . "</td>";
-                                                        echo "<td>" . $esame->getData() . "</td>";
-                                                        echo "<td>
-                                                                <div class='btn-group pull-right'>
-                                                                    <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni
-                                                                            <i class='fa fa-angle-down'></i>
-                                                                    </button>
-                                                                    <ul class='dropdown-menu pull-right'>
-                                                                            <li>
-                                                                                    <a href='backend-esame-form.php?action=update&id=$id'>
-                                                                                            <i class='fa fa-info'></i> Visualizza </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                    <a href='backend-esame-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
-                                                                                            <i class='fa fa-trash'></i> Elimina </a>
-                                                                            </li>
-                                                                    </ul>
-                                                                
-                                                            </div></td>";
-                                                        echo "</tr>";
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="portlet light bordered">
-                                <div class="portlet-title">
-                                    <div class="caption font-dark">
-                                        <i class="icon-settings font-dark"></i>
-                                        <span class="caption-subject bold uppercase">Elenco Risultati</span>
-                                    </div>
-                                    <div class="tools"> </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-                                        <div class="table">
-                                            <table class="table table-striped table-bordered table-hover dt-responsive dataTable no-footer dtr-inline collapsed" width="100%" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width: 100%;">
-                                                <thead>
-                                                    <tr role="row">
-                                                        <th class="all sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 47px;" aria-sort="ascending" aria-label="Nome: activate to sort column descending">
-                                                            Nome
-                                                        </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Cognome: activate to sort column ascending">
-                                                            Descrizione
-                                                        </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Admin: activate to sort column ascending">
-                                                            Data
+                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Voto: activate to sort column ascending">
+                                                            Voto
                                                         </th>
                                                         <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 34px;" aria-label="Azioni: activate to sort column ascending">
                                                             Azioni
@@ -203,12 +146,24 @@ if ($action == "update" && empty($_POST)) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    foreach ($listaEsami as $esame) {
-                                                        $id = $esame->getId(); // echo $some_var ? 'true': 'false';
+                                                    foreach ($listaIscrizioni as $iscrizione) {
+                                                        $id = $iscrizione['id']; // echo $some_var ? 'true': 'false';
+                                                        if ($iscrizione['pagato'] == 1) { // qui verifico e setto il flag pagato
+                                                            $pagatoIcon = "<span class='label label-sm label-success'> Pagato </span>";
+                                                        } elseif ($iscrizione['pagato'] == 0) {
+                                                            $pagatoIcon = "<span class='label label-sm label-warning'> Da Pagare </span>";
+                                                        }
+                                                        if ($iscrizione['sostenuto'] == 1) { // qui verifico e setto il flag sostenuto
+                                                            $sostenutoIcon = "<span class='label label-sm label-success'> Svolto </span>";
+                                                        } elseif ($iscrizione['sostenuto'] == 0) {
+                                                            $sostenutoIcon = "<span class='label label-sm label-warning'> Da Svolgere </span>";
+                                                        }
                                                         echo "<tr role='row' class='" . (($id % 2 == 0) ? 'even' : 'odd') . "'>";
-                                                        echo "<td tabindex='0' class='sorting_1'>" . $esame->getNome() . "</td>";
-                                                        echo "<td>" . $esame->getDescrizione() . "</td>";
-                                                        echo "<td>" . $esame->getData() . "</td>";
+                                                        echo "<td tabindex='0' class='sorting_1'>" . $iscrizione['nome'] . "</td>";
+                                                        echo "<td>" . $iscrizione['cognome'] . "</td>";
+                                                        echo "<td>" . $pagatoIcon . "</td>";
+                                                        echo "<td>" . $sostenutoIcon . "</td>";
+                                                        echo "<td>" . $iscrizione['voto'] . "/" . $iscrizione['voto_massimo'] . "</td>";
                                                         echo "<td>
                                                                 <div class='btn-group pull-right'>
                                                                     <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni
@@ -216,21 +171,27 @@ if ($action == "update" && empty($_POST)) {
                                                                     </button>
                                                                     <ul class='dropdown-menu pull-right'>
                                                                             <li>
-                                                                                    <a href='backend-esame-form.php?action=update&id=$id'>
-                                                                                            <i class='fa fa-info'></i> Visualizza </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                    <a href='backend-esame-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
-                                                                                            <i class='fa fa-trash'></i> Elimina </a>
+                                                                                <a onclick='launch_modal($id)'>
+                                                                                    
+                                                                                <i class='fa fa-info'></i> Modifica </a>
                                                                             </li>
                                                                     </ul>
-                                                                
-                                                            </div></td>";
+                                                                </div>
+                                                              </td>";
                                                         echo "</tr>";
                                                     }
                                                     ?>
                                                 </tbody>
                                             </table>
+                                            <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -242,9 +203,28 @@ if ($action == "update" && empty($_POST)) {
                 <!-- END CONTENT BODY -->
             </div>
             <!-- END CONTENT -->
-<?php include 'backend-quick-sidebar.php' ?>
+            <?php include 'backend-quick-sidebar.php' ?>
         </div>
         <!-- END CONTAINER -->
-<?php include 'backend-footer.php' ?>
+        <!-- http://stackoverflow.com/questions/25916915/to-pass-dynamic-data-to-a-bootstrap-modal -->
+        <script>
+            $('#basic').modal({show: false});
+
+            function launch_modal(idMio) {
+                $.ajax({
+                    type: "GET",
+                    url: "backend-iscrizione-form.php",
+                    data: {action: 'update',
+                        id: idMio},
+                    success: function (data) {
+                        $(".modal-content").html(data);
+                        //"data" contains a json with your info in it, representing the array you created in PHP. Use $(".modal-content").html() or something like that to put the content into the modal dynamically using jquery.
+
+                        $('#basic').modal('show');// this triggers your modal to display
+                    }
+                });
+            }
+        </script>
+        <?php include 'backend-footer.php' ?>
     </body>
 </html>
