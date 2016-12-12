@@ -36,7 +36,7 @@
                             <a href="#" class="c-link dropdown-toggle">Certificazioni</a>
                         </li>
                         <li class="c-menu-type-classic">
-                            <a href="#" class="c-link dropdown-toggle">Contatti</a>
+                            <a href="pagina-contatti.php" class="c-link dropdown-toggle">Contatti</a>
                         </li>
                         <?php if (!isset($login_session)) { ?>
                             <li class="c-menu-type-classic">
