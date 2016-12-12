@@ -148,13 +148,20 @@ if (!empty($_POST)) {
                                     <div class="portlet-body form">
                                         <form role="form">
                                             <div class="form-body">
+                                            </div>
+                                            <div class="form-body">
                                                 <div class="form-group">
-                                                    <label>Email Address</label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-envelope"></i>
-                                                        </span>
-                                                        <input type="text" class="form-control" placeholder="Email Address"> 
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""> </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"> </div>
+                                                        <div>
+                                                            <span class="btn default btn-file">
+                                                                <span class="fileinput-new"> Seleziona immagine </span>
+                                                                <span class="fileinput-exists"> Modifica </span>
+                                                                <input type="hidden"><input type="file" name="..."> </span>
+                                                            <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Rimuovi </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
