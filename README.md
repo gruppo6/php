@@ -7,26 +7,17 @@ Cinzia Russo
 Gianluca Tortorella
 
 Da Fare:
-
---CLASSI studente e amministratore
-MESSAGGIO
-CHAT
-
---CLASSE AMMINISTRATORE
-select all di tutti utenti
-
---pagina contatti
-funzione invio email
-
---CLASSE iscrizione 
-insert
-select by id esame(risultati e iscrizioni)
+pagina contatti & funzione invio email
+pagina admin certificazioni
+pagina admin certificazioni visualizza tutti
+pagina admin organizzazioni
+pagina admin organizzazioni visualizza tutti
+pagina admin nuovo esame
+funzionalità di messaggistica
 
 --Gianluca
 classe esame : bisogna fare la form dove visualizzo, oltre i dati dell'esame:
                i dettagli della certificazione (tutti)
-               le iscrizioni e i voti (solo admin)
-               fare modal per modificare l'esame (titolo e descrizione)
-               eliminare esame da lista esami (se non ci sono iscrizioni)
+               eliminazione esame da lista esami (se non ci sono iscrizioni)
 
-il mio profilo : se non sono admin non posso vedere quelli diversi dal mio
+caricare in session la pagina attuale per poter modificare l'active su backend sidebar

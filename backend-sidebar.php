@@ -48,7 +48,7 @@
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item  ">
-                            <a href="backend-esame.php?q=fuck" class="nav-link ">
+                            <a href="backend-esame-new-form.php" class="nav-link ">
                                 <i class="icon-plus"></i>
                                 <span class="title">Nuovo Esame</span>
                             </a>
