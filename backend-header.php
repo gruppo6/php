@@ -387,11 +387,11 @@ $messaggiNuovi = 99;
                             <img alt="" class="img-circle" src="assets/pages/media/profile/profile_user.jpg" /> </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="page_user_profile_1.html">
+                                <a href="backend-utente-form.php?action=update&id=<?php echo $_SESSION['idUtente'] ; ?>">
                                     <i class="icon-user"></i> Il Mio Profilo </a>
                             </li>
                             <li>
-                                <a href="app_calendar.html">
+                                <a href="backend-esame.php?q=todo">
                                     <i class="icon-calendar"></i> Calendario </a>
                             </li>
                             <li>

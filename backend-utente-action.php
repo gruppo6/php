@@ -27,9 +27,14 @@ switch ($action) {
         header("Location: backend-utente.php");
 }
 
-if ($esito) {    // Se è andato tutto bene torno alla lista dei comuni
-    $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Utente salvato correttamente.')";
-    header("Location: backend-utente.php");
+if ($esito) {    // Se è andato tutto bene torno alla lista degli utenti 
+    $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Utente salvato correttamente.')";    
+    if ($amministratore) {
+        header("Location: backend-utente.php");
+    } elseif (!$amministratore) {
+        header("Location: backend.php");
+    }
+    
 } else {    // Altrimenti mostro un messaggio di errore
     $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
     header("Location: backend-utente.php");

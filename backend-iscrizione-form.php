@@ -60,11 +60,17 @@ if ($action == "update") {
         </div>
         <div class="form-group">
             <label for="pagato">Pagato:</label>
-            <input required type="text" name="pagato" id="pagato" value="<?php echo $pagato; ?>" class="form-control">
+            <select class="form-control" name="pagato">
+                <option <?php if ($pagato): ?>selected<?php endif; ?> value="1">Esame Pagato</option>
+                <option <?php if (!$pagato): ?>selected<?php endif; ?> value="0">Esame non pagato</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="sostenuto">Sostenuto:</label>
-            <input required type="text" name="sostenuto" id="sostenuto" value="<?php echo $sostenuto; ?>" class="form-control">
+            <select class="form-control" name="sostenuto">
+                <option <?php if ($sostenuto): ?>selected<?php endif; ?> value="1">Esame Sostenuto</option>
+                <option <?php if (!$sostenuto): ?>selected<?php endif; ?> value="0">Esame non sostenuto</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="voto">Voto:</label>

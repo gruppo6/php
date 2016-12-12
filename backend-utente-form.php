@@ -186,7 +186,7 @@ if ($action == "update" && empty($_POST)) {
                                                                 <?php if (!empty($passwordError)): ?><span class="help-block"><?php echo $passwordError; ?></span>
                                                                 <?php endif; ?>
                                                             </div>
-                                                            <div class="form-group">
+                                                            <div class="form-group <?php if (!$amministratore): ?>hide<?php endif; ?> ">
                                                                 <label for="amministratore">Seleziona tipologia utente:</label>
                                                                 <select class="form-control" name="amministratore">
                                                                     <option <?php if ($amministratore): ?>selected<?php endif; ?> value="1">Amministratore</option>

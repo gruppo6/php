@@ -27,6 +27,8 @@ switch ($query) {
     case "todo":
         $listaEsami = Esame::selectDaFare($_SESSION['idUtente']);
         break;
+    case "book":
+        $listaEsami = Esame::selectDaPrenotare($_SESSION['idUtente']);
     default:    // sostituisce la validazione con if()
         $_SESSION['messaggio'] = "notifyError('Errore', 'Azione imprevista.')";
         header("Location: backend-esame.php?q=all");
@@ -121,16 +123,21 @@ switch ($query) {
                                                                     <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni
                                                                             <i class='fa fa-angle-down'></i>
                                                                     </button>
-                                                                    <ul class='dropdown-menu pull-right'>
+                                                                    <ul class='dropdown-menu pull-right'>";
+                                                                            if ($_SESSION['amministratore'] == 0) {
+                                                                                echo "
                                                                             <li>
-                                                                                    <a href='backend-esame-form.php?action=update&id=$id'>
+                                                                                    <a href='backend-iscrizione-action.php?action=prenota&id=$id'>
+                                                                                            <i class='fa fa-check'></i> Prenota </a>
+                                                                            </li> ";} elseif ($_SESSION['amministratore'] == 1) { echo "<li>
+                                                                                <a href='backend-esame-form.php?action=update&id=$id'>
                                                                                             <i class='fa fa-info'></i> Visualizza </a>
                                                                             </li>
                                                                             <li>
                                                                                     <a href='backend-esame-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
                                                                                             <i class='fa fa-trash'></i> Elimina </a>
-                                                                            </li>
-                                                                    </ul>
+                                                    </li> ";};
+                                                    echo "</ul>
                                                                 
                                                             </div></td>";
                                                         echo "</tr>";

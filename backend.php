@@ -1,3 +1,6 @@
+<?php 
+require_once 'session.php';
+?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -139,7 +142,7 @@
                                     </div>
                                 </div>
                                 <div class="progress-info">
-                                    <button class="btn green">Dettagli</button>
+                                    <a href="backend-esame.php?q=todo" class="btn green">Dettagli</a>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +160,7 @@
                                     </div>
                                 </div>
                                 <div class="progress-info">
-                                    <button class="btn red">Dettagli</button>
+                                    <a href="backend-esame.php?q=done" class="btn red">Dettagli</a>
                                 </div>
                             </div>
                         </div>
@@ -176,7 +179,7 @@
                                 </div>
                                 <div class="progress-info">
                                     <div class="progress-info">
-                                        <button class="btn blue">Dettagli</button>
+                                        <a href="backend-esame.php?q=todo" class="btn blue">Dettagli</a>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +199,7 @@
                                 </div>
                                 <div class="progress-info">
                                     <div class="progress-info">
-                                        <button class="btn purple">Dettagli</button>
+                                        <a href="#" class="btn purple">Dettagli</a>
                                     </div>
                                 </div>
                             </div>
