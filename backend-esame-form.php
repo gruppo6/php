@@ -1,4 +1,6 @@
 <?php
+
+require_once "session.php";
 require_once "Helpers.php";
 require_once "Esame.php";
 require_once "Iscrizione.php";

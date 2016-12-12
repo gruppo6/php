@@ -1,6 +1,9 @@
 <?php
 
-require_once "Certificazione.php";
+require_once "session.php";
+require_once "Helpers.php";
+require_once "Esame.php";
+require_once "Iscrizione.php";
 
 if (!isset($_GET["action"])) {
     die("Errore! Nessuna azione specificata.");

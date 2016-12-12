@@ -66,7 +66,7 @@ class Iscrizione {
         $this->voto_massimo = $voto_massimo;
     }
 
-    function __construct($id, $id_utente="", $id_esame="", $pagato="", 
+    function __construct($id=0, $id_utente="", $id_esame="", $pagato="", 
             $sostenuto="", $voto="", $voto_massimo="") {
         $this->id = $id;
         $this->id_utente = $id_utente;

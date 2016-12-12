@@ -1,4 +1,5 @@
 <?php
+require_once "session.php";
 require_once "Helpers.php";
 require_once "Utente.php";
 
@@ -14,6 +15,12 @@ $action = $_GET["action"];
 if ($action != "insert" && $action != "update" && $action != "delete") {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
     header("Location: backend-utente.php");
+}
+
+// se non sono amministratore, posso solo vedere il mio profilo
+if (($_SESSION['amministratore']==0) && ($_GET["id"] != $_SESSION['idUtente'])) {
+    $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
+    header("Location: backend.php");
 }
 
 if ($action == "update" && empty($_POST)) {
@@ -97,9 +104,9 @@ if ($action == "update" && empty($_POST)) {
                                     </div>
                                     <!-- END SIDEBAR USER TITLE -->
                                     <!-- SIDEBAR BUTTONS -->
-                                    <div class="profile-userbuttons">
+                                    <!-- <div class="profile-userbuttons">
                                         <button type="button" class="btn btn-circle red btn-sm">Messaggia</button>
-                                    </div>
+                                    </div> -->
                                     <!-- END SIDEBAR BUTTONS -->
                                     <!-- SIDEBAR MENU -->
                                     <div class="profile-usermenu">
@@ -186,7 +193,7 @@ if ($action == "update" && empty($_POST)) {
                                                                 <?php if (!empty($passwordError)): ?><span class="help-block"><?php echo $passwordError; ?></span>
                                                                 <?php endif; ?>
                                                             </div>
-                                                            <div class="form-group <?php if (!$amministratore): ?>hide<?php endif; ?> ">
+                                                            <div class="form-group <?php if ($_SESSION['amministratore']==0): ?>hide<?php endif; ?> ">
                                                                 <label for="amministratore">Seleziona tipologia utente:</label>
                                                                 <select class="form-control" name="amministratore">
                                                                     <option <?php if ($amministratore): ?>selected<?php endif; ?> value="1">Amministratore</option>

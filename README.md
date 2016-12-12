@@ -28,3 +28,5 @@ classe esame : bisogna fare la form dove visualizzo, oltre i dati dell'esame:
                le iscrizioni e i voti (solo admin)
                fare modal per modificare l'esame (titolo e descrizione)
                eliminare esame da lista esami (se non ci sono iscrizioni)
+
+il mio profilo : se non sono admin non posso vedere quelli diversi dal mio

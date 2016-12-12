@@ -29,9 +29,9 @@ switch ($action) {
 
 if ($esito) {    // Se è andato tutto bene torno alla lista degli utenti 
     $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Utente salvato correttamente.')";    
-    if ($amministratore) {
+    if ($_SESSION['amministratore']==1) {
         header("Location: backend-utente.php");
-    } elseif (!$amministratore) {
+    } elseif ($_SESSION['amministratore']==0) {
         header("Location: backend.php");
     }
     

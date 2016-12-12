@@ -224,12 +224,13 @@ class Esame {
      * Estrae tutti gli esami prenotati per utente dal DB
      * @return mixed Una lista di oggetti esami oppure false in caso di errore
      */
-    public static function selectDaPrenotare($idUtente) {
-        $sql = "SELECT t1.id, t1.id_certificazione, t1.nome, t1.descrizione, " .
+    public static function selectDaPrenotare($idUtente) {     
+        $sql = "SELECT t1.id, t1.id_certificazione, t1.nome, t1.descrizione,  " .
                 " t1.data FROM esami " .
                 " AS t1 LEFT JOIN iscrizioni AS t2 ON t1.id = t2.id_esame " .
-                " WHERE t2.sostenuto = 0 " .
-                " AND t2.id_utente = '$idUtente' AND t1.data > NOW()";
+                " WHERE t1.data > NOW() AND t1.id NOT IN(SELECT t3.id FROM esami " .
+                " AS t3 INNER JOIN iscrizioni AS t4 ON t3.id = t4.id_esame " . 
+                " WHERE t4.id_utente = '$idUtente')";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
         if (!$result) {

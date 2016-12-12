@@ -12,7 +12,7 @@ if (!isset($_GET["q"])) {
 // ...e se ha un valore corretto
 $query = $_GET["q"];
 
-if ($query != "todo" && $query != "done" && $query != "all") {
+if ($query != "todo" && $query != "done" && $query != "all" && $query != "book" ) {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
         header("Location: backend-esame.php?q=all");
 }
@@ -29,6 +29,7 @@ switch ($query) {
         break;
     case "book":
         $listaEsami = Esame::selectDaPrenotare($_SESSION['idUtente']);
+        break;
     default:    // sostituisce la validazione con if()
         $_SESSION['messaggio'] = "notifyError('Errore', 'Azione imprevista.')";
         header("Location: backend-esame.php?q=all");
@@ -104,9 +105,16 @@ switch ($query) {
                                                         <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Admin: activate to sort column ascending">
                                                             Data
                                                         </th>
-                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 34px;" aria-label="Azioni: activate to sort column ascending">
+                                                        <?php if (($_SESSION['amministratore'] == 0) && ($query=="book")) {
+                                                        echo "
+                                                        <th class='sorting' tabindex='0' aria-controls='sample_1' rowspan='1' colspan='1' style='width: 34px;' aria-label='Azioni: activate to sort column ascending'>
                                                             Azioni
-                                                        </th>
+                                                        </th> ";} ?>
+                                                        <?php if (($_SESSION['amministratore'] == 1) && ($query!="book")) {
+                                                        echo "
+                                                        <th class='sorting' tabindex='0' aria-controls='sample_1' rowspan='1' colspan='1' style='width: 34px;' aria-label='Azioni: activate to sort column ascending'>
+                                                            Azioni
+                                                        </th> ";} ?>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -118,28 +126,50 @@ switch ($query) {
                                                         echo "<td tabindex='0' class='sorting_1'>" . $esame->getNome() . "</td>";
                                                         echo "<td>" . $esame->getDescrizione() . "</td>";
                                                         echo "<td>" . $esame->getData() . "</td>";
-                                                        echo "<td>
-                                                                <div class='btn-group pull-right'>
-                                                                    <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni
-                                                                            <i class='fa fa-angle-down'></i>
-                                                                    </button>
-                                                                    <ul class='dropdown-menu pull-right'>";
-                                                                            if ($_SESSION['amministratore'] == 0) {
-                                                                                echo "
-                                                                            <li>
-                                                                                    <a href='backend-iscrizione-action.php?action=prenota&id=$id'>
-                                                                                            <i class='fa fa-check'></i> Prenota </a>
-                                                                            </li> ";} elseif ($_SESSION['amministratore'] == 1) { echo "<li>
-                                                                                <a href='backend-esame-form.php?action=update&id=$id'>
-                                                                                            <i class='fa fa-info'></i> Visualizza </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                    <a href='backend-esame-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
-                                                                                            <i class='fa fa-trash'></i> Elimina </a>
-                                                    </li> ";};
-                                                    echo "</ul>
-                                                                
-                                                            </div></td>";
+                                                        if (($_SESSION['amministratore'] == 0) && ($query=="book")) {
+                                                            echo "<td>
+                                                                    <div class='btn-group pull-right'>
+                                                                        <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni
+                                                                                <i class='fa fa-angle-down'></i>
+                                                                        </button>
+                                                                        <ul class='dropdown-menu pull-right'>";
+                                                                                if (($_SESSION['amministratore'] == 0) && ($query=="book")) {
+                                                                                    echo "
+                                                                                <li>
+                                                                                        <a href='backend-iscrizione-action.php?action=insert&id=$id'>
+                                                                                                <i class='fa fa-check'></i> Prenota </a>
+                                                                                </li> ";} elseif ($_SESSION['amministratore'] == 1) { echo "<li>
+                                                                                    <a href='backend-esame-form.php?action=update&id=$id'>
+                                                                                                <i class='fa fa-info'></i> Visualizza </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                        <a href='backend-esame-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
+                                                                                                <i class='fa fa-trash'></i> Elimina </a>
+                                                                                </li> ";};
+                                                            echo "</ul>
+                                                        </div></td>";};
+                                                        if (($_SESSION['amministratore'] == 1) && ($query!="book")) {
+                                                            echo "<td>
+                                                                    <div class='btn-group pull-right'>
+                                                                        <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni
+                                                                                <i class='fa fa-angle-down'></i>
+                                                                        </button>
+                                                                        <ul class='dropdown-menu pull-right'>";
+                                                                                if (($_SESSION['amministratore'] == 0) && ($query=="book")) {
+                                                                                    echo "
+                                                                                <li>
+                                                                                        <a href='backend-iscrizione-action.php?action=insert&id=$id'>
+                                                                                                <i class='fa fa-check'></i> Prenota </a>
+                                                                                </li> ";} elseif ($_SESSION['amministratore'] == 1) { echo "<li>
+                                                                                    <a href='backend-esame-form.php?action=update&id=$id'>
+                                                                                                <i class='fa fa-info'></i> Visualizza </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                        <a href='backend-esame-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
+                                                                                                <i class='fa fa-trash'></i> Elimina </a>
+                                                                                </li> ";};
+                                                            echo "</ul>
+                                                        </div></td>";}
                                                         echo "</tr>";
                                                     }
                                                     ?>
