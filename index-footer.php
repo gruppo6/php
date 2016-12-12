@@ -7,7 +7,7 @@
                 <div class="col-md-3">
                     <div class="c-container c-first">
                         <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">JAN<span class="c-theme-font">GO</span></h3>
+                            <h3 class="c-font-uppercase c-font-bold c-font-white">INFO<span class="c-theme-font">BASIC</span></h3>
                             <div class="c-line-left hide">
                             </div>
                             <p class="c-text">
