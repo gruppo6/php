@@ -146,7 +146,7 @@ if (!empty($_POST)) {
                                         <span class="caption-subject bold uppercase"> Nuova Organizzazione</span>
                                     </div>
                                     <div class="portlet-body form">
-                                        <form role="form">
+                                        <form role="form" method="post" enctype="multipart/form-data">
                                             <div class="form-body">
                                             </div>
                                             <div class="form-body">
@@ -159,7 +159,7 @@ if (!empty($_POST)) {
                                                             <span class="btn default btn-file">
                                                                 <span class="fileinput-new"> Seleziona immagine </span>
                                                                 <span class="fileinput-exists"> Modifica </span>
-                                                                <input type="hidden"><input type="file" name="..."> </span>
+                                                                <input type="hidden"><input type="file" name="logo"> </span>
                                                             <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Rimuovi </a>
                                                         </div>
                                                     </div>

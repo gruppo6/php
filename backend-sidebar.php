@@ -81,7 +81,7 @@
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item  ">
-                            <a href="#" class="nav-link ">
+                            <a href="backend-certificazione-form.php?action=insert" class="nav-link ">
                                 <i class="icon-plus"></i>
                                 <span class="title">Nuova Certificazione</span>
                             </a>

@@ -1,13 +1,7 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Conversazione
+ * Description of Certificazione
  *
  * @author gianl
  */
@@ -15,6 +9,7 @@ class Certificazione {
     private $id;
     private $id_organizzazione;
     private $nome;
+    private $descrizione;
     private $logo;
     
     function getId() {
@@ -27,6 +22,10 @@ class Certificazione {
 
     function getNome() {
         return $this->nome;
+    }
+
+    function getDescrizione() {
+        return $this->descrizione;
     }
 
     function getLogo() {
@@ -45,24 +44,29 @@ class Certificazione {
         $this->nome = $nome;
     }
 
+    function setDescrizione($descrizione) {
+        $this->descrizione = $descrizione;
+    }
+
     function setLogo($logo) {
         $this->logo = $logo;
     }
-    
-    function __construct($id, $id_organizzazione = 0, $nome = "", $logo = "") {
+
+    function __construct($id=0, $id_organizzazione="", $nome="", $descrizione="", $logo="") {
         $this->id = $id;
         $this->id_organizzazione = $id_organizzazione;
         $this->nome = $nome;
+        $this->descrizione = $descrizione;
         $this->logo = $logo;
     }
-    
+ 
     /**
      * Salva una nuova certificazione nel database
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
      */
     public function insert() {
-        $sql = "INSERT INTO certificazioni(id_organizzazione, nome, logo) "
-                . "VALUES($this->id_organizzazione, '$this->nome', '$this->logo')";
+        $sql = "INSERT INTO certificazioni(id_organizzazione, nome, descrizione, logo) "
+                . "VALUES($this->id_organizzazione, '$this->nome', '$this->descrizione','$this->logo')";
         return Helpers::executeCommand($sql);
     }
     
@@ -74,6 +78,7 @@ class Certificazione {
         $sql = "UPDATE certificazioni 
                 SET id_organizzazione = '$this->id_organizzazione', 
                 nome = '$this->nome',
+                descrizione = '$this->descrizione',
                 logo = '$this->logo',
                 WHERE id = '$this->id'";
         return Helpers::executeCommand($sql);
@@ -104,6 +109,7 @@ class Certificazione {
         if($row) {
             $this->id_organizzazione = $row["id_organizzazione"];
             $this->nome = $row["nome"];
+            $this->descrizione = $row["descrizione"];
             $this->logo = $row["logo"];
             return true;
         } else {
@@ -123,11 +129,10 @@ class Certificazione {
         if(!$result) return false;
         $list = array();
         while( $row = mysqli_fetch_assoc($result) ) {
-            $c = new Proprietario($row["id"], $row["id_organizzazione"], $row["nome"], $row["logo"]);
+            $c = new Certificazione($row["id"], $row["id_organizzazione"], $row["nome"], $row["descrizione"], $row["logo"]);
             $list[] = $c;
         }
         mysqli_close($link);
         return $list;                
     }
-
 }

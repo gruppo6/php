@@ -3,34 +3,32 @@
 require_once "session.php";
 require_once "Helpers.php";
 require_once "Esame.php";
+require_once "Certificazione.php";
+
+//qui si salva solamente!!!!111
+$action = "insert";
 
 if (!empty($_POST)) {
     // keep track validation errors
+    $id_certificazioneError = null;
     $nomeError = null;
     $descrizioneError = null;
-    $distributoreError = null;
-    $genereError = null;
-    $pegiError = null;
-    $prezzoError = null;
-    $piattaformaError = null;
-    $statoError = null;
-    $barcodeError = null;
-    $giacenzaError = null;
+    $dataError = null;
 
     // keep track post values
+    $id_certificazione = $_POST['id_certificazione'];
     $nome = $_POST['nome'];
     $descrizione = $_POST['descrizione'];
-    $distributore = $_POST['distributore'];
-    $genere = $_POST['genere'];
-    $pegi = $_POST['pegi'];
-    $prezzo = $_POST['prezzo'];
-    $piattaforma = $_POST['piattaforma'];
-    $stato = $_POST['stato'];
-    $barcode = $_POST['barcode'];
-    $giacenza = $_POST['giacenza'];
+    $data = date('Y-m-d', strtotime(str_replace('-', '/', $_POST['data'])));
 
     // validate input
     $valid = true;
+
+    if (empty($id_certificazione)) {
+        $id_certificazioneError = 'Per favore seleziona la certificazione';
+        $valid = false;
+    }
+
     if (empty($nome)) {
         $nomeError = 'Per favore inserisci il nome';
         $valid = false;
@@ -41,63 +39,26 @@ if (!empty($_POST)) {
         $valid = false;
     }
 
-    if (empty($distributore)) {
-        $distributoreError = 'Per favore inserisci il distributore';
+    if (empty($data)) {
+        $dataError = 'Per favore inserisci la data';
         $valid = false;
-    }
-
-    if (empty($genere)) {
-        $genereError = 'Per favore inserisci il genere';
-        $valid = false;
-    }
-
-    if (empty($pegi)) {
-        $pegiError = 'Per favore inserisci il pegi';
-        $valid = false;
-    }
-
-    if (empty($prezzo)) {
-        $prezzoError = 'Per favore inserisci il prezzo';
-        $valid = false;
-    }
-
-    if (empty($piattaforma)) {
-        $piattaformaError = 'Per favore inserisci la piattaforma';
-        $valid = false;
-    }
-
-    if (empty($stato)) {
-        $statoError = 'Per favore inserisci lo stato';
-        $valid = false;
-    }
-
-    if (empty($barcode)) {
-        $barcodeError = 'Per favore inserisci il barcode';
-        $valid = false;
-    }
-
-    if (empty($giacenza)) {
-        $giacenzaError = 'Per favore inserisci la giacenza';
-        $valid = false;
-    }
-
-    if (count($_FILES) == 0) {
-        echo "<p>Attenzione! Nessun file selezionato</p>";
-        $fileError = true;
     }
 
     // insert data
     if ($valid) {
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO videogiochi (nome,descrizione,distributore,"
-                . "genere,pegi,prezzo,piattaforma,stato,barcode,giacenza"
-                . ") values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($nome, $descrizione, $distributore, $genere, $pegi,
-            $prezzo, $piattaforma, $stato, $barcode, $giacenza));
-        Database::disconnect();
-        header("Location: controllo.php");
+        $esame = new Esame($id);
+        $esame->setId_certificazione($id_certificazione);
+        $esame->setNome($nome);
+        $esame->setDescrizione($descrizione);
+        $esame->setData($data);
+        $esito = $esame->insert();  // In base all'id riempio l'oggetto
+        if ($esito === false) {
+            $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
+            header("Location: backend-esame.php?q=all");
+        } else {
+            $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Esame salvato correttamente.')";
+            header("Location: backend-esame.php?q=all");
+        }
     }
 }
 ?>
@@ -146,48 +107,67 @@ if (!empty($_POST)) {
                                         <span class="caption-subject bold uppercase"> Nuovo Esame</span>
                                     </div>
                                     <div class="portlet-body form">
-                                        <form role="form">
+                                        <form method="post" action="backend-esame-new-form.php">
                                             <div class="form-body">
                                             </div>
                                             <div class="form-body">
-                                                <div class="form-group">
+                                                <div class="form-group <?php echo!empty($nomeError) ? 'has-error' : ''; ?>">
                                                     <label for="nome">Nome</label>
                                                     <input type="text" 
-                                                           required 
+                                                           name="nome"
                                                            minlenght="3"
                                                            maxlenght="100"
                                                            class="form-control" 
                                                            placeholder="Inserisci il nome..."> 
+                                                    <?php if (!empty($nomeError)): ?><span class="help-block"><?php echo $nomeError; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group <?php echo!empty($descrizioneError) ? 'has-error' : ''; ?>">
                                                     <label for="descrizione">Descrizione</label>
                                                     <textarea class="form-control" 
                                                               id="descrizione" 
                                                               rows="3" 
                                                               minlength="10"
                                                               maxlength="255"
-                                                              required
+                                                              name="descrizione" 
                                                               placeholder="Inserisci la descrizione..."></textarea>
+                                                    <?php if (!empty($descrizioneError)): ?><span class="help-block"><?php echo $descrizioneError; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group <?php echo!empty($id_certificazioneError) ? 'has-error' : ''; ?>">
                                                     <label>Certificazione</label>
-                                                    <select required class="form-control">
-                                                        <option>Option 1</option>
-                                                        <option>Option 2</option>
-                                                        <option>Option 3</option>
-                                                        <option>Option 4</option>
-                                                        <option>Option 5</option>
+                                                    <select name="id_certificazione" class="form-control">
+                                                        <option value="" selected disabled>Seleziona Certificazione</option>
+                                                        <?php
+                                                        $listaCertificazioni = Certificazione::selectAll();
+                                                        foreach ($listaCertificazioni as $certificazione) {
+                                                            $id = $certificazione->getId(); // echo $some_var ? 'true': 'false';
+                                                            $nomeCertificazione = $certificazione->getNome();
+                                                            echo "<option value='$id'>$nomeCertificazione";
+                                                            echo "</option>";
+                                                        }
+                                                        ?>
                                                     </select>
+                                                    <?php if (!empty($id_certificazioneError)): ?><span class="help-block"><?php echo $id_certificazioneError; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group <?php echo!empty($dataError) ? 'has-error' : ''; ?>">
                                                     <label for="data">Data Esame</label>
                                                     <div class="form-group">
-                                                        <input placeholder="Seleziona la data..." class="form-control date-picker" size="16" type="text" value="">
+                                                        <input 
+                                                            placeholder="Seleziona la data..." 
+                                                            name="data"
+                                                            class="form-control date-picker" 
+                                                            size="16" 
+                                                            type="text" 
+                                                            value="">
                                                     </div>
+                                                    <?php if (!empty($dataError)): ?><span class="help-block"><?php echo $dataError; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="form-actions">
-                                                <a type="submit" class="btn blue">Salva</a>
+                                                <input name="submit" type="submit" value="Salva" class="btn blue" />
                                                 <a href="backend.php" type="button" class="btn default">Cancella</a>
                                             </div>
                                         </form>
