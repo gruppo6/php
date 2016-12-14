@@ -1,36 +1,61 @@
-<!DOCTYPE html>
 <?php
 require_once "session.php";
 require_once "Helpers.php";
 require_once "Organizzazione.php";
 
+//setto la pagina attiva
+if (isset($_SERVER['REQUEST_URI'])) {
+    $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
+}
+
+// Validazione: verifico se è stato passato il parametro "action" in GET...
+if (!isset($_GET["action"])) {
+    $_SESSION['messaggio'] = "notifyError('Errore', 'Nessuna azione specificata')";
+    header("Location: backend-organizzazione.php");
+}
+
+// ...e se ha un valore corretto
+$action = $_GET["action"];
+if ($action != "insert" && $action != "update" && $action != "delete") {
+    $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
+    header("Location: backend-organizzazione.php");
+}
+
+// Preparo i contenitori per i valori del form
+$nome = "";
+$descrizione = "";
+$logo = "";
+
+if ($action == "update" && empty($_POST)) {
+    if (!isset($_GET["id"])) {
+        $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
+        header("Location: backend-organizzazione.php");
+    }
+    $id = $_GET["id"];
+    $organizzazione = new Organizzazione($id);
+    $esito = $organizzazione->select();  // In base all'id riempio l'oggetto
+    if ($esito === false) {
+        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
+        header("Location: backend-organizzazione.php");
+    }
+    $nome = $organizzazione->getNome();
+    $descrizione = $organizzazione->getDescrizione();
+    $logo = $organizzazione->getLogo();
+}
+
 if (!empty($_POST)) {
     // keep track validation errors
     $nomeError = null;
     $descrizioneError = null;
-    $distributoreError = null;
-    $genereError = null;
-    $pegiError = null;
-    $prezzoError = null;
-    $piattaformaError = null;
-    $statoError = null;
-    $barcodeError = null;
-    $giacenzaError = null;
+    $logoError = null;
 
-    // keep track post values
     $nome = $_POST['nome'];
     $descrizione = $_POST['descrizione'];
-    $distributore = $_POST['distributore'];
-    $genere = $_POST['genere'];
-    $pegi = $_POST['pegi'];
-    $prezzo = $_POST['prezzo'];
-    $piattaforma = $_POST['piattaforma'];
-    $stato = $_POST['stato'];
-    $barcode = $_POST['barcode'];
-    $giacenza = $_POST['giacenza'];
+    $logo = $_FILES['logo']['name'];
 
     // validate input
     $valid = true;
+
     if (empty($nome)) {
         $nomeError = 'Per favore inserisci il nome';
         $valid = false;
@@ -41,64 +66,105 @@ if (!empty($_POST)) {
         $valid = false;
     }
 
-    if (empty($distributore)) {
-        $distributoreError = 'Per favore inserisci il distributore';
-        $valid = false;
-    }
-
-    if (empty($genere)) {
-        $genereError = 'Per favore inserisci il genere';
-        $valid = false;
-    }
-
-    if (empty($pegi)) {
-        $pegiError = 'Per favore inserisci il pegi';
-        $valid = false;
-    }
-
-    if (empty($prezzo)) {
-        $prezzoError = 'Per favore inserisci il prezzo';
-        $valid = false;
-    }
-
-    if (empty($piattaforma)) {
-        $piattaformaError = 'Per favore inserisci la piattaforma';
-        $valid = false;
-    }
-
-    if (empty($stato)) {
-        $statoError = 'Per favore inserisci lo stato';
-        $valid = false;
-    }
-
-    if (empty($barcode)) {
-        $barcodeError = 'Per favore inserisci il barcode';
-        $valid = false;
-    }
-
-    if (empty($giacenza)) {
-        $giacenzaError = 'Per favore inserisci la giacenza';
-        $valid = false;
-    }
-
-    if (count($_FILES) == 0) {
-        echo "<p>Attenzione! Nessun file selezionato</p>";
-        $fileError = true;
+    if (empty($logo)) {
+        // qui devo prendermi quello che ho sul db per evitare problemi
+        if (!empty($_POST['id'])) {
+            $organizzazione = new Organizzazione($_POST['id']);
+            $esito = $organizzazione->select();
+            $_FILES['logo']['name'] = $organizzazione->getLogo();
+        } else {
+            $logoError = 'Per favore inserisci il logo';
+            $valid = false;
+        }
+    } else {
+        $validImg = validaImg();
+        if ($validImg != "") {
+            $logoError = $validImg;
+            $valid = false;
+        }
     }
 
     // insert data
     if ($valid) {
-        $pdo = Database::connect();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO videogiochi (nome,descrizione,distributore,"
-                . "genere,pegi,prezzo,piattaforma,stato,barcode,giacenza"
-                . ") values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($nome, $descrizione, $distributore, $genere, $pegi,
-            $prezzo, $piattaforma, $stato, $barcode, $giacenza));
-        Database::disconnect();
-        header("Location: controllo.php");
+        $esito = true;  // Flag in cui memorizzare se la query è andata bene
+        switch ($action) {
+            case "insert":
+                $esito = eseguiInsert();
+                break;
+            case "update":
+                $esito = eseguiUpdate();
+                break;
+            default:    // sostituisce la validazione con if()
+                $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
+                header("Location: backend-organizzazione.php");
+        }
+
+        if ($esito === true) {
+            $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Organizzazione salvata correttamente.')";
+            header("Location: backend-organizzazione.php");
+        }
     }
+}
+
+function eseguiInsert() {
+    extract($_POST);
+    $organizzazione = new Organizzazione(0, $nome, $descrizione, $_FILES['logo']['name']);
+    return $organizzazione->insert();
+}
+
+function eseguiUpdate() {
+    extract($_POST);
+    $organizzazione = new Organizzazione($id, $nome, $descrizione, $_FILES['logo']['name']);
+    return $organizzazione->update();
+}
+
+function validaImg() {
+
+    // Validazione del form
+    if (empty($_POST)) {
+        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Non è stato inviato nessun form.')";
+        header("Location: backend-organizzazione.php");
+    } else {
+        // validate input
+        $logoError = "";
+        // Validazione file
+        if (empty($_FILES["logo"]["tmp_name"])) {
+            $logoError = "Attenzione! Nessun file caricato.";
+        } else {
+            // Se la cartella per le immagini non esiste, la creo
+            if (!file_exists("img"))
+                mkdir("img");
+
+            $target_file = "img/organizzazione/" . basename($_FILES["logo"]["name"]);
+            switch (exif_imagetype($_FILES["logo"]["tmp_name"])) {
+                case IMAGETYPE_GIF:
+                    break;
+                case IMAGETYPE_JPEG:
+                    break;
+                case IMAGETYPE_PNG:
+                    break;
+                default:
+                    $logoError = "Errore! Il file non è in formato corretto.";
+            }
+
+            if ($logoError === "") {
+                // Controllo la dimensione in pixel usando la libreria GD
+                $misure = getimagesize($_FILES["logo"]["tmp_name"]);
+                $larghezza = $misure[0];
+                $altezza = $misure[1];
+                if ($larghezza > 1000 || $altezza > 1000) {
+                    $logoError = "L'immagine supera i 1000px di lato.";
+                }
+
+                if ($logoError == "") {   // Se non ci sono errori, copio il file
+                    if (!move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
+                        $logoError = "Errore in fase di caricamento del file.";
+                    }
+                }
+            }
+        }
+    }
+    return $logoError;
 }
 ?>
 <!DOCTYPE html>
@@ -122,7 +188,7 @@ if (!empty($_POST)) {
                         <!-- BEGIN PAGE TITLE -->
                         <div class="page-title">
                             <h1>Nuova Organizzazione
-                                <small>creazione nuova organizzazione</small>
+                                <small>gestione organizzazioni</small>
                             </h1>
                         </div>
                     </div>
@@ -133,7 +199,7 @@ if (!empty($_POST)) {
                             <i class="fa fa-circle"></i>
                         </li>
                         <li>
-                            <span class="active">Nuova Organizzazione</span>
+                            <span class="active">Organizzazione</span>
                         </li>
                     </ul>
                     <!-- END PAGE BREADCRUMB -->
@@ -143,31 +209,66 @@ if (!empty($_POST)) {
                                 <div class="portlet-title">
                                     <div class="caption font-red-sunglo">
                                         <i class="icon-settings font-red-sunglo"></i>
-                                        <span class="caption-subject bold uppercase"> Nuova Organizzazione</span>
+                                        <span class="caption-subject bold uppercase">Nuova Organizzazione</span>
                                     </div>
                                     <div class="portlet-body form">
-                                        <form role="form" method="post" enctype="multipart/form-data">
+                                        <form method="post" action="backend-organizzazione-form.php?action=<?php echo "$action" ?>" enctype="multipart/form-data">
                                             <div class="form-body">
                                             </div>
                                             <div class="form-body">
-                                                <div class="form-group">
+                                                <div class="form-group <?php echo!empty($nomeError) ? 'has-error' : ''; ?>">
+                                                    <label for="nome">Nome</label>
+                                                    <input type="text" 
+                                                           name="nome"
+                                                           minlenght="3"
+                                                           maxlenght="100"
+                                                           value="<?php echo!empty($nome) ? $nome : ''; ?>"
+                                                           class="form-control" 
+                                                           placeholder="Inserisci il nome..."> 
+                                                    <?php if (!empty($nomeError)): ?><span class="help-block"><?php echo $nomeError; ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="form-group <?php echo!empty($descrizioneError) ? 'has-error' : ''; ?>">
+                                                    <label for="descrizione">Descrizione</label>
+                                                    <textarea class="form-control" 
+                                                              rows="3" 
+                                                              minlength="10"
+                                                              maxlength="255"
+                                                              name="descrizione" 
+                                                              placeholder="Inserisci la descrizione..."><?php echo!empty($descrizione) ? $descrizione : ''; ?></textarea>
+                                                    <?php if (!empty($descrizioneError)): ?><span class="help-block"><?php echo $descrizioneError; ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="form-group <?php echo!empty($logoError) ? 'has-error' : ''; ?>">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""> </div>
-                                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"> </div>
+                                                            <?php
+                                                            echo!empty($logo) ? "<img src='img/organizzazione/$logo' />" :
+                                                                    "<img src='http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image' alt=''>";
+                                                            ?>
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"> 
+                                                            <?php echo!empty($logo) ? "<img src='img/organizzazione/$logo' />" : ''; ?>
+                                                        </div>
                                                         <div>
                                                             <span class="btn default btn-file">
                                                                 <span class="fileinput-new"> Seleziona immagine </span>
                                                                 <span class="fileinput-exists"> Modifica </span>
-                                                                <input type="hidden"><input type="file" name="logo"> </span>
+                                                                <input type="hidden"><input 
+                                                                    value="<?php echo!empty($logo) ? $logo : ''; ?>"
+                                                                    type="file" 
+                                                                    name="logo"></span>
                                                             <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Rimuovi </a>
                                                         </div>
                                                     </div>
+                                                    <?php if (!empty($logoError)): ?><span class="help-block"><?php echo $logoError; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="form-actions">
-                                                <a type="submit" class="btn blue">Salva</a>
-                                                <a href="backend.php" type="button" class="btn default">Cancella</a>
+                                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                <input name="submit" type="submit" value="Salva" class="btn blue" />
+                                                <a href="backend-organizzazione.php" type="button" class="btn default">Cancella</a>
                                             </div>
                                         </form>
                                     </div>

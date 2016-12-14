@@ -29,10 +29,10 @@ switch ($action) {
 
 if ($esito === false) {
     $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
-    header("Location: backend.php");
+    header("Location: backend-certificazione.php");
 } else {
     $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', '')";
-    header("Location: backend.php");
+    header("Location: backend-certificazione.php");
 }
 
 function eseguiInsert() {

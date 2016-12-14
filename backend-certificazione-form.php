@@ -4,6 +4,11 @@ require_once "Helpers.php";
 require_once "Certificazione.php";
 require_once "Organizzazione.php";
 
+//setto la pagina attiva
+if (isset($_SERVER['REQUEST_URI'])) {
+    $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
+}
+
 // Validazione: verifico se è stato passato il parametro "action" in GET...
 if (!isset($_GET["action"])) {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Nessuna azione specificata')";
@@ -12,7 +17,7 @@ if (!isset($_GET["action"])) {
 
 // ...e se ha un valore corretto
 $action = $_GET["action"];
-if ($action != "insert" && $action != "update") {
+if ($action != "insert" && $action != "update" && $action != "delete") {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
     header("Location: backend-certificazione.php");
 }
@@ -23,7 +28,7 @@ $nome = "";
 $descrizione = "";
 $logo = "";
 
-if ($action == "update") {
+if ($action == "update" && empty($_POST)) {
     if (!isset($_GET["id"])) {
         $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
         header("Location: backend-certificazione.php");
@@ -42,85 +47,26 @@ if ($action == "update") {
 }
 
 if (!empty($_POST)) {
-    $esito = true;  // Flag in cui memorizzare se la query è andata bene
-    switch ($action) {
-        case "insert":
-            $esito = eseguiInsert();
-            break;
-        case "update":
-            $esito = eseguiUpdate();
-            break;
-        case "delete":
-            $esito = eseguiDelete();
-            break;
-        default:    // sostituisce la validazione con if()
-            $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
-            header("Location: backend.php");
-    }
-
-    if ($esito === false) {
-        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
-        header("Location: backend.php");
-    } else {
-        $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', '')";
-        header("Location: backend.php");
-    }
-}
-
-function eseguiInsert() {
-    $valid = validaForm();
-    $validImg = validaImg();
-    if (($valid == false) OR ($validImg == false)) {
-        extract($_POST);    // Creo $id, $nome, $codCatastale, $provincia da $_POST
-        /*
-         * private $id;
-          private $id_organizzazione;
-          private $nome;
-          private $logo;
-         */
-        $certificazione = new Certificazione($id_organizzazione, $nome, $descrizione, $logo);
-        return $certificazione->insert();
-    }
-}
-
-function eseguiUpdate() {
-    $valid = validaForm();
-    $validImg = validaImg();
-    if ($valid == $validImg) {
-        extract($_POST);
-        $certificazione = new Certificazione($id_organizzazione, $nome, $descrizione, $logo);
-        return $certificazione->update();
-    }
-}
-
-function eseguiDelete() {
-    if (!isset($_GET["id"]) || !is_numeric($_GET["id"]) || $_GET["id"] < 1) {
-        die("Errore! Id mancante o non valido");
-    }
-    $certificazione = new Certificazione($_GET["id"]);
-    return $certificazione->delete();
-}
-
-function validaForm() {
-    // Validazione del form
-    if (empty($_POST)) {
-        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Non è stato inviato nessun form.')";
-        header("Location: backend-certificazione.php");
-    }
-
+    // keep track validation errors
     $id_organizzazioneError = null;
     $nomeError = null;
     $descrizioneError = null;
     $logoError = null;
 
     // keep track post values
-    $id_organizzazione = $_POST['id_organizzazione'];
+    if (!empty($_POST['id_organizzazione'])) {
+        $id_organizzazione = $_POST['id_organizzazione'];
+    } else {
+        $id_organizzazione = "";
+    }
+
     $nome = $_POST['nome'];
     $descrizione = $_POST['descrizione'];
-    $logo = $_POST['logo'];
+    $logo = $_FILES['logo']['name'];
 
     // validate input
     $valid = true;
+
     if (empty($id_organizzazione)) {
         $id_organizzazioneError = 'Per favore seleziona la organizzazione';
         $valid = false;
@@ -137,49 +83,104 @@ function validaForm() {
     }
 
     if (empty($logo)) {
-        $logoError = 'Per favore inserisci il logo';
-        $valid = false;
+        // qui devo prendermi quello che ho sul db per evitare problemi
+        if (!empty($_POST['id'])) {
+            $certificazione = new Certificazione($_POST['id']);
+            $esito = $certificazione->select();
+            $_FILES['logo']['name'] = $certificazione->getLogo();
+        } else {
+            $logoError = 'Per favore inserisci il logo';
+            $valid = false;
+        }
+    } else {
+        $validImg = validaImg();
+        if ($validImg != "") {
+            $logoError = $validImg;
+            $valid = false;
+        }
     }
 
-    return $valid;
+    // insert data
+    if ($valid) {
+        $esito = true;  // Flag in cui memorizzare se la query è andata bene
+        switch ($action) {
+            case "insert":
+                $esito = eseguiInsert();
+                break;
+            case "update":
+                $esito = eseguiUpdate();
+                break;
+            default:    // sostituisce la validazione con if()
+                $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
+                header("Location: backend-certificazione.php");
+        }
+
+        if ($esito === true) {
+            $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Certificazione salvata correttamente.')";
+            header("Location: backend-certificazione.php");
+        }
+    }
+}
+
+function eseguiInsert() {
+    extract($_POST);
+    $certificazione = new Certificazione(0, $id_organizzazione, $nome, $descrizione, $_FILES['logo']['name']);
+    return $certificazione->insert();
+}
+
+function eseguiUpdate() {
+    extract($_POST);
+    $certificazione = new Certificazione($id, $id_organizzazione, $nome, $descrizione, $_FILES['logo']['name']);
+    return $certificazione->update();
 }
 
 function validaImg() {
 
-    // validate input
-    $validImg = true;
-    // Validazione file
-    if (empty($_FILES)) {
-        $logoError .= "<p>Attenzione! Nessun file caricato.</p>";
-        $validImg = false;
+    // Validazione del form
+    if (empty($_POST)) {
+        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Non è stato inviato nessun form.')";
+        header("Location: backend-certificazione.php");
     } else {
-        // Se la cartella per le immagini non esiste, la creo
-        if (!file_exists("img"))
-            mkdir("img");
+        // validate input
+        $logoError = "";
+        // Validazione file
+        if (empty($_FILES["logo"]["tmp_name"])) {
+            $logoError = "Attenzione! Nessun file caricato.";
+        } else {
+            // Se la cartella per le immagini non esiste, la creo
+            if (!file_exists("img"))
+                mkdir("img");
 
-        $target_file = "img/certificazione/" . basename($_FILES["logo"]["name"]);
-        if ((exif_imagetype($_FILES["logo"]["tmp_name"]) != IMAGETYPE_JPEG) OR ( exif_imagetype($_FILES["logo"]["tmp_name"]) != IMAGETYPE_PNG) OR ( exif_imagetype($_FILES["logo"]["tmp_name"]) != IMAGETYPE_GIF)) {
-            $logoError .= "<p>Errore! Il file non è in formato corretto.</p>";
-            $validImg = false;
-        }
+            $target_file = "img/certificazione/" . basename($_FILES["logo"]["name"]);
+            switch (exif_imagetype($_FILES["logo"]["tmp_name"])) {
+                case IMAGETYPE_GIF:
+                    break;
+                case IMAGETYPE_JPEG:
+                    break;
+                case IMAGETYPE_PNG:
+                    break;
+                default:
+                    $logoError = "Errore! Il file non è in formato corretto.";
+            }
 
-        // Controllo la dimensione in pixel usando la libreria GD
-        $misure = getimagesize($_FILES["logo"]["tmp_name"]);
-        $larghezza = $misure[0];
-        $altezza = $misure[1];
-        if ($larghezza > 1000 || $altezza > 1000) {
-            $logoError .= "<p>L'immagine supera i 1000px di lato.</p>";
-            $validImg = false;
-        }
+            if ($logoError === "") {
+                // Controllo la dimensione in pixel usando la libreria GD
+                $misure = getimagesize($_FILES["logo"]["tmp_name"]);
+                $larghezza = $misure[0];
+                $altezza = $misure[1];
+                if ($larghezza > 1000 || $altezza > 1000) {
+                    $logoError = "L'immagine supera i 1000px di lato.";
+                }
 
-        if ($logoError == "") {   // Se non ci sono errori, copio il file
-            if (!move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
-                $logoError .= "<p>Errore in fase di caricamento del file.</p>";
-                $validImg = false;
+                if ($logoError == "") {   // Se non ci sono errori, copio il file
+                    if (!move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
+                        $logoError = "Errore in fase di caricamento del file.";
+                    }
+                }
             }
         }
     }
-    return $validImg;
+    return $logoError;
 }
 ?>
 <!DOCTYPE html>
@@ -202,7 +203,7 @@ function validaImg() {
                     <div class="page-head">
                         <!-- BEGIN PAGE TITLE -->
                         <div class="page-title">
-                            <h1><?php echo!empty($nome) ? '$nome' : 'Nuova Certificazione'; ?>
+                            <h1>Nuova Certificazione
                                 <small>gestione certificazioni</small>
                             </h1>
                         </div>
@@ -224,7 +225,7 @@ function validaImg() {
                                 <div class="portlet-title">
                                     <div class="caption font-red-sunglo">
                                         <i class="icon-settings font-red-sunglo"></i>
-                                        <span class="caption-subject bold uppercase"> <?php echo!empty($nome) ? '$nome' : 'Nuova Certificazione'; ?></span>
+                                        <span class="caption-subject bold uppercase">Nuova Certificazione</span>
                                     </div>
                                     <div class="portlet-body form">
                                         <form method="post" action="backend-certificazione-form.php?action=<?php echo "$action" ?>" enctype="multipart/form-data">
@@ -237,6 +238,7 @@ function validaImg() {
                                                            name="nome"
                                                            minlenght="3"
                                                            maxlenght="100"
+                                                           value="<?php echo!empty($nome) ? $nome : ''; ?>"
                                                            class="form-control" 
                                                            placeholder="Inserisci il nome..."> 
                                                     <?php if (!empty($nomeError)): ?><span class="help-block"><?php echo $nomeError; ?></span>
@@ -245,25 +247,29 @@ function validaImg() {
                                                 <div class="form-group <?php echo!empty($descrizioneError) ? 'has-error' : ''; ?>">
                                                     <label for="descrizione">Descrizione</label>
                                                     <textarea class="form-control" 
-                                                              id="descrizione" 
                                                               rows="3" 
                                                               minlength="10"
                                                               maxlength="255"
                                                               name="descrizione" 
-                                                              placeholder="Inserisci la descrizione..."></textarea>
+                                                              placeholder="Inserisci la descrizione..."><?php echo!empty($descrizione) ? $descrizione : ''; ?></textarea>
                                                     <?php if (!empty($descrizioneError)): ?><span class="help-block"><?php echo $descrizioneError; ?></span>
                                                     <?php endif; ?>
                                                 </div>
                                                 <div class="form-group <?php echo!empty($id_organizzazioneError) ? 'has-error' : ''; ?>">
                                                     <label>Organizzazione</label>
-                                                    <select id="id_organizzazione" name="id_organizzazione" class="form-control">
+                                                    <select name="id_organizzazione" class="form-control">
                                                         <option value="" selected disabled>Seleziona Organizzazione</option>
                                                         <?php
                                                         $listaOrganizzazioni = Organizzazione::selectAll();
                                                         foreach ($listaOrganizzazioni as $organizzazione) {
-                                                            $id = $organizzazione->getId(); // echo $some_var ? 'true': 'false';
+                                                            $id = $organizzazione->getId();
                                                             $nomeOrganizzazione = $organizzazione->getNome();
-                                                            echo "<option value='$id'>$nomeOrganizzazione";
+                                                            if ($id_organizzazione === $id) {
+                                                                $selezionato = "selected";
+                                                            } else {
+                                                                $selezionato = "";
+                                                            }
+                                                            echo "<option " . $selezionato . " value='$id'>$nomeOrganizzazione";
                                                             echo "</option>";
                                                         }
                                                         ?>
@@ -274,21 +280,33 @@ function validaImg() {
                                                 <div class="form-group <?php echo!empty($logoError) ? 'has-error' : ''; ?>">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""> </div>
-                                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"> </div>
+                                                            <?php
+                                                            echo!empty($logo) ? "<img src='img/certificazione/$logo' />" :
+                                                                    "<img src='http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image' alt=''>";
+                                                            ?>
+                                                        </div>
+                                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"> 
+                                                            <?php echo!empty($logo) ? "<img src='img/certificazione/$logo' />" : ''; ?>
+                                                        </div>
                                                         <div>
                                                             <span class="btn default btn-file">
                                                                 <span class="fileinput-new"> Seleziona immagine </span>
                                                                 <span class="fileinput-exists"> Modifica </span>
-                                                                <input type="hidden"><input type="file" name="logo"> </span>
+                                                                <input type="hidden"><input 
+                                                                    value="<?php echo!empty($logo) ? $logo : ''; ?>"
+                                                                    type="file" 
+                                                                    name="logo"></span>
                                                             <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Rimuovi </a>
                                                         </div>
                                                     </div>
+                                                    <?php if (!empty($logoError)): ?><span class="help-block"><?php echo $logoError; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="form-actions">
+                                                <input type="hidden" name="id" value="<?php echo $id; ?>">
                                                 <input name="submit" type="submit" value="Salva" class="btn blue" />
-                                                <a href="backend.php" type="button" class="btn default">Cancella</a>
+                                                <a href="backend-certificazione.php" type="button" class="btn default">Cancella</a>
                                             </div>
                                         </form>
                                     </div>

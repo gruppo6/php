@@ -5,6 +5,11 @@ require_once "Helpers.php";
 require_once "Esame.php";
 require_once "Certificazione.php";
 
+//setto la pagina attiva
+if (isset($_SERVER['REQUEST_URI'])){
+    $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
+}
+
 //qui si salva solamente!!!!111
 $action = "insert";
 
@@ -141,7 +146,7 @@ if (!empty($_POST)) {
                                                         <?php
                                                         $listaCertificazioni = Certificazione::selectAll();
                                                         foreach ($listaCertificazioni as $certificazione) {
-                                                            $id = $certificazione->getId(); // echo $some_var ? 'true': 'false';
+                                                            $id = $certificazione->getId();
                                                             $nomeCertificazione = $certificazione->getNome();
                                                             echo "<option value='$id'>$nomeCertificazione";
                                                             echo "</option>";
@@ -168,7 +173,7 @@ if (!empty($_POST)) {
                                             </div>
                                             <div class="form-actions">
                                                 <input name="submit" type="submit" value="Salva" class="btn blue" />
-                                                <a href="backend.php" type="button" class="btn default">Cancella</a>
+                                                <a href="backend-esame.php?q=all.php" type="button" class="btn default">Cancella</a>
                                             </div>
                                         </form>
                                     </div>

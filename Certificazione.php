@@ -1,5 +1,7 @@
 <?php
 
+require_once "Helpers.php";
+
 /**
  * Description of Certificazione
  *
@@ -79,7 +81,7 @@ class Certificazione {
                 SET id_organizzazione = '$this->id_organizzazione', 
                 nome = '$this->nome',
                 descrizione = '$this->descrizione',
-                logo = '$this->logo',
+                logo = '$this->logo'
                 WHERE id = '$this->id'";
         return Helpers::executeCommand($sql);
     }

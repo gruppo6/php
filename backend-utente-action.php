@@ -34,7 +34,6 @@ if ($esito) {    // Se è andato tutto bene torno alla lista degli utenti
     } elseif ($_SESSION['amministratore']==0) {
         header("Location: backend.php");
     }
-    
 } else {    // Altrimenti mostro un messaggio di errore
     $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
     header("Location: backend-utente.php");

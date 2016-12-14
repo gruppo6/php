@@ -1,5 +1,10 @@
 <?php 
 require_once 'session.php';
+
+//setto la pagina attiva
+if (isset($_SERVER['REQUEST_URI'])){
+    $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->

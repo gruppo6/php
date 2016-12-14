@@ -8,9 +8,9 @@ require_once "Helpers.php";
  * @author gianl
  */
 class Organizzazione {
-
     private $id;
     private $nome;
+    private $descrizione;
     private $logo;
 
     function getId() {
@@ -19,6 +19,10 @@ class Organizzazione {
 
     function getNome() {
         return $this->nome;
+    }
+
+    function getDescrizione() {
+        return $this->descrizione;
     }
 
     function getLogo() {
@@ -33,13 +37,18 @@ class Organizzazione {
         $this->nome = $nome;
     }
 
+    function setDescrizione($descrizione) {
+        $this->descrizione = $descrizione;
+    }
+
     function setLogo($logo) {
         $this->logo = $logo;
     }
 
-    function __construct($id=0, $nome="", $logo="") {
+    function __construct($id=0, $nome="", $descrizione="", $logo="") {
         $this->id = $id;
         $this->nome = $nome;
+        $this->descrizione = $descrizione;
         $this->logo = $logo;
     }
 
@@ -56,7 +65,8 @@ class Organizzazione {
     public function update() {
         $sql = "UPDATE organizzazioni 
                 SET nome = '$this->nome',
-                logo = '$this->logo',
+                descrizione = '$this->descrizione',
+                logo = '$this->logo'
                 WHERE id = '$this->id'";
         return Helpers::executeCommand($sql);
     }
@@ -87,6 +97,7 @@ class Organizzazione {
         mysqli_close($link);
         if ($row) {
             $this->nome = $row["nome"];
+            $this->descrizione = $row["descrizione"];
             $this->logo = $row["logo"];
             return true;
         } else {
@@ -108,11 +119,10 @@ class Organizzazione {
         }
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
-            $c = new Organizzazione($row["id"], $row["nome"], $row["logo"]);
+            $c = new Organizzazione($row["id"], $row["nome"], $row["descrizione"], $row["logo"]);
             $list[] = $c;
         }
         mysqli_close($link);
         return $list;
     }
-
 }

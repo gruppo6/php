@@ -3,6 +3,11 @@ require_once "session.php";
 require_once "Helpers.php";
 require_once "Utente.php";
 
+//setto la pagina attiva
+if (isset($_SERVER['REQUEST_URI'])) {
+    $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
+}
+
 // Validazione: verifico se è stato passato il parametro "action" in GET...
 if (!isset($_GET["action"])) {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Nessuna azione specificata')";
@@ -12,13 +17,13 @@ if (!isset($_GET["action"])) {
 // ...e se ha un valore corretto
 $action = $_GET["action"];
 
-if ($action != "insert" && $action != "update" && $action != "delete") {
+if ($action != "insert" && $action != "update" && $action != "delete" && $action != "updateimg") {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
     header("Location: backend-utente.php");
 }
 
 // se non sono amministratore, posso solo vedere il mio profilo
-if (($_SESSION['amministratore']==0) && ($_GET["id"] != $_SESSION['idUtente'])) {
+if (($_SESSION['amministratore'] == 0) && ($_GET["id"] != $_SESSION['idUtente']) && ($action != "updateimg")) {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
     header("Location: backend.php");
 }
@@ -40,6 +45,83 @@ if ($action == "update" && empty($_POST)) {
     $username = $utente->getUsername();
     $password = $utente->getPassword();
     $amministratore = $utente->getAmministratore();
+    $logo = $utente->getLogo();
+}
+
+if ($action == "updateimg" && !empty($_POST)) {
+    $logoError = eseguiUpdateImg();
+    if ($logoError == "") {
+        $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Immagine aggiornata con successo.')";
+        header("Location: backend.php");
+    } else {
+        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', '$logoError')";
+        header("Location: backend.php");
+    }
+}
+
+function eseguiUpdateImg() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $validImg = validaImg();
+        if ($validImg == "") {
+            $utente = new Utente($_POST['id']);
+            $utente->setLogo($_FILES["logo"]["name"]);
+            $utente->updateImg();
+            return "";
+        } else {
+            return $validImg;
+        }
+    } else {
+        return "";
+    }
+}
+
+function validaImg() {
+    // Validazione del form
+    if (empty($_POST)) {
+        $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Non è stato inviato nessun form.')";
+        header("Location: backend-utente.php");
+    } else {
+        // validate input
+        $logoError = "";
+        // Validazione file
+        if (empty($_FILES["logo"]["tmp_name"])) {
+            $logoError = "Immagine non modificata.";
+        } else {
+            // Se la cartella per le immagini non esiste, la creo
+            if (!file_exists("img")) {
+                mkdir("img");
+            }
+
+            $target_file = "img/utente/" . basename($_FILES["logo"]["name"]);
+            switch (exif_imagetype($_FILES["logo"]["tmp_name"])) {
+                case IMAGETYPE_GIF:
+                    break;
+                case IMAGETYPE_JPEG:
+                    break;
+                case IMAGETYPE_PNG:
+                    break;
+                default:
+                    $logoError = "Errore! Il file non è in formato corretto.";
+            }
+
+            if ($logoError === "") {
+                // Controllo la dimensione in pixel usando la libreria GD
+                $misure = getimagesize($_FILES["logo"]["tmp_name"]);
+                $larghezza = $misure[0];
+                $altezza = $misure[1];
+                if ($larghezza > 1000 || $altezza > 1000) {
+                    $logoError = "L'immagine supera i 1000px di lato.";
+                }
+
+                if ($logoError == "") {   // Se non ci sono errori, copio il file
+                    if (!move_uploaded_file($_FILES["logo"]["tmp_name"], $target_file)) {
+                        $logoError = "Errore in fase di caricamento del file.";
+                    }
+                }
+            }
+        }
+    }
+    return $logoError;
 }
 ?>
 <!DOCTYPE html>
@@ -94,7 +176,10 @@ if ($action == "update" && empty($_POST)) {
                                 <div class="portlet light profile-sidebar-portlet bordered">
                                     <!-- SIDEBAR USERPIC -->
                                     <div class="profile-userpic">
-                                        <img src="assets/pages/media/profile/profile_user.jpg" class="img-responsive" alt=""> 
+                                        <?php
+                                        echo!empty($logo) ? "<img class='img-responsive' src='img/utente/$logo' />" :
+                                                "<img src='assets/pages/media/profile/profile_user.jpg' class='img-responsive' alt''>";
+                                        ?>
                                     </div>
                                     <!-- END SIDEBAR USERPIC -->
                                     <!-- SIDEBAR USER TITLE -->
@@ -132,10 +217,10 @@ if ($action == "update" && empty($_POST)) {
                                                     <li class="active">
                                                         <a href="#tab_1_1" data-toggle="tab">Informazioni Personali</a>
                                                     </li>
-                                                    <!--<li>
+                                                    <li>
                                                         <a href="#tab_1_2" data-toggle="tab">Cambia Immagine</a>
                                                     </li>
-                                                    <li>
+                                                    <!--<li>
                                                         <a href="#tab_1_3" data-toggle="tab">Cambia Password</a>
                                                     </li> -->
                                                 </ul>
@@ -193,7 +278,7 @@ if ($action == "update" && empty($_POST)) {
                                                                 <?php if (!empty($passwordError)): ?><span class="help-block"><?php echo $passwordError; ?></span>
                                                                 <?php endif; ?>
                                                             </div>
-                                                            <div class="form-group <?php if ($_SESSION['amministratore']==0): ?>hide<?php endif; ?> ">
+                                                            <div class="form-group <?php if ($_SESSION['amministratore'] == 0): ?>hide<?php endif; ?> ">
                                                                 <label for="amministratore">Seleziona tipologia utente:</label>
                                                                 <select class="form-control" name="amministratore">
                                                                     <option <?php if ($amministratore): ?>selected<?php endif; ?> value="1">Amministratore</option>
@@ -210,30 +295,36 @@ if ($action == "update" && empty($_POST)) {
                                                     <!-- END PERSONAL INFO TAB -->
                                                     <!-- CHANGE AVATAR TAB -->
                                                     <div class="tab-pane" id="tab_1_2">
-                                                        <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                                                            eiusmod. </p>
-                                                        <form action="#" role="form">
-                                                            <div class="form-group">
+                                                        <p> Se vuoi personalizzare il tuo avatar, aggiorna l'immagine del tuo profilo! </p>
+                                                        <form method="post" action="backend-utente-form.php?action=updateimg" enctype="multipart/form-data">
+                                                            <div class="form-group <?php echo!empty($logoError) ? 'has-error' : ''; ?>">
                                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                                     <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /> </div>
-                                                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                                                                        <?php
+                                                                        echo!empty($logo) ? "<img src='img/utente/$logo' />" :
+                                                                                "<img src='assets/pages/media/profile/profile_user.jpg' class='img-responsive' alt''>";
+                                                                        ?>
+                                                                    </div>
+                                                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"> 
+                                                                        <?php echo!empty($logo) ? "<img src='img/utente/$logo' />" : ''; ?>
+                                                                    </div>
                                                                     <div>
                                                                         <span class="btn default btn-file">
-                                                                            <span class="fileinput-new"> Select image </span>
-                                                                            <span class="fileinput-exists"> Change </span>
-                                                                            <input type="file" name="..."> </span>
-                                                                        <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                                            <span class="fileinput-new"> Seleziona immagine </span>
+                                                                            <span class="fileinput-exists"> Modifica </span>
+                                                                            <input type="hidden"><input 
+                                                                                value="<?php echo!empty($logo) ? $logo : ''; ?>"
+                                                                                type="file" 
+                                                                                name="logo"></span>
+                                                                        <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Rimuovi </a>
                                                                     </div>
                                                                 </div>
-                                                                <div class="clearfix margin-top-10">
-                                                                    <span class="label label-danger">NOTE! </span>
-                                                                    <span>Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
-                                                                </div>
+                                                                <?php if (!empty($logoError)): ?><span class="help-block"><?php echo $logoError; ?></span>
+                                                                <?php endif; ?>
                                                             </div>
-                                                            <div class="margin-top-10">
-                                                                <a href="javascript:;" class="btn green"> Submit </a>
-                                                                <a href="javascript:;" class="btn default"> Cancel </a>
+                                                            <div class="form-actions">
+                                                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                                <input name="submit" type="submit" value="Aggiorna" class="btn blue" />
                                                             </div>
                                                         </form>
                                                     </div>

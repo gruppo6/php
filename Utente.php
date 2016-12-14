@@ -8,13 +8,15 @@ require_once "Helpers.php";
  * @author gianl
  */
 class Utente {
+
     private $id;
     private $nome;
     private $cognome;
     private $username;
     private $password;
     private $amministratore;
-    
+    private $logo;
+
     function getId() {
         return $this->id;
     }
@@ -37,6 +39,10 @@ class Utente {
 
     function getAmministratore() {
         return $this->amministratore;
+    }
+
+    function getLogo() {
+        return $this->logo;
     }
 
     function setId($id) {
@@ -62,22 +68,28 @@ class Utente {
     function setAmministratore($amministratore) {
         $this->amministratore = $amministratore;
     }
+
+    function setLogo($logo) {
+        $this->logo = $logo;
+    }
+
     
-    function __construct($id, $nome="", $cognome="", $username="", $password="", $amministratore="") {
+    function __construct($id, $nome = "", $cognome = "", $username = "", $password = "", $amministratore = "", $logo = "") {
         $this->id = $id;
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->username = $username;
         $this->password = $password;
         $this->amministratore = $amministratore;
+        $this->logo = $logo;
     }
-    
+
     public function insert() {
         $sql = "INSERT INTO utenti(nome, cognome, username, password, amministratore) "
-                . "VALUES('$this->nome', '$this->cognome', '$this->username', '". md5($this->password) ."', $this->amministratore)";
+                . "VALUES('$this->nome', '$this->cognome', '$this->username', '" . md5($this->password) . "', $this->amministratore)";
         return Helpers::executeCommand($sql);
     }
-    
+
     /**
      * Modifica una certificazione esistente nel database
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
@@ -87,8 +99,19 @@ class Utente {
                 . " SET nome = '$this->nome',"
                 . " cognome = '$this->cognome',"
                 . " username = '$this->username',"
-                . " password = '". md5($this->password) ."',"
-                . " amministratore = $this->amministratore"
+                . " password = '" . md5($this->password) . "',"
+                . " amministratore = $this->amministratore "
+                . " WHERE id = $this->id";
+        return Helpers::executeCommand($sql);
+    }
+
+    /**
+     * Aggiorna l'immagine di profilo
+     * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
+     */
+    public function updateImg() {
+        $sql = "UPDATE utenti"
+                . " SET logo = '$this->logo'"
                 . " WHERE id = $this->id";
         return Helpers::executeCommand($sql);
     }
@@ -101,7 +124,7 @@ class Utente {
         $sql = "DELETE FROM utenti WHERE id = $this->id";
         return Helpers::executeCommand($sql);
     }
-    
+
     /**
      * Riempie i campi dell'oggetto recuperando i dati dal DB a partire dall'id
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
@@ -112,21 +135,23 @@ class Utente {
                 WHERE id = '$this->id'";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
-        if(!$result) return false;
+        if (!$result)
+            return false;
         $row = mysqli_fetch_assoc($result);
         mysqli_close($link);
-        if($row) {
+        if ($row) {
             $this->nome = $row["nome"];
             $this->cognome = $row["cognome"];
             $this->username = $row["username"];
             $this->password = $row["password"];
             $this->amministratore = $row["amministratore"];
+            $this->logo = $row["logo"];
             return true;
         } else {
             return false;
         }
     }
-    
+
     /**
      * Estrae tutti i certificazioni dal DB
      * @return mixed Una lista di oggetti certificazione oppure false in caso di errore
@@ -136,14 +161,15 @@ class Utente {
                 FROM utenti";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
-        if(!$result) return false;
+        if (!$result)
+            return false;
         $list = array();
-        while( $row = mysqli_fetch_assoc($result) ) {
-            $c = new Utente($row["id"], $row["nome"], $row["cognome"], $row["username"], $row["password"], $row["amministratore"]);
+        while ($row = mysqli_fetch_assoc($result)) {
+            $c = new Utente($row["id"], $row["nome"], $row["cognome"], $row["username"], 
+                    $row["password"], $row["amministratore"], $row["logo"]);
             $list[] = $c;
         }
         mysqli_close($link);
-        return $list;                
+        return $list;
     }
-    
 }

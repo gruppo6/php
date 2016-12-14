@@ -5,6 +5,11 @@ require_once "Helpers.php";
 require_once "Esame.php";
 require_once "Iscrizione.php";
 
+//setto la pagina attiva
+if (isset($_SERVER['REQUEST_URI'])){
+    $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
+}
+
 // Validazione: verifico se è stato passato il parametro "action" in GET...
 if (!isset($_GET["action"])) {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Nessuna azione specificata')";
