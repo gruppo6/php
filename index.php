@@ -1,5 +1,5 @@
 <?php
-require_once 'session.php';
+include('session.php');
 ?>
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
@@ -17,30 +17,10 @@ require_once 'session.php';
                     <div class="tp-banner">
                         <ul>
                             <!--BEGIN: SLIDE #1 -->
-                            <li data-transition="fade" data-slotamount="1" data-masterspeed="1000">
-                                <img alt="" src="assets/base/img/content/backgrounds/bg-43.jpg" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
-                                <div class="caption customin customout tp-resizeme" data-x="center" data-y="center" data-hoffset="" data-voffset="-50" data-speed="500" data-start="1000" data-customin="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-easing="Back.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
-                                    <h3 class="c-block-bordered c-font-48 c-font-bold c-font-center c-font-uppercase c-font-white c-block">
-                                        TAKE THE WEB BY<br>
-                                        STORM WITH JANGO </h3>
-                                </div>
-                                <div class="caption lft tp-resizeme" data-x="center" data-y="center" data-voffset="110" data-speed="900" data-start="2000" data-easing="easeOutExpo">
-                                    <a href="#" class="c-action-btn btn btn-lg c-btn-square c-theme-btn c-btn-bold c-btn-uppercase">Learn More</a>
-                                </div>
-                            </li>
+                            
                             <!--END -->
                             <!--BEGIN: SLIDE #2 -->
-                            <li data-transition="fade" data-slotamount="1" data-masterspeed="1000">
-                                <img alt="" src="assets/base/img/content/backgrounds/bg-20.jpg" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
-                                <div class="caption customin customout tp-resizeme" data-x="center" data-y="center" data-hoffset="" data-voffset="-50" data-speed="500" data-start="1000" data-customin="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-easing="Back.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
-                                    <h3 class="c-block-bordered c-font-48 c-font-bold c-font-center c-font-uppercase c-font-white c-block">
-                                        JANGO IS OPTIMIZED<br>
-                                        TO EVERY DEVELOPMENT </h3>
-                                </div>
-                                <div class="caption lft tp-resizeme" data-x="center" data-y="center" data-voffset="110" data-speed="900" data-start="2000" data-easing="easeOutExpo">
-                                    <a href="#" class="c-action-btn btn btn-lg c-btn-square c-theme-btn c-btn-bold c-btn-uppercase">Learn More</a>
-                                </div>
-                            </li>
+                            
                             <!--END -->
                             <!--BEGIN: SLIDE #3 -->
                             <li data-transition="fade" data-slotamount="1" data-masterspeed="700" data-delay="6000" data-thumb="">
@@ -50,8 +30,8 @@ require_once 'session.php';
                                 </div>
                                 <div class="caption customin customout tp-resizeme" data-x="center" data-y="center" data-hoffset="" data-voffset="-30" data-speed="500" data-start="1000" data-customin="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-easing="Back.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
                                     <h3 class="c-block-bordered-square c-font-55 c-font-bold c-font-center c-font-uppercase c-font-white c-block">
-                                        Let us show you<br>
-                                        Unlimited possibilities </h3>
+                                        Vi mostreremo <br>
+                                        possibilità illimitate </h3>
                                 </div>
                                 <div class="caption lft tp-resizeme" data-x="center" data-y="center" data-voffset="130" data-speed="900" data-start="2000" data-easing="easeOutExpo">
                                     <a href="#" class="c-action-btn btn c-btn-square c-btn-border-2x c-btn-white c-btn-sbold c-btn-uppercase">Purchase</a>
@@ -72,7 +52,7 @@ require_once 'session.php';
                             <div class="c-content-feature-1">
                                 <div class="c-content-line-icon c-theme c-icon-screen-chart">
                                 </div>
-                                <h3 class="c-font-uppercase c-font-bold">Fully responsive</h3>
+                                <h3 class="c-font-uppercase c-font-bold">Registrati</h3>
                                 <p class="c-font-thin">
                                     Beautiful cinematic designs optimized for all screen sizes and types. Compatible with Retina high pixel density displays.
                                 </p>
@@ -80,9 +60,9 @@ require_once 'session.php';
                         </div>
                         <div class="col-sm-4">
                             <div class="c-content-feature-1">
-                                <div class="c-content-line-icon c-theme c-icon-support">
+                                <div class="c-content-line-icon c-theme c-icon-20">
                                 </div>
-                                <h3 class="c-font-uppercase c-font-bold">Visual & Pragmatic</h3>
+                                <h3 class="c-font-uppercase c-font-bold">Guarda il calendario</h3>
                                 <p class="c-font-thin">
                                     Featuring trending modern web standards.<br/>Clean and easy framework design for worry and hassle free customizations.
                                 </p>
@@ -92,7 +72,7 @@ require_once 'session.php';
                             <div class="c-content-feature-1">
                                 <div class="c-content-line-icon c-theme c-icon-bulb">
                                 </div>
-                                <h3 class="c-font-uppercase c-font-bold">Dedicated Support</h3>
+                                <h3 class="c-font-uppercase c-font-bold">Sostieni l'esame</h3>
                                 <p class="c-font-thin">
                                     Quick response with regular updates.<br/>Each update will include great new features and enhancements for free.
                                 </p>
@@ -111,12 +91,12 @@ require_once 'session.php';
                             <div class="col-md-7">
                                 <div class="c-content-feature-5">
                                     <div class="c-content-title-1">
-                                        <h3 class="c-left c-font-dark c-font-uppercase c-font-bold">Why<br/>JANGO ?</h3>
+                                        <h3 class="c-left c-font-dark c-font-uppercase c-font-bold">Perchè <br/>Sceglierci?</h3>
                                         <div class="c-line-left c-bg-blue-3 c-theme-bg">
                                         </div>
                                     </div>
                                     <div class="c-text">
-                                        JANGO is the ultimate tool to power any of your projects. Corporate, ecommerce, SAAS, CRM and much more.
+                                        Infobasic è un Organismo di Alta Formazione, Accreditato dalla Regione Abruzzo per l’Orientamento, la Formazione Superiore e Continua.
                                     </div>
                                     <button type="submit" class="btn c-btn-uppercase btn-md c-btn-bold c-btn-square c-theme-btn">Explore</button>
                                     <img class="c-photo img-responsive" width="420" alt="" src="assets/base/img/content/misc/jango-intro-2.jpg"/>
@@ -129,7 +109,7 @@ require_once 'session.php';
                                             <div class="panel-heading" role="tab" id="headingOne">
                                                 <h4 class="panel-title">
                                                     <a class="c-font-bold c-font-uppercase c-font-19" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        Exceptional Frontend Framework </a>
+                                                        Qualifica professionale </a>
                                                 </h4>
                                             </div>
                                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -142,7 +122,7 @@ require_once 'session.php';
                                             <div class="panel-heading" role="tab" id="headingTwo">
                                                 <h4 class="panel-title">
                                                     <a class="collapsed c-font-uppercase c-font-bold c-font-19" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        Modern Design Trends </a>
+                                                        ATTESTATO DI FREQUENZA </a>
                                                 </h4>
                                             </div>
                                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
@@ -155,7 +135,7 @@ require_once 'session.php';
                                             <div class="panel-heading" role="tab" id="headingThree">
                                                 <h4 class="panel-title">
                                                     <a class="collapsed c-font-uppercase c-font-bold c-font-19" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        Beatifully Crafted Code </a>
+                                                        Certificazioni </a>
                                                 </h4>
                                             </div>
                                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
@@ -173,13 +153,13 @@ require_once 'session.php';
             </div>
             <!-- END: CONTENT/MISC/WHY-CHOOSE-US-1 -->
             <!-- BEGIN: CONTENT/TABS/TAB-1 -->
-            <div class="c-content-box c-size-md c-no-bottom-padding c-overflow-hide">
+            <a name="esamiecertificazioni"><div class="c-content-box c-size-md c-no-bottom-padding c-overflow-hide"></a>
                 <div class="c-container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="c-content-title-1">
                                 <h3 class="c-font-34 c-font-center c-font-bold c-font-uppercase c-margin-b-30">
-                                    JANGO'S Main Features </h3>
+                                    ESAMI E CERTIFICAZIONI </h3>
                                 <div class="c-line-center c-theme-bg">
                                 </div>
                             </div>
@@ -191,24 +171,24 @@ require_once 'session.php';
                                 <ul class="nav c-tab-icon-stack c-font-sbold c-font-uppercase">
                                     <li class="active">
                                         <a href="#c-tab2-opt1-1" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-25"></span>
-                                            <span class="c-title">Design</span>
+                                            <span class="" ><img src="img/icon-ecdl-grey.png" style="padding: 10px;"/></span>
+                                            <span class="c-title">Ecdl</span>
                                         </a>
                                         <div class="c-arrow">
                                         </div>
                                     </li>
                                     <li>
                                         <a href="#c-tab2-opt1-2" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-19"></span>
-                                            <span class="c-title">Responsive</span>
+                                            <span class=""><img src="img/icon-adobe-grey.png" style="padding: 10px;"/></span>
+                                            <span class="c-title">Adobe</span>
                                         </a>
                                         <div class="c-arrow">
                                         </div>
                                     </li>
                                     <li>
                                         <a href="#c-tab2-opt1-3" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-14"></span>
-                                            <span class="c-title">Support</span>
+                                            <span class=""><img src="img/icon-mos-grey.png" style="padding: 10px;"/></span>
+                                            <span class="c-title">Mos</span>
                                         </a>
                                         <div class="c-arrow">
                                         </div>
@@ -216,7 +196,7 @@ require_once 'session.php';
                                     <li>
                                         <a href="#c-tab2-opt1-4" data-toggle="tab">
                                             <span class="c-content-line-icon c-icon-20"></span>
-                                            <span class="c-title">Flexible</span>
+                                            <span class="c-title">Trinity</span>
                                         </a>
                                         <div class="c-arrow">
                                         </div>
@@ -224,7 +204,40 @@ require_once 'session.php';
                                     <li>
                                         <a href="#c-tab2-opt1-5" data-toggle="tab">
                                             <span class="c-content-line-icon c-icon-33"></span>
-                                            <span class="c-title">Structured</span>
+                                            <span class="c-title">PersonVue</span>
+                                        </a>
+                                        <div class="c-arrow">
+                                        </div>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="#c-tab2-opt1-6" data-toggle="tab">
+                                            <span class="c-content-line-icon c-icon-33"></span>
+                                            <span class="c-title">Php MySql</span>
+                                        </a>
+                                        <div class="c-arrow">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="#c-tab2-opt1-7" data-toggle="tab">
+                                            <span class="c-content-line-icon c-icon-32"></span>
+                                            <span class="c-title">Autodesk</span>
+                                        </a>
+                                        <div class="c-arrow">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="#c-tab2-opt1-8" data-toggle="tab">
+                                            <span class="c-content-line-icon c-icon-19"></span>
+                                            <span class="c-title">Oracle</span>
+                                        </a>
+                                        <div class="c-arrow">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="#c-tab2-opt1-9" data-toggle="tab">
+                                            <span class="c-content-line-icon c-icon-35"></span>
+                                            <span class="c-title">Microsoft</span>
                                         </a>
                                         <div class="c-arrow">
                                         </div>
@@ -236,46 +249,46 @@ require_once 'session.php';
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="c-tab2-opt1-1">
                                                     <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="assets/base/img/content/stock2/3.jpg" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Modern Design Trends</h4>
+                                                        <img class="img-responsive" src="img/ecdl.png" alt=""/>
+                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Esame ECDL</h4>
                                                         <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
                                                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat exerci tation suscipit lobortis nisl ut laoreet dolore magna aliquam ut aliquip ex ea commodo consequat.
                                                         </p>
-                                                        <button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                            EXPLORE </button>
+                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
+                                                                PRENOTA </button></a>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="c-tab2-opt1-2">
                                                     <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="assets/base/img/content/stock2/04.jpg" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Optimzied For All Screen Sizes & Types</h4>
+                                                        <img class="img-responsive" src="img/adobe.png" alt=""/>
+                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Certificazione Adobe</h4>
                                                         <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
                                                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat.
                                                         </p>
-                                                        <button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                            EXPLORE </button>
+                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
+                                                                PRENOTA </button></a>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="c-tab2-opt1-3">
                                                     <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="assets/base/img/content/stock2/5.jpg" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Dedicated Support To All Customers</h4>
+                                                        <img class="img-responsive" src="img/mos.png" alt=""/>
+                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Esame Mos</h4>
                                                         <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
                                                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit enim ad minim veniam lobortis nisl ut aliquip ex ea commodo consequat exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat.
                                                         </p>
-                                                        <button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                            EXPLORE </button>
+                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
+                                                                PRENOTA </button></a>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="c-tab2-opt1-4">
                                                     <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="assets/base/img/content/stock2/06.jpg" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Coded By Developers For Developers</h4>
+                                                        <img class="img-responsive" src="img/trinity.png" alt=""/>
+                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Esame Trinity</h4>
                                                         <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
                                                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut enim ad minim veniam laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat.
                                                         </p>
-                                                        <button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                            EXPLORE </button>
+                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
+                                                                PRENOTA </button></a>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="c-tab2-opt1-5">
@@ -285,8 +298,41 @@ require_once 'session.php';
                                                         <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
                                                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
                                                         </p>
-                                                        <button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                            EXPLORE </button>
+                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
+                                                                PRENOTA </button></a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="c-tab2-opt1-6">
+                                                    <div class="c-tab-pane">
+                                                        <img class="img-responsive" src="img/phponmysql.png" alt=""/>
+                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">PhponMySql</h4>
+                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
+                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
+                                                        </p>
+                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
+                                                                PRENOTA </button></a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="c-tab2-opt1-7">
+                                                    <div class="c-tab-pane">
+                                                        <img class="img-responsive" src="img/autodesk.png" alt=""/>
+                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Certificazione Autodesk</h4>
+                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
+                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
+                                                        </p>
+                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
+                                                                PRENOTA </button></a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="c-tab2-opt1-8">
+                                                    <div class="c-tab-pane">
+                                                        <img class="img-responsive" src="img/autodesk.png" alt=""/>
+                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Certificazione Oracle</h4>
+                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
+                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
+                                                        </p>
+                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
+                                                                PRENOTA </button></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -308,7 +354,7 @@ require_once 'session.php';
                                 <div class="c-content-label c-font-uppercase c-font-bold c-theme-bg">
                                     Blog
                                 </div>
-                                <a href="#" class="c-title c-font-uppercase c-font-bold c-theme-on-hover">Take the web by storm with JANGO</a>
+                                <a href="#" class="c-title c-font-uppercase c-font-bold c-theme-on-hover">Gli strumenti del perfetto designer</a>
                                 <p>
                                     Lorem ipsum dolor sit amet, coectetuer adipiscing elit sed diam nonummy et nibh euismod aliquam erat volutpat
                                 </p>
@@ -326,12 +372,12 @@ require_once 'session.php';
                                 <div class="c-content-label c-font-uppercase c-font-bold c-theme-bg">
                                     News
                                 </div>
-                                <a href="#" class="c-title c-font-uppercase c-font-bold c-theme-on-hover">The Multi-purpose HTML5 Theme</a>
+                                <a href="#" class="c-title c-font-uppercase c-font-bold c-theme-on-hover">Realtà aumentata, la nuova frontiera della pubblicità</a>
                                 <p>
                                     Lorem ipsum dolor sit amet, coectetuer diam nonummy adipiscing elit sit amet, sit amet, coectetuer adipiscing elit adipiscing consectetuer
                                 </p>
                                 <div class="c-date">
-                                    27 Jan 2015
+                                    19 Dicembre 2016
                                 </div>
                             </div>
                         </div>
@@ -340,7 +386,7 @@ require_once 'session.php';
                                 <div class="c-wrapper">
                                     <div class="c-body c-center">
                                         <h3 class="c-font-25 c-line-height-34 c-font-white c-font-uppercase c-font-bold">
-                                            Nothing is impossible for JANGO. Highly Flexible, always growing</h3>
+                                            SEI UN TIPO DESIDEROSO DI AFFERMARTI? SCEGLI IL MASTER CHE FA PER TE.</h3>
                                     </div>
                                 </div>
                             </div>
@@ -401,7 +447,7 @@ require_once 'session.php';
                                     <div class="item">
                                         <div class="c-content-testimonial-2" style="min-height: 360px;">
                                             <div class="c-testimonial c-font-bold c-font-uppercase">
-                                                JANGO the best HTML theme I've purchased in months!
+                                                Infobasic the best HTML theme I've purchased in months!
                                             </div>
                                             <div class="c-author">
                                                 <div class="c-portrait" style="background-image: url(assets/base/img/content/team/team13.jpg)">
@@ -440,17 +486,7 @@ require_once 'session.php';
             </div>
             <!-- END: CONTENT/MISC/LATEST-ITEMS-1 -->
             <!-- BEGIN: CONTENT/BARS/BAR-5 -->
-            <div class="c-content-box c-size-md c-bg-parallax" style="background-image: url(assets/base/img/content/backgrounds/bg-13.jpg)">
-                <div class="container">
-                    <div class="c-content-bar-4">
-                        <h3 class="c-font-uppercase c-font-bold">Clean HTML & CSS<br/>JANGO is Launch Ready</h3>
-                        <div class="c-actions">
-                            <a href="#" class="btn btn-md c-btn-border-2x c-btn-square c-btn-white c-btn-uppercase c-btn-bold c-margin-b-100">Learn More</a>
-                            <a href="#" class="btn btn-md c-theme-btn c-btn-square c-btn-uppercase c-btn-bold c-theme-btn c-margin-b-100 hide">Purchase</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <!-- END: CONTENT/BARS/BAR-5 -->
             <!-- BEGIN: CONTENT/MISC/SUBSCRIBE-FORM-1 -->
             <div class="c-content-box c-size-sm c-bg-dark">
@@ -458,7 +494,7 @@ require_once 'session.php';
                     <div class="c-content-subscribe-form-1">
                         <div class="row">
                             <div class="col-sm-6">
-                                <h3 class="c-title c-font-30 c-font-uppercase c-font-bold">Subscribe to our newsletter</h3>
+                                <h3 class="c-title c-font-30 c-font-uppercase c-font-bold">Iscriviti alla nostra newsletter</h3>
                                 <div class="c-body c-font-16 c-font-uppercase c-font-sbold">
                                     Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh euismod
                                 </div>
@@ -468,7 +504,7 @@ require_once 'session.php';
                                     <div class="input-group input-group-lg">
                                         <input type="text" class="form-control input-lg" placeholder="Your Email Here">
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn c-theme-btn c-btn-uppercase btn-lg c-btn-bold c-btn-square">SUBSCRIBE</button>
+                                            <button type="submit" class="btn c-theme-btn c-btn-uppercase btn-lg c-btn-bold c-btn-square">ISCRIVITI</button>
                                         </span>
                                     </div>
                                 </form>
@@ -477,137 +513,9 @@ require_once 'session.php';
                     </div>
                 </div>
             </div>
-            <!-- END: CONTENT/MISC/SUBSCRIBE-FORM-1 -->
-            <!-- BEGIN: CONTENT/PRODUCTS/PRODUCT-1 -->
-            <div class="c-content-box c-size-md c-bg-white c-no-bottom-padding">
-                <div class="container">
-                    <div class="c-content-product-1 c-opt-1">
-                        <div class="c-content-title-1">
-                            <h3 class="c-center c-font-uppercase c-font-bold">Learn More About JANGO</h3>
-                            <div class="c-line-center">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="c-media">
-                                    <img src="assets/base/img/content/misc/jango-intro-3.png" alt=""/>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="c-body">
-                                    <ul class="c-row">
-                                        <li>
-                                            <h4>Code Quality</h4>
-                                            <p>
-                                                Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh euismod
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <h4>Angular JS Support</h4>
-                                            <p>
-                                                Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh euismod
-                                            </p>
-                                        </li>
-                                    </ul>
-                                    <ul class="c-row">
-                                        <li>
-                                            <h4>Every Growing Unique Layouts</h4>
-                                            <p>
-                                                Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh euismod
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <h4>Fully Mobile Optimized</h4>
-                                            <p>
-                                                Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh euismod
-                                            </p>
-                                        </li>
-                                    </ul>
-                                    <button type="button" class="btn btn-md c-btn-border-2x c-btn-square c-btn-regular c-btn-uppercase c-btn-bold c-margin-b-100">Learn More</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END: CONTENT/PRODUCTS/PRODUCT-1 -->
-            <!-- BEGIN: CONTENT/PRICING/PRICING-1 -->
-            <div class="c-content-box c-size-md c-bg-grey-1">
-                <div class="container">
-                    <div class="c-content-pricing-1">
-                        <div class="c-content-title-1">
-                            <h3 class="c-center c-font-uppercase c-font-bold">Purchase a Package</h3>
-                            <div class="c-line-center">
-                            </div>
-                        </div>
-                        <div class="c-tile-container">
-                            <div class="c-tile c-tile-small">
-                                <div class="c-label c-theme-bg">
-                                    Standard
-                                </div>
-                                <p class="c-price">
-                                    59<sup>$</sup>
-                                </p>
-                                <p class="c-font-uppercase">
-                                    1000 Copies
-                                </p>
-                                <p class="c-font-uppercase">
-                                    Unlimited Data
-                                </p>
-                                <p class="c-font-uppercase">
-                                    Unlimited Users
-                                </p>
-                                <p class="c-font-uppercase">
-                                    For 7 days
-                                </p>
-                                <button type="button" class="btn btn-md c-btn-square c-btn-border-2x c-btn-regular c-btn-uppercase c-btn-bold">Purchase</button>
-                            </div>
-                            <div class="c-tile">
-                                <div class="c-label c-theme-bg">
-                                    Business
-                                </div>
-                                <p class="c-price">
-                                    99<sup>$</sup>
-                                </p>
-                                <p class="c-font-uppercase">
-                                    10,000 Copies
-                                </p>
-                                <p class="c-font-uppercase">
-                                    Unlimited Data
-                                </p>
-                                <p class="c-font-uppercase">
-                                    Unlimited Users
-                                </p>
-                                <p class="c-font-uppercase">
-                                    For 30 days
-                                </p>
-                                <button type="button" class="btn btn-md c-btn-square c-btn-border-2x c-btn-regular c-btn-uppercase c-btn-bold">Purchase</button>
-                            </div>
-                            <div class="c-tile c-tile-small">
-                                <div class="c-label c-theme-bg">
-                                    Expert
-                                </div>
-                                <p class="c-price">
-                                    199<sup>$</sup>
-                                </p>
-                                <p class="c-font-uppercase">
-                                    Unlimited Copies
-                                </p>
-                                <p class="c-font-uppercase">
-                                    Unlimited Data
-                                </p>
-                                <p class="c-font-uppercase">
-                                    Unlimited Users
-                                </p>
-                                <p class="c-font-uppercase">
-                                    For 1 Year
-                                </p>
-                                <button type="button" class="btn btn-md c-btn-square c-btn-border-2x c-btn-regular c-btn-uppercase c-btn-bold">Purchase</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+            
+            
             <!-- END: CONTENT/PRICING/PRICING-1 -->
             <!-- BEGIN: CONTENT/SLIDERS/CLIENT-LOGOS-2 -->
             <div class="c-content-box c-size-md c-bg-white">
@@ -616,7 +524,7 @@ require_once 'session.php';
                     <div class="c-content-client-logos-slider-1 c-bordered" data-slider="owl" data-items="6" data-desktop-items="4" data-desktop-small-items="3" data-tablet-items="3" data-mobile-small-items="2" data-auto-play="5000">
                         <!-- Begin: Title 1 component -->
                         <div class="c-content-title-1">
-                            <h3 class="c-center c-font-uppercase c-font-bold">Happy Customers</h3>
+                            <h3 class="c-center c-font-uppercase c-font-bold">Aziende associate</h3>
                             <div class="c-line-center c-theme-bg">
                             </div>
                         </div>

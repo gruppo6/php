@@ -1,5 +1,5 @@
 <?php
-require_once "config.php";
+include("config.php");
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->        
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-            <div class="c-content-box c-size-md c-bg-grey">
+            <div class="c-content-box c-size-md" style="background-image:url(img/accedi.jpg); background-size: cover;">
                 <div class="container">
                     <form action = "" method = "post" class="form-signin">
                         <div class="c-shop-login-register-1">
