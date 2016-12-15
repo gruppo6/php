@@ -1,6 +1,11 @@
 <?php 
 require_once 'session.php';
 
+// se non sono collegato non può accedere e torna alla pagina di login
+if(!isset($_SESSION['idUtente'])){
+    header("Location: pagina-login.php");
+}
+
 //setto la pagina attiva
 if (isset($_SERVER['REQUEST_URI'])){
     $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);

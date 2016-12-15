@@ -36,7 +36,7 @@ if ($esito) {    // Se è andato tutto bene torno alla lista dei certificazione
 }
 
 function eseguiInsert($idUtente, $idEsame) {
-    $iscrizione = new Iscrizione(0, $idUtente, $idEsame, 0, 0, 0, 100);
+    $iscrizione = new Iscrizione(0, $idUtente, $idEsame, 0, 0, 0, 30);
     return $iscrizione->insert();
 }
 

@@ -7,8 +7,8 @@ var PageContact2 = function() {
 
 		var mapbg = GMaps.createPanorama({
 			el: '#gmapbg',
-			lat: 2.921318,
-			lng: 101.6559349,
+			lat: 42.457941, 
+			lng: 14.221565,
 			scrollwheel: false
 		});
 	}

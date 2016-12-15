@@ -7,30 +7,27 @@
                 <div class="c-brand c-pull-left">
                     <a href="index.php" class="c-logo">
                         <img src="img/logo-infobasic.png" alt="Infobasic" class="c-desktop-logo">
-                        <img src="assets/base/img/logo.png" alt="Infobasic" class="c-desktop-logo-inverse">
-                        <img src="assets/base/img/logo.png" alt="Infobasic" class="c-mobile-logo">
+                        <img src="img/logo-infobasic.png" alt="Infobasic" class="c-desktop-logo-inverse">
+                        <img src="img/logo-infobasic.png" alt="Infobasic" class="c-mobile-logo">
                     </a>
                     <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
                         <span class="c-line"></span>
                         <span class="c-line"></span>
                         <span class="c-line"></span>
                     </button>
-                    <button class="c-search-toggler" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
                 </div>
                 <!-- END: BRAND -->
                 <!-- BEGIN: HOR NAV -->
                 <!-- BEGIN: LAYOUT/HEADERS/MEGA-MENU -->
                 <!-- BEGIN: MEGA MENU -->
-                <nav class="c-mega-menu c-pull-right c-mega-menu-dark c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
+                <nav class="c-mega-menu c-pull-right c-mega-menu-dark c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold" data-onepage-animation-speed="700">
                     <!-- BEGIN: MEGA MENU -->
                     <ul class="nav navbar-nav c-theme-nav">
                         <li class="c-active c-menu-type-classic">
                             <a href="index.php" class="c-link dropdown-toggle">Home</a>
                         </li>
-                        <li class="c-menu-type-classic">
-                            <a href="#esamiecertificazioni" class="c-link dropdown-toggle">Esami e Certificazioni</a>
+                        <li class="c-onepage-link">
+                            <a href="#esamiecertificazioni" class="c-link">Esami e Certificazioni</a>
                         </li>
                         <li class="c-menu-type-classic">
                             <a href="pagina-contatti.php" class="c-link dropdown-toggle">Contatti</a>
@@ -45,9 +42,16 @@
                         <?php } ?>
                         <?php if (isset($login_session)) { ?>
                             <li class="c-menu-type-classic">
-                                <a href="backend.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-star"></i> Cruscotto</a>
+                                <a href="backend.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold">
+                                    <i class="icon-user"></i> Cruscotto
+                                </a>
                             </li>
-                        <?php } ?> 
+                            <li class="c-menu-type-classic">
+                                <a href="pagina-logout.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold">
+                                    <i class="icon-logout"></i> Disconnetti
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
                     <!-- END MEGA MENU -->
                 </nav>

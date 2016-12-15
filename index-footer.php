@@ -218,4 +218,9 @@
     });
 </script>
 <!-- END: THEME SCRIPTS -->
+<!-- BEGIN: PAGE SCRIPTS -->
+<script src="//maps.google.com/maps/api/js?sensor=true&key=AIzaSyDdB_Lrf8POPetrPl8jzGGzuihz1ynmPRw" type="text/javascript"></script>
+<script src="assets/plugins/gmaps/gmaps.js" type="text/javascript"></script>
+<script src="assets/base/js/scripts/pages/contact-2.js" type="text/javascript"></script>
+<!-- END: PAGE SCRIPTS -->
 <!-- END: LAYOUT/BASE/BOTTOM -->
