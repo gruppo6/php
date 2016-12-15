@@ -1,6 +1,12 @@
 <?php 
 require_once 'session.php';
 require_once 'Utente.php'; 
+
+//setto la pagina attiva
+if (isset($_SERVER['REQUEST_URI'])){
+    $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
@@ -62,7 +68,10 @@ require_once 'Utente.php';
                                             <table class="table table-striped table-bordered table-hover dt-responsive dataTable no-footer dtr-inline collapsed" width="100%" id="sample_1" role="grid" aria-describedby="sample_1_info" style="width: 100%;">
                                                 <thead>
                                                     <tr role="row">
-                                                        <th class="all sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 47px;" aria-sort="ascending" aria-label="Nome: activate to sort column descending">
+                                                        <th class="all sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 47px;" aria-sort="ascending" aria-label="Logo: activate to sort column descending">
+                                                            Avatar
+                                                        </th>
+                                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 47px;" aria-sort="ascending" aria-label="Nome: activate to sort column descending">
                                                             Nome
                                                         </th>
                                                         <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Cognome: activate to sort column ascending">
@@ -86,7 +95,13 @@ require_once 'Utente.php';
                                                         } elseif ($utente->getAmministratore() == 0) {
                                                             $adminIcon = "<span class='label label-sm label-warning'> Utente Semplice </span>";
                                                         }
+                                                        if ($utente->getLogo() != NULL) {
+                                                            $userAvatar = "<img class='img-circle' style='height:50px;' src='img/utente/". $utente->getLogo() ."' />";
+                                                        } elseif ($utente->getLogo() == NULL) {
+                                                            $userAvatar = "<img class='img-circle' style='height:50px;' src='assets/pages/media/profile/profile_user.jpg' />";
+                                                        }
                                                         echo "<tr role='row' class='" . (($id % 2 == 0) ? 'even' : 'odd') . "'>";
+                                                        echo "<td align='center' tabindex='0' class='sorting_1'>" . $userAvatar . "</td>";
                                                         echo "<td tabindex='0' class='sorting_1'>" . $utente->getNome() . "</td>";
                                                         echo "<td>" . $utente->getCognome() . "</td>";
                                                         echo "<td>" . $adminIcon . "</td>";

@@ -1,6 +1,9 @@
 <?php
 
-require_once "Certificazione.php";
+require_once "session.php";
+require_once "Helpers.php";
+require_once "Esame.php";
+require_once "Iscrizione.php";
 
 if (!isset($_GET["action"])) {
     die("Errore! Nessuna azione specificata.");
@@ -22,20 +25,22 @@ switch ($action) {
         die("Errore! Azione non prevista.");
 }
 
-if ($esito) {    // Se è andato tutto bene torno alla lista dei certificazione
-    header("Location: backend.php");
-} else {    // Altrimenti mostro un messaggio di errore
-    die("Attenzione! Errore nel database.");
+if ($esito === false) {
+    $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
+    header("Location: backend-esame.php?q=all");
+} else {
+    $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', '')";
+    header("Location: backend-esame.php?q=all");
 }
 
 function eseguiInsert() {
     validaForm();
     extract($_POST);    // Creo $_POST
     /*
-    private $id;
-    private $id_certificazione;
-    private $data;
-    
+      private $id;
+      private $id_certificazione;
+      private $data;
+
      */
     $esame = new Esame($id, $id_certificazione, $data);
     return $esame->insert();
@@ -49,7 +54,7 @@ function eseguiUpdate() {
 }
 
 function eseguiDelete() {
-    if( !isset($_GET["id"]) || !is_numeric($_GET["id"]) || $_GET["id"] < 1 ) {
+    if (!isset($_GET["id"]) || !is_numeric($_GET["id"]) || $_GET["id"] < 1) {
         die("Errore! Id mancante o non valido");
     }
     $esame = new Esame($_GET["id"]);

@@ -3,7 +3,7 @@
 class Database {
 
     private static $dbName = 'corsi';
-    private static $dbHost = 'localhost';
+    private static $dbHost = 'localhost:3306';
     private static $dbUsername = 'root';
     private static $dbUserPassword = '';
     private static $cont = null;

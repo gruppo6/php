@@ -1,5 +1,10 @@
 <?php 
 require_once 'session.php';
+
+//setto la pagina attiva
+if (isset($_SERVER['REQUEST_URI'])){
+    $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
@@ -8,7 +13,9 @@ require_once 'session.php';
 <html lang="it">
     <!--<![endif]-->
     <?php include 'backend-head.php' ?>
-    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo" >
+    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo"
+          <?php if (!empty($_SESSION['messaggio'])): ?>onload="<?php echo $_SESSION['messaggio']; $_SESSION['messaggio'] = NULL; ?>"<?php endif; ?>
+          >
         <?php include 'backend-header.php' ?>
         <!-- BEGIN CONTAINER -->
         <div class="page-container">

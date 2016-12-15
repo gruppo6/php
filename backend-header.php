@@ -384,7 +384,10 @@ $messaggiNuovi = 99;
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <span class="username username-hide-on-mobile"> <?php echo $login_session; ?> </span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                            <img alt="" class="img-circle" src="assets/pages/media/profile/profile_user.jpg" /> </a>
+                            <?php
+                            echo!empty($_SESSION['logo']) ? "<img class='img-circle' src='img/utente/" . $_SESSION['logo']. "' />" :
+                                    "<img src='assets/pages/media/profile/profile_user.jpg' class='img-circle' alt''>";
+                            ?> </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
                                 <a href="backend-utente-form.php?action=update&id=<?php echo $_SESSION['idUtente'] ; ?>">
