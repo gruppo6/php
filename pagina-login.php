@@ -1,24 +1,25 @@
 <?php
-require_once("config.php");
+require_once "Helpers.php";
+require_once "Utente.php";
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // username and password sent from form 
-    $myusername = mysqli_real_escape_string($db, $_POST['username']);
-    $mypassword = mysqli_real_escape_string($db, md5($_POST['password']));
+if (!empty($_POST)) {
     $check = "";
-    $sql = "SELECT id, amministratore FROM utenti "
-            . "WHERE username = '$myusername' and password = '$mypassword'";
-    $result = mysqli_query($db, $sql);
-    $count = mysqli_num_rows($result);
-
-    // If result matched $myusername and $mypassword, table row must be 1 row
-    if ($count == 1) {
+    $myusername = $_POST['username'];
+    $mypassword = $_POST['password'];
+    $utente = new Utente(0);
+    $esito = $utente->login($myusername, $mypassword);
+    if ($esito == true) {
         $_SESSION['login_user'] = $myusername; //salvo in sessione la username
-        $check = 'Bentornato!';
+        
+        $login_session = $utente->getUsername();
+        $_SESSION['amministratore'] = $utente->getAmministratore();
+        $_SESSION['logo'] = $utente->getLogo();
+        $_SESSION['idUtente'] = $utente->getId();
+        $_SESSION['username'] = $utente->getUsername();
         header("location: index.php");
     } else {
-        $check = '<p>Errore Password o Login errata</p>';
+        $check = 'Errore! Password o Login errata...';
     }
 }
 ?>
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->        
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-            <div class="c-content-box c-size-md" style="background-image:url(img/accedi.jpg); background-size: cover;">
+            <div class="c-content-box c-size-md c-bg-grey">
                 <div class="container">
                     <form action = "" method = "post" class="form-signin">
                         <div class="c-shop-login-register-1">
@@ -44,26 +45,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="col-md-6">
                                     <div class="panel panel-default c-panel">
                                         <div class="panel-body c-panel-body">
+                                            <?php if (!empty($check)): ?>
+                                                <div class="alert alert-danger" role="alert"><?php echo $check; ?></div>
+                                            <?php endif; ?>
                                             <div class="form-item form-type-textfield form-item-name">
                                                 <div class = "form-group has-feedback <?php echo!empty($check) ? 'has-error' : ''; ?>">
                                                     <input placeholder="Username" type="text" class="form-control c-square c-theme input-lg required" id="edit-name" name="username" value="" size="60" maxlength="60" />
                                                     <span class="glyphicon glyphicon-user form-control-feedback c-font-grey"></span>
-                                                    <?php if (!empty($check)): ?>
-                                                        <span class="help-block"><?php echo $check; ?></span>
-                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                             <div class="form-item form-type-password form-item-pass">
                                                 <div class = "form-group has-feedback <?php echo!empty($check) ? 'has-error' : ''; ?>">
                                                     <input placeholder="Password" type="password" id="edit-pass" name="password" value="" size="60" maxlength="128" class="form-control c-square c-theme input-lg required" />
-                                                    <span class="glyphicon glyphicon-lock form-control-feedback c-font-grey"></span>
-                                                    <?php if (!empty($check)): ?>
-                                                        <span class="help-block"><?php echo $check; ?></span>
-                                                    <?php endif; ?>
+                                                    <span class="glyphicon glyphicon-lock form-control-feedback c-font-grey"></span> 
                                                 </div>
                                             </div>
                                             <div class="form-actions form-wrapper" id="edit-actions">
-                                                <input class="btn-medium btn btn-mod form-submit btn c-btn c-btn-square c-theme-btn c-font-bold c-font-uppercase c-font-white" type="submit" id="edit-submit" name="op" value="Log in" />
+                                                <input class="btn-medium btn btn-mod form-submit btn c-btn c-btn-square c-theme-btn c-font-bold c-font-uppercase c-font-white" type="submit" name="submit" value="Accedi" />
                                             </div>    
                                         </div>
                                     </div>
@@ -91,15 +89,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php include 'index-footer.php'; ?>
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

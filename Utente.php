@@ -73,7 +73,6 @@ class Utente {
         $this->logo = $logo;
     }
 
-    
     function __construct($id, $nome = "", $cognome = "", $username = "", $password = "", $amministratore = "", $logo = "") {
         $this->id = $id;
         $this->nome = $nome;
@@ -115,7 +114,7 @@ class Utente {
                 . " WHERE id = $this->id";
         return Helpers::executeCommand($sql);
     }
-    
+
     /**
      * Cancella una certificazione dal database
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
@@ -165,11 +164,29 @@ class Utente {
             return false;
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
-            $c = new Utente($row["id"], $row["nome"], $row["cognome"], $row["username"], 
-                    $row["password"], $row["amministratore"], $row["logo"]);
+            $c = new Utente($row["id"], $row["nome"], $row["cognome"], $row["username"], $row["password"], $row["amministratore"], $row["logo"]);
             $list[] = $c;
         }
         mysqli_close($link);
         return $list;
     }
+
+    /**
+     * Esegue il login al portale
+     */
+    public static function login($myusername, $mypassword) {
+        $sql = "SELECT * FROM utenti WHERE username = '$myusername' and password = '" . md5($mypassword) . "'";
+        $link = Helpers::openConnection();
+        $result = mysqli_query($link, $sql);
+        if (!$result)
+            return false;
+        $list = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $c = new Utente($row["id"], $row["nome"], $row["cognome"], $row["username"], $row["password"], $row["amministratore"], $row["logo"]);
+            $list[] = $c;
+        }
+        mysqli_close($link);
+        return $list;
+    }
+
 }

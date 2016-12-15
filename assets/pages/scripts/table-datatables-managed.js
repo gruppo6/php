@@ -13,12 +13,12 @@ var TableDatatablesManaged = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
+                "emptyTable": "Nessun dato disponibile",
                 "info": "Showing _START_ to _END_ of _TOTAL_ records",
                 "infoEmpty": "No records found",
                 "infoFiltered": "(filtered1 from _MAX_ total records)",
                 "lengthMenu": "Show _MENU_",
-                "search": "Search:",
+                "search": "Cerca:",
                 "zeroRecords": "No matching records found",
                 "paginate": {
                     "previous":"Prev",
@@ -100,12 +100,12 @@ var TableDatatablesManaged = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
+                "emptyTable": "Nessun dato disponibile",
                 "info": "Showing _START_ to _END_ of _TOTAL_ records",
                 "infoEmpty": "No records found",
                 "infoFiltered": "(filtered1 from _MAX_ total records)",
                 "lengthMenu": "Show _MENU_",
-                "search": "Search:",
+                "search": "Cerca:",
                 "zeroRecords": "No matching records found",
                 "paginate": {
                     "previous":"Prev",
@@ -211,12 +211,12 @@ var TableDatatablesManaged = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
+                "emptyTable": "Nessun dato disponibile",
                 "info": "Showing _START_ to _END_ of _TOTAL_ records",
                 "infoEmpty": "No records found",
                 "infoFiltered": "(filtered1 from _MAX_ total records)",
                 "lengthMenu": "Show _MENU_",
-                "search": "Search:",
+                "search": "Cerca:",
                 "zeroRecords": "No matching records found",
                 "paginate": {
                     "previous":"Prev",
@@ -280,12 +280,12 @@ var TableDatatablesManaged = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
+                "emptyTable": "Nessun dato disponibile",
                 "info": "Showing _START_ to _END_ of _TOTAL_ records",
                 "infoEmpty": "No records found",
                 "infoFiltered": "(filtered1 from _MAX_ total records)",
                 "lengthMenu": "Show _MENU_",
-                "search": "Search:",
+                "search": "Cerca:",
                 "zeroRecords": "No matching records found",
                 "paginate": {
                     "previous":"Prev",
@@ -348,12 +348,12 @@ var TableDatatablesManaged = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
+                "emptyTable": "Nessun dato disponibile",
                 "info": "Showing _START_ to _END_ of _TOTAL_ records",
                 "infoEmpty": "No records found",
                 "infoFiltered": "(filtered1 from _MAX_ total records)",
                 "lengthMenu": "Show _MENU_",
-                "search": "Search:",
+                "search": "Cerca:",
                 "zeroRecords": "No matching records found",
                 "paginate": {
                     "previous":"Prev",
@@ -417,12 +417,12 @@ var TableDatatablesManaged = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
+                "emptyTable": "Nessun dato disponibile",
                 "info": "Showing _START_ to _END_ of _TOTAL_ records",
                 "infoEmpty": "No records found",
                 "infoFiltered": "(filtered1 from _MAX_ total records)",
                 "lengthMenu": "Show _MENU_",
-                "search": "Search:",
+                "search": "Cerca:",
                 "zeroRecords": "No matching records found",
                 "paginate": {
                     "previous":"Prev",

@@ -170,8 +170,8 @@ var TableDatatablesAjax = function () {
                 "language": {
                     "loadingRecords": "Please wait ...",
                     "zeroRecords": "No records",
-                    "emptyTable": "No data available in table",
-                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "emptyTable": "Nessun dato disponibile",
+                    "info": "Mostro da _START_ a _END_ di _TOTAL_ records totali",
                 },
 
                 scrollY: 400,

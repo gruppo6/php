@@ -24,13 +24,13 @@
                     <!-- BEGIN: MEGA MENU -->
                     <ul class="nav navbar-nav c-theme-nav">
                         <li class="c-active c-menu-type-classic">
-                            <a href="index.php" class="c-link dropdown-toggle">Home</a>
+                            <a href="index.php" class="c-link ">Home</a>
                         </li>
                         <li class="c-onepage-link">
                             <a href="#esamiecertificazioni" class="c-link">Esami e Certificazioni</a>
                         </li>
                         <li class="c-menu-type-classic">
-                            <a href="pagina-contatti.php" class="c-link dropdown-toggle">Contatti</a>
+                            <a href="pagina-contatti.php" class="c-link ">Contatti</a>
                         </li>
                         <?php if (!isset($login_session)) { ?>
                             <li class="c-menu-type-classic">

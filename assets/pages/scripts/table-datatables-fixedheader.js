@@ -22,12 +22,12 @@ var TableDatatablesFixedHeader = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
+                "emptyTable": "Nessun dato disponibile",
+                "info": "Mostro da _START_ a _END_ di _TOTAL_ records totali",
+                "infoEmpty": "Nessun record trovato",
                 "infoFiltered": "(filtered1 from _MAX_ total entries)",
                 "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
+                "search": "Cerca:",
                 "zeroRecords": "No matching records found"
             },
 
@@ -82,12 +82,12 @@ var TableDatatablesFixedHeader = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
+                "emptyTable": "Nessun dato disponibile",
+                "info": "Mostro da _START_ a _END_ di _TOTAL_ records totali",
+                "infoEmpty": "Nessun record trovato",
                 "infoFiltered": "(filtered1 from _MAX_ total entries)",
                 "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
+                "search": "Cerca:",
                 "zeroRecords": "No matching records found"
             },
 
