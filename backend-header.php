@@ -385,8 +385,7 @@ $messaggiNuovi = 99;
                             <span class="username username-hide-on-mobile"> <?php echo $login_session; ?> </span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                             <?php
-                            $logo = $_SESSION['logo'];
-                            echo!empty($logo) ? "<img class='img-circle' src='img/utente/$logo' />" :
+                            echo!empty($_SESSION['logo']) ? "<img class='img-circle' src='img/utente/" . $_SESSION['logo']. "' />" :
                                     "<img src='assets/pages/media/profile/profile_user.jpg' class='img-circle' alt''>";
                             ?> </a>
                         <ul class="dropdown-menu dropdown-menu-default">

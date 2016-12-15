@@ -29,24 +29,13 @@ switch ($action) {
 
 if ($esito) {    // Se è andato tutto bene torno alla lista dei certificazione
     $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Iscrizione salvata correttamente.')";
-    header("Location: backend-esame.php?q=todo");
+    header("Location: backend-esame-form.php?action=update&id=" . $_POST["id_esame"] . "");
 } else {    // Altrimenti mostro un messaggio di errore
     $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
     header("Location: backend-esame.php");
 }
 
 function eseguiInsert($idUtente, $idEsame) {
-    //validaForm();
-    //extract($_POST);    // Creo da $_POST
-    /*
-    private $id;
-    private $id_utente;
-    private $id_esame;
-    private $pagato;
-    private $sostenuto;
-    private $voto;
-    private $voto_massimo;
-     */
     $iscrizione = new Iscrizione(0, $idUtente, $idEsame, 0, 0, 0, 100);
     return $iscrizione->insert();
 }

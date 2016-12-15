@@ -230,7 +230,8 @@ class Esame {
                 " AS t1 LEFT JOIN iscrizioni AS t2 ON t1.id = t2.id_esame " .
                 " WHERE t1.data > NOW() AND t1.id NOT IN(SELECT t3.id FROM esami " .
                 " AS t3 INNER JOIN iscrizioni AS t4 ON t3.id = t4.id_esame " . 
-                " WHERE t4.id_utente = '$idUtente')";
+                " WHERE t4.id_utente = '$idUtente') " .
+                " GROUP BY t1.id, t1.id_certificazione, t1.nome, t1.descrizione, t1.data ";
         $link = Helpers::openConnection();
         $result = mysqli_query($link, $sql);
         if (!$result) {
