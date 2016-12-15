@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4 col-sm-6">
+                                    <a href="calendario-ecdl.php"><div class="col-md-4 col-sm-6">
 						<div class="c-content-feature-2" data-height="height">
 							<div class="c-icon-wrapper">
 								<div class="c-content-line-icon c-theme c-icon-screen-chart">
@@ -30,7 +30,7 @@
 								Lorem ipsum consectetuer dolore elit diam
 							</p>
 						</div>
-					</div>
+                                        </div></a>
 					<div class="col-md-4 col-sm-6">
 						<div class="c-content-feature-2" data-height="height">
 							<div class="c-icon-wrapper">

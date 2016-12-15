@@ -33,7 +33,7 @@
                 <div class="col-md-3">
                     <div class="c-container">
                         <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">Latest Posts</h3>
+                            <h3 class="c-font-uppercase c-font-bold c-font-white">Ultimi Post</h3>
                             <div class="c-line-left hide">
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                 <div class="col-md-3">
                     <div class="c-container">
                         <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">Latest Works</h3>
+                            <h3 class="c-font-uppercase c-font-bold c-font-white">Ultimi lavori</h3>
                             <div class="c-line-left hide">
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                 <div class="col-md-3">
                     <div class="c-container c-last">
                         <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">Find us</h3>
+                            <h3 class="c-font-uppercase c-font-bold c-font-white">Seguici su</h3>
                             <div class="c-line-left hide">
                             </div>
                             <p>
@@ -133,13 +133,13 @@
                         </ul>
                         <ul class="c-address">
                             <li>
-                                <i class="icon-pointer c-theme-font"></i> One Boulevard, Beverly Hills
+                                <i class="icon-pointer c-theme-font"></i> Via Silvio Spaventa, 62 Pescara - 65127
                             </li>
                             <li>
                                 <i class="icon-call-end c-theme-font"></i> +1800 1234 5678
                             </li>
                             <li>
-                                <i class="icon-envelope c-theme-font"></i> email@example.com
+                                <i class="icon-envelope c-theme-font"></i> infobasic@example.com
                             </li>
                         </ul>
                     </div>
@@ -150,7 +150,7 @@
     <div class="c-postfooter">
         <div class="container">
             <p class="c-font-oswald c-font-14">
-                Copyright &copy; JANGO Inc.
+                Copyright &copy; INFOBASIC | Tutti i diritti riservati.
             </p>
         </div>
     </div>

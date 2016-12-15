@@ -70,6 +70,8 @@ if (!empty($_POST)) {
 ?>
 <!DOCTYPE html>
 <html lang="it_IT" dir="ltr">
+    
+    
     <?php include 'index-head.php';?>
     <body class="c-layout-header-fixed">
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
@@ -77,8 +79,10 @@ if (!empty($_POST)) {
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->        
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-            <div class="c-content-box c-size-md c-bg-grey">
+            <div class="c-content-box c-size-md c-bg-img-center" style="background-image:url(img/accedi.jpg); background-size: cover;">
+                
                 <div class="container">
+                  
                     <form action="pagina-registrazione-utente.php" method="post" enctype="multipart/form-data">
                         <div class="c-shop-login-register-1">
                             <div class="c-content-title-1">

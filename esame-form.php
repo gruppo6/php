@@ -37,14 +37,14 @@ if ($action == "update") {
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     </head>
     
-        <?php include 'frontend-head.php';?>
+        <?php include 'index-head.php';?>
     
     
-    <?php include 'frontend-header.php';?>
+    <?php include 'index-header.php';?>
     
     <div class="c-content-box c-size-md c-no-padding c-bg-white">
 		<div class="c-content-feature-4">
-			<div class="c-bg-parallax c-feature-bg c-content-right c-arrow c-border-left-white" style="background-image: url(assets/base/img/content/backgrounds/bg-21.jpg)">
+			<div class="c-bg-parallax c-feature-bg c-content-right c-arrow c-border-left-white" style="background-image: url(img/banner.png)">
 			</div>
 			<div class="c-content-area c-content-left">
 			</div>
@@ -111,6 +111,6 @@ if ($action == "update") {
         <?php include 'calendario.php';?>
         
         
-         <?php include 'frontend-footer.php';?>
+         <?php include 'index-footer.php';?>
     </body>
 </html>

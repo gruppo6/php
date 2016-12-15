@@ -3,10 +3,13 @@ include('session.php');
 ?>
 <!DOCTYPE html>
 <html lang="it_IT" dir="ltr">
-    <?php include 'frontend-head.php'; ?>
+    <head>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <?php include 'index-head.php'; ?>
     <body class="c-layout-header-fixed">
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
-        <?php include 'frontend-header.php'; ?>
+        <?php include 'index-header.php'; ?>
         <div class="c-layout-page">
             <div class="c-layout-page">
                 <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-3 -->
@@ -120,6 +123,11 @@ include('session.php');
             <!-- END: CONTENT/CONTACT/FEEDBACK-1 -->
             <!-- END: PAGE CONTENT -->
         </div>
-        <?php include 'frontend-footer.php'; ?>
+        
+        <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        
+        <?php include 'index-footer.php';?>
+        
     </body>
 </html>
