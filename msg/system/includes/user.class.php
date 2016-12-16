@@ -73,7 +73,7 @@ class user {
     $user_query = $db->query('
       SELECT *
       FROM `'.USERS_TABLE.'`
-      WHERE `login` = "'.$login.'" AND
+      WHERE `username` = "'.$login.'" AND
             `password` = "'.md5($password).'"
     ');  
     
@@ -114,14 +114,14 @@ class user {
     $match = $db->query('
       SELECT id
       FROM `'.USERS_TABLE.'`
-      WHERE `login` = "'.$login.'"
+      WHERE `username` = "'.$login.'"
     ')->num_rows;
 
     if ($match) return "login_exists";
     
     if ($db->query('
       INSERT INTO `'.USERS_TABLE.'`
-      SET `login` = "'.$login.'",
+      SET `username` = "'.$login.'",
           `password` = "'. md5($password) .'",
           `level` = "'. ($level == "administrator" ? "administrator" : "member") .'",
           `registered` = NOW(),

@@ -140,9 +140,7 @@ require_once 'session.php';
                 </li>
                 <li class="nav-item  
                 <?php
-                if (($_SESSION['activePage'] === "backend-messaggi-form.php?action=insert") OR
-                ($_SESSION['activePage'] === "backend-messaggi.php") 
-                ) :
+                if ($_SESSION['activePage'] === "backend-messaggistica.php") :
                 ?>active open<?php endif; ?>">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-emoticon-smile"></i>
@@ -150,14 +148,8 @@ require_once 'session.php';
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item <?php if ($_SESSION['activePage'] === "backend-messaggi-form.php?action=insert"): ?>active open<?php endif; ?> ">
-                            <a href="backend-messaggi-form.php?action=insert" class="nav-link ">
-                                <i class="icon-plus"></i>
-                                <span class="title">Nuovo Messaggio</span>
-                            </a>
-                        </li>
-                        <li class="nav-item <?php if ($_SESSION['activePage'] === "backend-messaggi.php"): ?>active open<?php endif; ?> ">
-                            <a href="backend-messaggi.php" class="nav-link ">
+                        <li class="nav-item <?php if ($_SESSION['activePage'] === "backend-messaggistica.php"): ?>active open<?php endif; ?> ">
+                            <a href="backend-messaggistica.php" class="nav-link ">
                                 <i class="icon-list"></i>
                                 <span class="title">Visualizza Tutti</span>
                             </a>

@@ -236,7 +236,7 @@ function ac_users_list($data) {
   global $db, $settings, $user;
   $return = array();
 
-  $users_query = $db->query('
+  $users_q = $db->query('
     SELECT user.*, session.activity AS last_activity, session.logout_time
     FROM `'.SESSIONS_TABLE.'` AS session
     JOIN `'.USERS_TABLE.'` AS user ON session.user_id = user.id
@@ -247,7 +247,7 @@ function ac_users_list($data) {
     ORDER BY session.id
   ');
 
-  while ($row = $users_query->fetch_object()):
+  while ($row = $users_q->fetch_object()):
     if (strtotime($row->last_activity) > (time() - $settings->delay_for_offline) AND !$row->logout_time)
       $online[] = array(
         "id" => $row->id,
@@ -266,13 +266,13 @@ function ac_users_list($data) {
   } else $return["online"]["todo"] = "nothing";
 
   //////////////////////////////////////////////////////ú
-  $users_query = $db->query('
+  $users_q = $db->query('
     SELECT login
     FROM `'.USERS_TABLE.'`
     WHERE `id` != "'.$user->user_id.'"
   ');
 
-  while ($row = $users_query->fetch_object()):
+  while ($row = $users_q->fetch_object()):
     $typeahead[] = $row->login;
   endwhile;
 

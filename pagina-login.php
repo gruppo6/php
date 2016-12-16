@@ -9,6 +9,7 @@ if (!empty($_POST)) {
     $mypassword = $_POST['password'];
     $utente = new Utente(0);
     $esito = $utente->login($myusername, $mypassword);
+    
     if ($esito == true) {
         $_SESSION['login_user'] = $myusername; //salvo in sessione la username
         

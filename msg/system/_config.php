@@ -8,7 +8,7 @@
   define("DB_CHARSET",  "utf8");
 
   define("SESSIONS_TABLE",      DB_PREFIX . "sessioni");
-  define("USERS_TABLE",         DB_PREFIX . "utenti");
+  define("USERS_TABLE",         "utenti");
   define("USERS_PROFILE_TABLE", DB_PREFIX . "utenti_profili");
   define("ROOMS_TABLE",         DB_PREFIX . "stanze");
   define("MESSAGES_TABLE",      DB_PREFIX . "messaggi");
@@ -16,9 +16,10 @@
 
   define("DEBUG",               false);
   define("STORAGE_DIR",         ABSPATH . "/msg/storage");
-  define("AVATARS_DIR",         ABSPATH . "/../msg/avatars");
-  define("AVATARS_DIR_OUTSIDE", "./msg/avatars");
-  define("DEFAULT_AVATAR",      "./msg/img/default-avatar.png");
+  define("AVATARS_DIR",         "/img/utente");
+  define("AVATARS_DIR_OUTSIDE", "/img/utente");
+  //define("DEFAULT_AVATAR",      "./msg/img/default-avatar.png");
+  define("DEFAULT_AVATAR",      "assets/pages/media/profile/profile_user.jpg");
 
   if(!$settings = json_decode( file_get_contents(ABSPATH . "/_settings.json") )) die("Error in _settings.json");
   $settings->profile_items = @json_decode("{" . $settings->profile_items_enc . "}");

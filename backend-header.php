@@ -3,7 +3,6 @@
 require_once 'session.php';
 require_once 'connessione_db.php';
 require_once 'Esame.php';
-require_once 'Messaggio.php';
 
 $esamiPrenotati = count(Esame::selectPrenotati($_SESSION['idUtente']));
 $esamiSostenuti = count(Esame::selectFatti($_SESSION['idUtente']));
