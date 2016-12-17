@@ -35,7 +35,7 @@ function ac_register($data) {
   if (!preg_match("/^[a-z,0-9]{3,15}+$/", $login)) return array("status" => 0, "alert" => __g("login_contain"));
   if ($password != $password_repeat) return array("status" => 0, "alert" => __g("passwords_not_match"));
 
-  $status = $user->register($login, $password, "member");
+  $status = $user->register($login, $password, 0);
 
   if ($status == "ok") {
       $user->login($login, $password, true);
@@ -324,11 +324,11 @@ function ac_user_card($data) {
     }
   endwhile;
 
-  if ($user->amministratore == 1) $relationship = "administrator";
+  if ($user->amministratore == 1) $relationship = 1;
   elseif ($user->user_id == $user_id) $relationship = "me";
   else $relationship = false;
 
-  if ($relationship == "administrator" || $relationship == "me")
+  if ($relationship == 1 || $relationship == "me")
     $informations = array(
       __g("banned")     => $user_data->ban ? "Yes" : "No",
       __g("last_login") => ($user_data->last_login ? date($settings->datetime_format, strtotime($user_data->last_login)) : "Never"),
@@ -356,12 +356,12 @@ function ac_pms_start_conversation ($data) {
   global $db, $user, $settings;
 
   $login = $data["login"] ? $db->real_escape_string($data["login"]) : false;
-  if (!$login or $login == $user->login) return array("status" => "unknown_user");
+  if (!$login or $login == $user->username) return array("status" => "unknown_user");
 
   $pms_user = $db->query('
     SELECT user.*
     FROM `'. USERS_TABLE .'` AS user
-    WHERE `login` = "'. $login .'"
+    WHERE `username` = "'. $login .'"
     LIMIT 1
   ');
 
@@ -519,7 +519,7 @@ $actions["pms_send_message"] = array("yes", false, "enabled_pms", "ac_pms_send_m
 function ac_delete_message($data) {
   global $db, $user;
 
-  if ($user->amministratore == "administrator" && is_numeric($data["msg_id"])) {
+  if ($user->amministratore == 1 && is_numeric($data["msg_id"])) {
     $db->query('
       DELETE FROM `'.MESSAGES_TABLE.'`
       WHERE `id` = "'.$data["msg_id"].'"
@@ -528,7 +528,7 @@ function ac_delete_message($data) {
   }
 }
 
-$actions["delete_message"] = array("yes", "administrator", false, "ac_delete_message");
+$actions["delete_message"] = array("yes", 1, false, "ac_delete_message");
 
 function ac_change_password($data) {
   global $user;
@@ -554,7 +554,7 @@ function ac_user_card_start_edit($data) {
   global $db, $user, $settings;
   $user_id = is_numeric($data["user_id"]) ? $data["user_id"] : false;
 
-  if ( ($user->amministratore != "administrator" && $user_id != $user->user_id) || !$user_id ) return false;
+  if ( ($user->amministratore != 1 && $user_id != $user->user_id) || !$user_id ) return false;
 
   $the_user = $db->query('
     SELECT id, status, ban
@@ -600,7 +600,7 @@ function ac_user_card_save($data) {
   $delete_avatar = $data["delete_avatar"] ? true : false;
   $ban = $data["ban"] ? true : false;
 
-  if ( ($user->amministratore != "administrator" && $user_id != $user->user_id) || !$user_id ) return false;
+  if ( ($user->amministratore != 1 && $user_id != $user->user_id) || !$user_id ) return false;
 
   $the_user = $db->query('
     SELECT id
@@ -646,7 +646,7 @@ function ac_settings_start_edit($data) {
   return $settings;
 }
 
-$actions["settings_start_edit"] = array("yes", "administrator", false, "ac_settings_start_edit");
+$actions["settings_start_edit"] = array("yes", 1, false, "ac_settings_start_edit");
 
 function ac_settings_save($data) {
   global $settings;
@@ -672,7 +672,7 @@ function ac_settings_save($data) {
 
 }
 
-$actions["settings_save"] = array("yes", "administrator", false, "ac_settings_save");
+$actions["settings_save"] = array("yes", 1, false, "ac_settings_save");
 
 function ac_add_user($data) {
   global $user;
@@ -683,7 +683,7 @@ function ac_add_user($data) {
 
   if (!$login or !$password) return array("status" => 0, "alert" => __g("check_empty_fields"));
   if (!preg_match("/^[a-z,0-9]{3,15}+$/", $login)) return array("status" => 0, "alert" => __g("login_contain"));
-  if ($level != "administrator" && $level != "member") return array("status" => 0, "alert" => __g("unknown_level"));
+  if ($level != 1 && $level != 0) return array("status" => 0, "alert" => __g("unknown_level"));
 
   $status = $user->register($login, $password, $level);
 
@@ -697,7 +697,7 @@ function ac_add_user($data) {
 
 }
 
-$actions["add_user"] = array("yes", "administrator", false, "ac_add_user");
+$actions["add_user"] = array("yes", 1, false, "ac_add_user");
 
 function ac_manage_users($data) {
   global $db, $user;
@@ -719,8 +719,8 @@ function ac_manage_users($data) {
   while ($item = $users->fetch_object()):
     $result["users"][] = array(
       "id" => $item->id,
-      "login" => $item->login,
-      "level" => ($item->level == "administrator" ? __g("administrator") : __g("member")),
+      "login" => $item->username,
+      "level" => ($item->amministratore == 1 ? __g(1) : __g(0)),
       "ban" => ($item->ban ? __g("yes") : __g("no"))
     );
   endwhile;
@@ -731,7 +731,7 @@ function ac_manage_users($data) {
   return $result;
 }
 
-$actions["manage_users"] = array("yes", "administrator", false, "ac_manage_users");
+$actions["manage_users"] = array("yes", 1, false, "ac_manage_users");
 
 function ac_delete_user($data) {
   global $db;
@@ -745,7 +745,7 @@ function ac_delete_user($data) {
   ');
 }
 
-$actions["delete_user"] = array("yes", "administrator", false, "ac_delete_user");
+$actions["delete_user"] = array("yes", 1, false, "ac_delete_user");
 
 function ac_edit_users($data) {
   global $db;
@@ -769,7 +769,7 @@ function ac_edit_users($data) {
   );
 }
 
-$actions["edit_user"] = array("yes", "administrator", false, "ac_edit_users");
+$actions["edit_user"] = array("yes", 1, false, "ac_edit_users");
 
 function ac_save_edits($data) {
   global $db, $user;
@@ -777,15 +777,15 @@ function ac_save_edits($data) {
   $user_id = is_numeric($data["user_id"]) ? $data["user_id"] : false;
   $login = ($data["login"] ? $data["login"] : false);
   $password = ($data["password"] ? $data["password"] : false);
-  $level = ($data["level"] == "administrator" ? "administrator" : "member");
+  $level = ($data["level"] == 1 ? 1 : 0);
 
   if (!$user_id || !$login) return array("status" => "0", "alert" => __g("check_empty_fields"));
   if (!preg_match("/^[a-z,0-9]{3,15}+$/", $login)) return array("status" => 0, "alert" => __g("login_contain"));
 
   if ($db->query('
     UPDATE `'.USERS_TABLE.'`
-    SET `login` = "'. $login .'",
-        `level` = "'. $level .'"
+    SET `username` = "'. $login .'",
+        `amministratore` = "'. $level .'"
         '.( $password ? ',`password` = "'.md5($password).'"' : '' ).'
     WHERE `id` = "'. $user_id .'"
   '))
@@ -794,7 +794,7 @@ function ac_save_edits($data) {
       return array("status" => 0, "alert" => __g("internal_error"));
 }
 
-$actions["save_edits"] = array("yes", "administrator", false, "ac_save_edits");
+$actions["save_edits"] = array("yes", 1, false, "ac_save_edits");
 
 function ac_add_room($data) {
   global $db;
@@ -806,7 +806,7 @@ function ac_add_room($data) {
   ');
 }
 
-$actions["add_room"] = array("yes", "administrator", false, "ac_add_room");
+$actions["add_room"] = array("yes", 1, false, "ac_add_room");
 
 function ac_get_rooms($data) {
   global $db;
@@ -827,7 +827,7 @@ function ac_get_rooms($data) {
   return $result;
 }
 
-$actions["get_rooms"] = array("yes", "administrator", false, "ac_get_rooms");
+$actions["get_rooms"] = array("yes", 1, false, "ac_get_rooms");
 
 function ac_room_change_name($data) {
   global $db;
@@ -841,7 +841,7 @@ function ac_room_change_name($data) {
   ');
 }
 
-$actions["room_change_name"] = array("yes", "administrator", false, "ac_room_change_name");
+$actions["room_change_name"] = array("yes", 1, false, "ac_room_change_name");
 
 function ac_room_delete($data) {
   global $db;
@@ -853,7 +853,7 @@ function ac_room_delete($data) {
   ');
 }
 
-$actions["room_delete"] = array("yes", "administrator", false, "ac_room_delete");
+$actions["room_delete"] = array("yes", 1, false, "ac_room_delete");
 
 function ac_pms_to_open($data) {
   global $db, $user;
@@ -870,7 +870,7 @@ function ac_pms_to_open($data) {
 
   while ($item = $to_open->fetch_object()):
 
-      $result[] = $item->login;
+      $result[] = $item->username;
   endwhile;
 
   return $result;

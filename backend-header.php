@@ -190,7 +190,7 @@ $messaggiNuovi = 99;
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <i class="icon-envelope-open"></i>
+                            <i class="fa fa-whatsapp"></i>
                             <?php if ($messaggiNuovi != 0): ?>
                             <span class="badge badge-danger"> <?php echo $messaggiNuovi; ?> </span>
                             <?php endif; ?>
@@ -397,8 +397,8 @@ $messaggiNuovi = 99;
                                     <i class="icon-calendar"></i> Calendario </a>
                             </li>
                             <li>
-                                <a href="app_inbox.html">
-                                    <i class="icon-envelope-open"></i> Il Mio Inbox
+                                <a href="backend-messaggistica.php">
+                                    <i class="fa fa-whatsapp"></i> Il Mio Inbox
                                     <span class="badge badge-danger"> 3 </span>
                                 </a>
                             </li>
