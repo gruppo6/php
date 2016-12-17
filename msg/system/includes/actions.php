@@ -139,7 +139,7 @@ function ac_update_room($data) {
   if (!$todo || !is_numeric($room_id)) return array("status" => "error");
 
   $sql = '
-    SELECT message.id AS id, user.id AS user_id, user.login AS login, user.avatar AS avatar, message.text AS text, message.time AS time, attachment.id AS attachment_id, attachment.name AS attachment_name
+    SELECT message.id AS id, user.id AS user_id, user.username AS login, user.logo AS avatar, message.text AS text, message.time AS time, attachment.id AS attachment_id, attachment.name AS attachment_name
     FROM `'.MESSAGES_TABLE.'` AS message
     JOIN `'.USERS_TABLE.'` AS user ON message.from_id = user.id
     LEFT JOIN `'.ATTACHMENTS_TABLE.'` AS attachment ON attachment.id = message.attachment_id
@@ -251,8 +251,8 @@ function ac_users_list($data) {
     if (strtotime($row->last_activity) > (time() - $settings->delay_for_offline) AND !$row->logout_time)
       $online[] = array(
         "id" => $row->id,
-        "login" => $row->login,
-        "avatar" => $row->avatar ? AVATARS_DIR_OUTSIDE . "/" . $row->avatar : DEFAULT_AVATAR
+        "login" => $row->username,
+        "avatar" => $row->logo ? AVATARS_DIR_OUTSIDE . "/" . $row->logo : DEFAULT_AVATAR
       );
   endwhile;
 
@@ -267,13 +267,13 @@ function ac_users_list($data) {
 
   //////////////////////////////////////////////////////ú
   $users_q = $db->query('
-    SELECT login
+    SELECT username
     FROM `'.USERS_TABLE.'`
     WHERE `id` != "'.$user->user_id.'"
   ');
 
   while ($row = $users_q->fetch_object()):
-    $typeahead[] = $row->login;
+    $typeahead[] = $row->username;
   endwhile;
 
   $new_typeahead_checksum = sha1(json_encode($typeahead));
@@ -324,7 +324,7 @@ function ac_user_card($data) {
     }
   endwhile;
 
-  if ($user->level == "administrator") $relationship = "administrator";
+  if ($user->amministratore == 1) $relationship = "administrator";
   elseif ($user->user_id == $user_id) $relationship = "me";
   else $relationship = false;
 
@@ -342,9 +342,9 @@ function ac_user_card($data) {
     "status" => $user_data->status,
     "user_id" => $user_id,
     "state" => (strtotime($user_data->last_activity) > (time() - $settings->delay_for_offline)) ? "online" : "offline",
-    "ban" => ($user->level == "administrator" ? $user_data->ban : false),
-    "login" => $user_data->login,
-    "avatar" => $user_data->avatar ? AVATARS_DIR_OUTSIDE . "/" . $user_data->avatar : DEFAULT_AVATAR,
+    "ban" => ($user->amministratore == 1 ? $user_data->ban : false),
+    "login" => $user_data->username,
+    "avatar" => $user_data->logo ? AVATARS_DIR_OUTSIDE . "/" . $user_data->logo : DEFAULT_AVATAR,
     "profile" => $profile,
     "informations" => $informations
   );
@@ -371,7 +371,7 @@ function ac_pms_start_conversation ($data) {
   return array(
     "status" => "ok",
     "user_id" => $pms_user->id,
-    "login" => $pms_user->login,
+    "login" => $pms_user->username,
   );
 }
 
@@ -421,7 +421,7 @@ function ac_pms_get_messages($data) {
     $result["state"] = ((strtotime($online_check->activity) > (time() - $settings->delay_for_offline) and !$online_check->logout_time) ? "online" : "offline");
 
     $sql = '
-      SELECT message.id AS id, user.id AS user_id, user.login AS login, user.avatar AS avatar, message.text AS text, message.time AS time, message.seen AS seen, attachment.id AS attachment_id, attachment.name AS attachment_name
+      SELECT message.id AS id, user.id AS user_id, user.username AS login, user.logo AS avatar, message.text AS text, message.time AS time, message.seen AS seen, attachment.id AS attachment_id, attachment.name AS attachment_name
       FROM `'.MESSAGES_TABLE.'` AS message
       JOIN `'.USERS_TABLE.'` AS user ON message.from_id = user.id
       LEFT JOIN `'.ATTACHMENTS_TABLE.'` AS attachment ON attachment.id = message.attachment_id
@@ -519,7 +519,7 @@ $actions["pms_send_message"] = array("yes", false, "enabled_pms", "ac_pms_send_m
 function ac_delete_message($data) {
   global $db, $user;
 
-  if ($user->level == "administrator" && is_numeric($data["msg_id"])) {
+  if ($user->amministratore == "administrator" && is_numeric($data["msg_id"])) {
     $db->query('
       DELETE FROM `'.MESSAGES_TABLE.'`
       WHERE `id` = "'.$data["msg_id"].'"
@@ -554,7 +554,7 @@ function ac_user_card_start_edit($data) {
   global $db, $user, $settings;
   $user_id = is_numeric($data["user_id"]) ? $data["user_id"] : false;
 
-  if ( ($user->level != "administrator" && $user_id != $user->user_id) || !$user_id ) return false;
+  if ( ($user->amministratore != "administrator" && $user_id != $user->user_id) || !$user_id ) return false;
 
   $the_user = $db->query('
     SELECT id, status, ban
@@ -600,7 +600,7 @@ function ac_user_card_save($data) {
   $delete_avatar = $data["delete_avatar"] ? true : false;
   $ban = $data["ban"] ? true : false;
 
-  if ( ($user->level != "administrator" && $user_id != $user->user_id) || !$user_id ) return false;
+  if ( ($user->amministratore != "administrator" && $user_id != $user->user_id) || !$user_id ) return false;
 
   $the_user = $db->query('
     SELECT id
@@ -859,7 +859,7 @@ function ac_pms_to_open($data) {
   global $db, $user;
 
   $to_open = $db->query('
-    SELECT user.login, user.id
+    SELECT user.username, user.id
     FROM `'.MESSAGES_TABLE.'` AS msg
     JOIN `'.USERS_TABLE.'` AS user ON user.id = msg.from_id
     WHERE msg.`type` = "private" AND

@@ -29,7 +29,12 @@ switch ($action) {
 
 if ($esito) {    // Se è andato tutto bene torno alla lista dei certificazione
     $_SESSION['messaggio'] = "notifySuccess('Operazione Completata', 'Iscrizione salvata correttamente.')";
-    header("Location: backend-esame-form.php?action=update&id=" . $_POST["id_esame"] . "");
+    if (($_SESSION['amministratore'] == 0)) {
+        header("Location: backend-esame.php?q=todo");
+    } else {
+        header("Location: backend-esame-form.php?action=update&id=" . $_POST["id_esame"] . "");
+    }
+    
 } else {    // Altrimenti mostro un messaggio di errore
     $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
     header("Location: backend-esame.php");

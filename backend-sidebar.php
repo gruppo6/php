@@ -217,21 +217,18 @@ require_once 'session.php';
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item  ">
+                <li class="nav-item <?php
+                if ($_SESSION['activePage'] === "backend-messaggistica.php")
+                :
+                ?>active open<?php endif; ?> ">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-emoticon-smile"></i>
                         <span class="title">Messaggistica</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item  ">
-                            <a href="elements_steps.html" class="nav-link ">
-                                <i class="icon-plus"></i>
-                                <span class="title">Nuovo Messaggio</span>
-                            </a>
-                        </li>
-                        <li class="nav-item  ">
-                            <a href="elements_lists.html" class="nav-link ">
+                        <li class="nav-item <?php if ($_SESSION['activePage'] === "backend-messaggistica.php"): ?>active open<?php endif; ?> ">
+                            <a href="backend-messaggistica.php" class="nav-link ">
                                 <i class="icon-list"></i>
                                 <span class="title">Visualizza Tutti</span>
                             </a>

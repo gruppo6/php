@@ -16,8 +16,8 @@
 
   define("DEBUG",               false);
   define("STORAGE_DIR",         ABSPATH . "/msg/storage");
-  define("AVATARS_DIR",         "/img/utente");
-  define("AVATARS_DIR_OUTSIDE", "/img/utente");
+  define("AVATARS_DIR",         "img/utente");
+  define("AVATARS_DIR_OUTSIDE", "img/utente");
   //define("DEFAULT_AVATAR",      "./msg/img/default-avatar.png");
   define("DEFAULT_AVATAR",      "assets/pages/media/profile/profile_user.jpg");
 

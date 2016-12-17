@@ -64,14 +64,14 @@ if ($action == "update") {
             <input type="text" name="id_esame" id="id_esame" value="<?php echo $id_esame; ?>" class="form-control">
         </div>
         <div class="form-group">
-            <label for="pagato">Pagato:</label>
+            <label for="pagato">Esame Pagato:</label>
             <select class="form-control" name="pagato">
                 <option <?php if ($pagato): ?>selected<?php endif; ?> value="1">Esame Pagato</option>
                 <option <?php if (!$pagato): ?>selected<?php endif; ?> value="0">Esame non pagato</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="sostenuto">Sostenuto:</label>
+            <label for="sostenuto">Esame Sostenuto:</label>
             <select class="form-control" name="sostenuto">
                 <option <?php if ($sostenuto): ?>selected<?php endif; ?> value="1">Esame Sostenuto</option>
                 <option <?php if (!$sostenuto): ?>selected<?php endif; ?> value="0">Esame non sostenuto</option>
@@ -81,7 +81,7 @@ if ($action == "update") {
             <label for="voto">Voto:</label>
             <input required type="number" min="0" max="100" name="voto" id="voto" value="<?php echo $voto; ?>" class="form-control">
         </div>
-        <div class="form-group">
+        <div class="form-group hide">
             <label for="voto_massimo">voto_massimo:</label>
             <input required type="number" min="0" max="100" name="voto_massimo" id="voto_massimo" value="<?php echo $voto_massimo; ?>" class="form-control">
         </div>
