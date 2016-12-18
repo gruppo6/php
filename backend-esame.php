@@ -1,6 +1,7 @@
 <?php
 require_once 'session.php';
 require_once 'Esame.php';
+require_once 'Iscrizione.php';
 
 //setto la pagina attiva
 if (isset($_SERVER['REQUEST_URI'])) {
@@ -94,6 +95,18 @@ if ($query != "todo" && $query != "done" && $query != "all" && $query != "book")
                                                             Data
                                                         </th>
                                                         <?php
+                                                        if (($_SESSION['amministratore'] == 0) && ($query == "done")) { // visualizzo voto e pagamento
+                                                            echo "
+                                                        <th class='sorting' tabindex='0' aria-controls='sample_1' rowspan='1' colspan='1' style='width: 34px;' aria-label='Risultato: activate to sort column ascending'>
+                                                            Risultato
+                                                        </th> ";
+                                                            echo "
+                                                        <th class='sorting' tabindex='0' aria-controls='sample_1' rowspan='1' colspan='1' style='width: 34px;' aria-label='Stato Pagamento: activate to sort column ascending'>
+                                                            Stato Pagamento
+                                                        </th> ";
+                                                        }
+                                                        ?>
+                                                        <?php
                                                         if (($_SESSION['amministratore'] == 0) && ($query == "book")) {
                                                             echo "
                                                         <th class='sorting' tabindex='0' aria-controls='sample_1' rowspan='1' colspan='1' style='width: 34px;' aria-label='Azioni: activate to sort column ascending'>
@@ -130,9 +143,10 @@ if ($query != "todo" && $query != "done" && $query != "all" && $query != "book")
                                                             $_SESSION['messaggio'] = "notifyError('Errore', 'Azione imprevista.')";
                                                             header("Location: backend-esame.php?q=all");
                                                     }
-                                                    
+
                                                     foreach ($listaEsami as $esameMio) {
                                                         $id = $esameMio->getId(); // echo $some_var ? 'true': 'false';
+
                                                         echo "<tr role='row' class='" . (($id % 2 == 0) ? 'even' : 'odd') . "'>";
                                                         echo "<td tabindex='0' class='sorting_1'>" . $esameMio->getNome() . "</td>";
                                                         echo "<td>" . $esameMio->getDescrizione() . "</td>";
@@ -188,6 +202,19 @@ if ($query != "todo" && $query != "done" && $query != "all" && $query != "book")
                                                             }
                                                             echo "</ul>
                                                         </div></td>";
+                                                        }
+                                                        if (($_SESSION['amministratore'] == 0) && ($query == "done")) {
+                                                            $iscrizioni = Iscrizione::selectIscrizioniByIdEsame($id);
+
+                                                            foreach ($iscrizioni as $iscrizione) {
+                                                                if ($iscrizione['pagato'] == 1) { // qui verifico e setto il flag pagato
+                                                                    $pagatoIcon = "<span class='label label-sm label-success'> Pagato </span>";
+                                                                } elseif ($iscrizione['pagato'] == 0) {
+                                                                    $pagatoIcon = "<span class='label label-sm label-warning'> Da Pagare </span>";
+                                                                }
+                                                                echo "<td>" . $iscrizione['voto'] . "/" . $iscrizione['voto_massimo'] . "</td>";
+                                                                echo "<td>" . $pagatoIcon . "</td>";
+                                                            }
                                                         }
                                                         echo "</tr>";
                                                     }
