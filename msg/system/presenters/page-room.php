@@ -2,6 +2,7 @@
 require_once 'session.php';
 require_once 'connessione_db.php';
 require_once 'Esame.php';
+require_once 'Messaggistica.php';
 
 //setto la pagina attiva
 if (isset($_SERVER['REQUEST_URI'])){
@@ -11,7 +12,7 @@ if (isset($_SERVER['REQUEST_URI'])){
 $esamiPrenotati = count(Esame::selectPrenotati($_SESSION['idUtente']));
 $esamiSostenuti = count(Esame::selectFatti($_SESSION['idUtente']));
 $esamiDaFare = count(Esame::selectDaFare($_SESSION['idUtente']));
-$messaggiNuovi = 99;
+$messaggiNuovi = count(Messaggistica::selectNonLetti($_SESSION['idUtente']));
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -483,7 +484,7 @@ echo str_replace("'", "\u0027", json_encode($settings));
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                    <ul class="nav" id="list-rooms"></ul>
+                                    <ul class="nav nav-list" id="list-rooms"></ul>
                                 </div>
                             </div>
                         </div>
@@ -594,15 +595,15 @@ echo str_replace("'", "\u0027", json_encode($settings));
 
                 <li data-user-id="{USER_ID}" id="pms_group_tab_prototype">
                     <a href="#" class="noselect">
-                        <i class="icon-ok-sign login-state-icon" style="display: none;" title="<?php __("online"); ?>"></i> 
+                        <i class="fa fa-whatsapp login-state-icon" style="display: none;" title="<?php __("online"); ?>"></i> 
                         {USER_LOGIN} 
                         <i class="icon-remove-sign btn-remove img-rounded"></i>
                     </a>
                 </li>
 
-                <div data-user-id="{USER_ID}" id="pms_tab_prototype" class="tab active">
-                    <a class="btn tab_button noselect" tab-index="−1">
-                        <i class="icon-ok-sign login-state-icon" style="display: none;" title="<?php __("online"); ?>"></i> 
+                <div data-user-id="{USER_ID}" id="pms_tab_prototype" class="tab active portlet green">
+                    <a class="caption-subject bold uppercase btn tab_button noselect" tab-index="−1">
+                        <i class="fa fa-whatsapp login-state-icon" style="display: none;" title="<?php __("online"); ?>"></i> 
                         {USER_LOGIN}
                         <i class="icon-remove-sign btn-remove img-rounded"></i>
                     </a>
@@ -610,13 +611,7 @@ echo str_replace("'", "\u0027", json_encode($settings));
                     <div class="pms_content_box">
                         <ul class="well well-small text_box"></ul>
                         <div class="pms_textarea_wrapper clearfix">
-                            <div class="pms_attached_file_wrapper">
-                                <i class="icon-file"></i> 
-                                <span class="pms_attached_file"></span> 
-                                &nbsp;&nbsp;&nbsp; 
-                                <a href="#"><i class="icon-remove-sign remove_attachment"></i></a>
-                            </div>
-                            <textarea class="pms_textarea standard-input"></textarea>
+                            <textarea placeholder="Scrivi messaggio..." class="pms_textarea standard-input"></textarea>
 
                             <ul class="actions">
                                 <li>
@@ -625,6 +620,7 @@ echo str_replace("'", "\u0027", json_encode($settings));
                                     </a>
                                 </li>
                             </ul>
+                            <div style="clear: both;"></div>
                         </div>
                     </div>
                 </div>

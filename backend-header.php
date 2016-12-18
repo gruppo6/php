@@ -1,13 +1,14 @@
 <?php
-
 require_once 'session.php';
 require_once 'connessione_db.php';
 require_once 'Esame.php';
+require_once 'Messaggistica.php';
+require_once 'Utente.php';
 
 $esamiPrenotati = count(Esame::selectPrenotati($_SESSION['idUtente']));
 $esamiSostenuti = count(Esame::selectFatti($_SESSION['idUtente']));
 $esamiDaFare = count(Esame::selectDaFare($_SESSION['idUtente']));
-$messaggiNuovi = 99;
+$messaggiNuovi = count(Messaggistica::selectNonLetti($_SESSION['idUtente']));
 ?>
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
@@ -192,75 +193,50 @@ $messaggiNuovi = 99;
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="fa fa-whatsapp"></i>
                             <?php if ($messaggiNuovi != 0): ?>
-                            <span class="badge badge-danger"> <?php echo $messaggiNuovi; ?> </span>
+                                <span class="badge badge-danger"> <?php echo $messaggiNuovi; ?> </span>
                             <?php endif; ?>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li class="external">
-                                <h3>You have
-                                    <span class="bold">7 New</span> Messages</h3>
-                                <a href="app_inbox.html">view all</a>
-                            </li>
-                            <li>
-                                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-                                    <li>
-                                        <a href="#">
-                                            <span class="photo">
-                                                <img src="assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
-                                            <span class="subject">
-                                                <span class="from"> Lisa Wong </span>
-                                                <span class="time">Just Now </span>
-                                            </span>
-                                            <span class="message"> Vivamus sed auctor nibh congue nibh. auctor nibh auctor nibh... </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="photo">
-                                                <img src="assets/layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
-                                            <span class="subject">
-                                                <span class="from"> Richard Doe </span>
-                                                <span class="time">16 mins </span>
-                                            </span>
-                                            <span class="message"> Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="photo">
-                                                <img src="assets/layouts/layout3/img/avatar1.jpg" class="img-circle" alt=""> </span>
-                                            <span class="subject">
-                                                <span class="from"> Bob Nilson </span>
-                                                <span class="time">2 hrs </span>
-                                            </span>
-                                            <span class="message"> Vivamus sed nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="photo">
-                                                <img src="assets/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
-                                            <span class="subject">
-                                                <span class="from"> Lisa Wong </span>
-                                                <span class="time">40 mins </span>
-                                            </span>
-                                            <span class="message"> Vivamus sed auctor 40% nibh congue nibh... </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="photo">
-                                                <img src="assets/layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
-                                            <span class="subject">
-                                                <span class="from"> Richard Doe </span>
-                                                <span class="time">46 mins </span>
-                                            </span>
-                                            <span class="message"> Vivamus sed congue nibh auctor nibh congue nibh. auctor nibh auctor nibh... </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <?php if ($messaggiNuovi != 0): ?>
+                            <ul class="dropdown-menu">
+                                <li class="external">
+                                    <h3>
+                                        <span class="bold"><?php echo $messaggiNuovi; ?> nuovi</span> messaggi</h3>
+                                    <a href="backend-messaggistica.php">Visualizza tutti</a>
+                                </li>
+                                <li>
+                                    <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <?php
+                                        $listaMessaggi = Messaggistica::selectNonLetti($_SESSION['idUtente']);
+                                        $i = 1;
+                                        foreach ($listaMessaggi as $messaggio) {
+                                            $id = $messaggio->getId();
+                                            $from = $messaggio->getFrom_id();
+                                            $utente = new Utente(0);
+                                            $utente->setId($from);
+                                            $utente->select();
+                                            if ($utente->getLogo() != NULL) {
+                                                $userAvatar = "<span class='photo'><img class='img-circle' src='img/utente/" . $utente->getLogo() . "' /> </span>";
+                                            } elseif ($utente->getLogo() == NULL) {
+                                                $userAvatar = "<span class='photo'><img class='img-circle' src='assets/pages/media/profile/profile_user.jpg' /> </span>";
+                                            }
+                                            echo "<li>";
+                                            echo "<a href='backend-messaggistica.php'>";
+                                            echo $userAvatar;
+                                            echo "<span class='subject'>";
+                                            echo "<span class='from'>". $utente->getNome() ."</span>";
+                                            echo "<span class='time'>". $messaggio->getTime() ."</span>";
+                                            echo "</span>";
+                                            echo "<span class='message'>". $messaggio->getText() ."</span>";
+                                            echo "</a>";
+                                            echo "</li>";
+                                            
+                                            if ($i++ == 3) break;
+                                        }
+                                        ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        <?php endif; ?>
                     </li>
                     <!-- END INBOX DROPDOWN -->
                     <li class="separator hide"> </li>
@@ -270,7 +246,7 @@ $messaggiNuovi = 99;
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-calendar"></i>
                             <?php if ($esamiDaFare != 0): ?>
-                            <span class="badge badge-primary"> <?php echo $esamiDaFare; ?> </span>
+                                <span class="badge badge-primary"> <?php echo $esamiDaFare; ?> </span>
                             <?php endif; ?>
                         </a>
                         <ul class="dropdown-menu extended tasks">
@@ -384,12 +360,12 @@ $messaggiNuovi = 99;
                             <span class="username username-hide-on-mobile"> <?php echo $login_session; ?> </span>
                             <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                             <?php
-                            echo!empty($_SESSION['logo']) ? "<img class='img-circle' src='img/utente/" . $_SESSION['logo']. "' />" :
+                            echo!empty($_SESSION['logo']) ? "<img class='img-circle' src='img/utente/" . $_SESSION['logo'] . "' />" :
                                     "<img src='assets/pages/media/profile/profile_user.jpg' class='img-circle' alt''>";
                             ?> </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="backend-utente-form.php?action=update&id=<?php echo $_SESSION['idUtente'] ; ?>">
+                                <a href="backend-utente-form.php?action=update&id=<?php echo $_SESSION['idUtente']; ?>">
                                     <i class="icon-user"></i> Il Mio Profilo </a>
                             </li>
                             <li>

@@ -120,7 +120,7 @@ if (isset($_SERVER['REQUEST_URI'])){
                                         <small>NUOVI MESSAGGI</small>
                                     </div>
                                     <div class="icon">
-                                        <i class="icon-envelope"></i>
+                                        <i class="fa fa-whatsapp"></i>
                                     </div>
                                 </div>
                                 <div class="progress-info">

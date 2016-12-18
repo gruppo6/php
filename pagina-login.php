@@ -18,6 +18,7 @@ if (!empty($_POST)) {
         $_SESSION['logo'] = $utente->getLogo();
         $_SESSION['idUtente'] = $utente->getId();
         $_SESSION['username'] = $utente->getUsername();
+        $_SESSION['password'] = $mypassword;
         header("location: index.php");
     } else {
         $check = 'Errore! Password o Login errata...';

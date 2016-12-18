@@ -1,8 +1,10 @@
 <?php
 require_once 'session.php';
 
+define('ABSPATH', dirname(__FILE__) . "/msg/system");
+
 //setto la pagina attiva
-if (isset($_SERVER['REQUEST_URI'])){
+if (isset($_SERVER['REQUEST_URI'])) {
     $_SESSION['activePage'] = "backend-messaggistica.php";
 }
 ?>
@@ -88,7 +90,7 @@ if (isset($_SERVER['REQUEST_URI'])){
         </script>
         <!-- END MSG -->
     </head>
-    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
+    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo"> 
         <?php include 'backend-header.php' ?>
         <!-- BEGIN CONTAINER -->
         <div class="page-container">
@@ -97,23 +99,68 @@ if (isset($_SERVER['REQUEST_URI'])){
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
+                    <!-- BEGIN PAGE HEAD-->
+                    <div class="page-head">
+                        <!-- BEGIN PAGE TITLE -->
+                        <div class="page-title">
+                            <h1>Conferma il profilo
+                            </h1>
+                        </div>
+                        <!-- END PAGE TITLE -->
+                    </div>
+                    <!-- END PAGE HEAD-->
+                    <!-- BEGIN PAGE BREADCRUMB -->
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <a href="backend.php">Home</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span class="active">Messaggistica</span>
+                        </li>
+                    </ul>
+                    <!-- END PAGE BREADCRUMB -->
                     <!-- BEGIN PAGE BASE CONTENT -->
-                    <div class="container">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab_login" data-toggle="tab"><?php __("login"); ?></a></li>
-                            <?php if ($settings->enabled_register): ?><li><a href="#tab_register" data-toggle="tab"><?php __("register"); ?></a></li><?php endif; ?>
-                        </ul>
+                    <div class="row">
+                        <div class="col-md-6">
 
-                        <form method="post" action="./msg/system/presenters/ajax.php" id="login" onsubmit="send_form('login'); return false;">
-                            <input type="hidden" name="action" value="login">
-                            <h2 class="form-signin-heading"><?php __("please_sign_in"); ?></h2>
-                            <input type="text" name="login" class="input-block-level" placeholder="<?php __("login"); ?>">
-                            <input type="password" name="password" class="input-block-level" placeholder="<?php __("password"); ?>">
-                            <label class="checkbox">
-                                <input type="checkbox" name="remember"> <?php __("remember_me"); ?>
-                            </label>
-                            <button class="btn btn-large btn-primary" type="submit"><?php __("sign_in"); ?></button>
-                        </form>
+                            <div class="portlet box blue">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-group"></i>
+                                        <span class="caption-subject bold uppercase">Accedi alla messaggistica</span>
+                                    </div>
+                                    <div class="tools">
+                                        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                    </div>
+                                </div>
+                                <div class="portlet-body form">
+                                    <ul class="nav nav-tabs hide">
+                                        <li class="active"><a href="#tab_login" data-toggle="tab"><?php __("login"); ?></a></li>
+                                        <?php if ($settings->enabled_register): ?><li><a href="#tab_register" data-toggle="tab"><?php __("register"); ?></a></li><?php endif; ?>
+                                    </ul>
+
+                                    <div class="form-body">
+                                        <p>Per accedere alla sezione dei messaggi, conferma il tuo profilo.</p>
+                                        <form method="post" action="./msg/system/presenters/ajax.php" id="login" onsubmit="send_form('login'); return false;">
+                                            <input type="hidden" name="action" value="login">
+                                            <div class="form-group">
+                                                <input value="<?php echo!empty($_SESSION['login_user']) ? $_SESSION['login_user'] : ''; ?>" type="text" name="login" class="form-control" placeholder="<?php __("login"); ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <input value="<?php echo!empty($_SESSION['password']) ? $_SESSION['password'] : ''; ?>" type="password" name="password" class="form-control" placeholder="<?php __("password"); ?>">
+                                            </div>
+                                            <div class="form-group hide">
+                                                <label class="checkbox">
+                                                    <input checked type="checkbox" name="remember"> <?php __("remember_me"); ?>
+                                                </label>
+                                            </div>
+                                            <button class="btn btn-large btn-primary" type="submit"><?php __("sign_in"); ?></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

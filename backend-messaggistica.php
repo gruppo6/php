@@ -1,5 +1,7 @@
 <?php
 
+require_once 'session.php';
+
 //setto la pagina attiva
 if (isset($_SERVER['REQUEST_URI'])) {
     $_SESSION['activePage'] = "backend-messaggistica.php";

@@ -32,7 +32,7 @@
                         <li class="c-menu-type-classic">
                             <a href="pagina-contatti.php" class="c-link ">Contatti</a>
                         </li>
-                        <?php if (!isset($login_session)) { ?>
+                        <?php if (!isset($_SESSION['login_user'])) { ?>
                             <li class="c-menu-type-classic">
                                 <a href="pagina-registrazione-utente.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-user"></i> Registrati</a>
                             </li>
@@ -40,7 +40,7 @@
                                 <a href="pagina-login.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold"><i class="icon-login"></i> Accedi</a>
                             </li>
                         <?php } ?>
-                        <?php if (isset($login_session)) { ?>
+                        <?php if (isset($_SESSION['login_user'])) { ?>
                             <li class="c-menu-type-classic">
                                 <a href="backend.php" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-black c-btn-circle c-btn-uppercase c-btn-sbold">
                                     <i class="icon-user"></i> Cruscotto
