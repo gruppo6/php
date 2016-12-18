@@ -27,7 +27,10 @@
                             <a href="index.php" class="c-link ">Home</a>
                         </li>
                         <li class="c-onepage-link">
-                            <a href="#esamiecertificazioni" class="c-link">Esami e Certificazioni</a>
+                            <a href="pagina-certificazioni.php" class="c-link">Certificazioni</a>
+                        </li>
+                        <li class="c-onepage-link">
+                            <a href="esame-form.php" class="c-link">Prenota</a>
                         </li>
                         <li class="c-menu-type-classic">
                             <a href="pagina-contatti.php" class="c-link ">Contatti</a>

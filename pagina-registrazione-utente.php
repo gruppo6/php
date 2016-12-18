@@ -79,7 +79,7 @@ if (!empty($_POST)) {
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->        
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
-            <div class="c-content-box c-size-md c-bg-img-center" style="background-image:url(img/accedi.jpg); background-size: cover;">
+            <div class="c-content-box c-size-md c-bg-img-center" style="background-image:url(assets/base/img/acc.png); background-size: cover;">
                 
                 <div class="container">
                   
@@ -91,7 +91,7 @@ if (!empty($_POST)) {
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="panel panel-default c-panel">
                                         <div class="panel-body c-panel-body">
                                             <div class="form-group <?php echo!empty($nomeError) ? 'has-error' : ''; ?>">
@@ -135,6 +135,7 @@ if (!empty($_POST)) {
                             </div>
                         </div>
                     </form>
+        
                 </div>      
             </div>
         </div>

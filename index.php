@@ -159,7 +159,7 @@ include('session.php');
                         <div class="col-md-12">
                             <div class="c-content-title-1">
                                 <h3 class="c-font-34 c-font-center c-font-bold c-font-uppercase c-margin-b-30">
-                                    ESAMI E CERTIFICAZIONI </h3>
+                                    ESAMI </h3>
                                 <div class="c-line-center c-theme-bg">
                                 </div>
                             </div>
@@ -179,7 +179,7 @@ include('session.php');
                                     </li>
                                     <li>
                                         <a href="#c-tab2-opt1-2" data-toggle="tab">
-                                            <span class=""><img src="img/icon-adobe-grey.png" style="padding: 10px;"/></span>
+                                            <span class=""><img src="assets/base/img/icon-adobe-n.png" style="padding: 10px;"/></span>
                                             <span class="c-title">Adobe</span>
                                         </a>
                                         <div class="c-arrow">
@@ -209,39 +209,7 @@ include('session.php');
                                         <div class="c-arrow">
                                         </div>
                                     </li>
-                                    
-                                    <li>
-                                        <a href="#c-tab2-opt1-6" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-33"></span>
-                                            <span class="c-title">Php MySql</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#c-tab2-opt1-7" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-32"></span>
-                                            <span class="c-title">Autodesk</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#c-tab2-opt1-8" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-19"></span>
-                                            <span class="c-title">Oracle</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#c-tab2-opt1-9" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-35"></span>
-                                            <span class="c-title">Microsoft</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
+                                  
                                 </ul>
                                 <div class="c-tab-content">
                                     <div class="c-bg-img-center1" style="background-image: url(assets/base/img/content/backgrounds/bg-62.jpg)">
@@ -293,7 +261,7 @@ include('session.php');
                                                 </div>
                                                 <div class="tab-pane fade" id="c-tab2-opt1-5">
                                                     <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="assets/base/img/content/stock2/6.jpg" alt=""/>
+                                                        <img class="img-responsive" src="assets/base/img/pearsonvue.png" alt=""/>
                                                         <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Unlimited Flexible Multi-purpose Layouts & Components</h4>
                                                         <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
                                                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
@@ -489,12 +457,12 @@ include('session.php');
             
             <!-- END: CONTENT/BARS/BAR-5 -->
             <!-- BEGIN: CONTENT/MISC/SUBSCRIBE-FORM-1 -->
-            <div class="c-content-box c-size-sm c-bg-dark">
+            <div class="c-content-box c-size-sm c-bg-white">
                 <div class="container">
                     <div class="c-content-subscribe-form-1">
                         <div class="row">
                             <div class="col-sm-6">
-                                <h3 class="c-title c-font-30 c-font-uppercase c-font-bold">Iscriviti alla nostra newsletter</h3>
+                                <h3 class="c-title c-font-30 c-font-uppercase c-font-bold" style="color:#00BCD4;">Iscriviti alla nostra newsletter</h3>
                                 <div class="c-body c-font-16 c-font-uppercase c-font-sbold">
                                     Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh euismod
                                 </div>
@@ -502,7 +470,7 @@ include('session.php');
                             <div class="col-sm-6">
                                 <form action="#">
                                     <div class="input-group input-group-lg">
-                                        <input type="text" class="form-control input-lg" placeholder="Your Email Here">
+                                        <input type="text" class="form-control input-lg" placeholder="Email">
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn c-theme-btn c-btn-uppercase btn-lg c-btn-bold c-btn-square">ISCRIVITI</button>
                                         </span>
@@ -516,65 +484,7 @@ include('session.php');
             
             
             
-            <!-- END: CONTENT/PRICING/PRICING-1 -->
-            <!-- BEGIN: CONTENT/SLIDERS/CLIENT-LOGOS-2 -->
-            <div class="c-content-box c-size-md c-bg-white">
-                <div class="container">
-                    <!-- Begin: Testimonals 1 component -->
-                    <div class="c-content-client-logos-slider-1 c-bordered" data-slider="owl" data-items="6" data-desktop-items="4" data-desktop-small-items="3" data-tablet-items="3" data-mobile-small-items="2" data-auto-play="5000">
-                        <!-- Begin: Title 1 component -->
-                        <div class="c-content-title-1">
-                            <h3 class="c-center c-font-uppercase c-font-bold">Aziende associate</h3>
-                            <div class="c-line-center c-theme-bg">
-                            </div>
-                        </div>
-                        <!-- End-->
-                        <!-- Begin: Owlcarousel -->
-                        <div class="owl-carousel owl-theme c-theme owl-bordered1">
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client1.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client2.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client3.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client4.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client5.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client6.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client5.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client6.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client5.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client6.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client5.jpg" alt=""/></a>
-                            </div>
-                            <div class="item">
-                                <a href="#"><img src="assets/base/img/content/client-logos/client6.jpg" alt=""/></a>
-                            </div>
-                        </div>
-                        <!-- End-->
-                    </div>
-                    <!-- End-->
-                </div>
-            </div>
-            <!-- END: CONTENT/SLIDERS/CLIENT-LOGOS-2 -->
-            <!-- END: PAGE CONTENT -->
+            
         </div>
         <!-- END: PAGE CONTAINER -->
         <?php include 'index-footer.php';?>

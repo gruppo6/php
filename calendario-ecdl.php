@@ -80,13 +80,13 @@ and open the template in the editor.
 								<li class="c-bg-before-red">
 									Martedì 26
 								</li>
-								<li class="c-bg-before-blue">
+								<li class="c-bg-before-yellow">
 									Martedì 23
 								</li>
-								<li class="c-bg-before-green">
+								<li class="c-bg-before-yellow">
 									Martedì 22
 								</li>
-								<li class="c-bg-before-purple">
+								<li class="c-bg-before-yellow">
 									  –
 								</li>
 								
