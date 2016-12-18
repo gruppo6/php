@@ -1,45 +1,25 @@
-<?php 
-
+<?php
 require_once 'session.php';
-require_once 'Esame.php'; 
+require_once 'Esame.php';
 
 //setto la pagina attiva
-if (isset($_SERVER['REQUEST_URI'])){
+if (isset($_SERVER['REQUEST_URI'])) {
     $_SESSION['activePage'] = basename($_SERVER['REQUEST_URI']);
 }
 
 // Validazione: verifico se è stato passato il tipo query "q" in GET...
 if (!isset($_GET["q"])) {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Nessuna query specificata')";
-        header("Location: backend-esame.php?q=all");
+    header("Location: backend-esame.php?q=all");
 }
 
 // ...e se ha un valore corretto
 $query = $_GET["q"];
 
-if ($query != "todo" && $query != "done" && $query != "all" && $query != "book" ) {
+if ($query != "todo" && $query != "done" && $query != "all" && $query != "book") {
     $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
-        header("Location: backend-esame.php?q=all");
+    header("Location: backend-esame.php?q=all");
 }
-
-switch ($query) {
-    case "all":
-        $listaEsami = Esame::selectAll();
-        break;
-    case "done":
-        $listaEsami = Esame::selectFatti($_SESSION['idUtente']);
-        break;
-    case "todo":
-        $listaEsami = Esame::selectDaFare($_SESSION['idUtente']);
-        break;
-    case "book":
-        $listaEsami = Esame::selectDaPrenotare($_SESSION['idUtente']);
-        break;
-    default:    // sostituisce la validazione con if()
-        $_SESSION['messaggio'] = "notifyError('Errore', 'Azione imprevista.')";
-        header("Location: backend-esame.php?q=all");
-}
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
@@ -49,7 +29,10 @@ switch ($query) {
     <!--<![endif]-->
     <?php include 'backend-head.php' ?>
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo"
-          <?php if (!empty($_SESSION['messaggio'])): ?>onload="<?php echo $_SESSION['messaggio']; $_SESSION['messaggio'] = NULL; ?>"<?php endif; ?>
+          <?php if (!empty($_SESSION['messaggio'])): ?>onload="<?php
+              echo $_SESSION['messaggio'];
+              $_SESSION['messaggio'] = NULL;
+              ?>"<?php endif; ?>
           >
               <?php include 'backend-header.php' ?>
         <!-- BEGIN CONTAINER -->
@@ -110,71 +93,102 @@ switch ($query) {
                                                         <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" style="width: 39px;" aria-label="Admin: activate to sort column ascending">
                                                             Data
                                                         </th>
-                                                        <?php if (($_SESSION['amministratore'] == 0) && ($query=="book")) {
-                                                        echo "
+                                                        <?php
+                                                        if (($_SESSION['amministratore'] == 0) && ($query == "book")) {
+                                                            echo "
                                                         <th class='sorting' tabindex='0' aria-controls='sample_1' rowspan='1' colspan='1' style='width: 34px;' aria-label='Azioni: activate to sort column ascending'>
                                                             Azioni
-                                                        </th> ";} ?>
-                                                        <?php if (($_SESSION['amministratore'] == 1) && ($query!="book")) {
-                                                        echo "
+                                                        </th> ";
+                                                        }
+                                                        ?>
+                                                        <?php
+                                                        if (($_SESSION['amministratore'] == 1) && ($query != "book")) {
+                                                            echo "
                                                         <th class='sorting' tabindex='0' aria-controls='sample_1' rowspan='1' colspan='1' style='width: 34px;' aria-label='Azioni: activate to sort column ascending'>
                                                             Azioni
-                                                        </th> ";} ?>
+                                                        </th> ";
+                                                        }
+                                                        ?>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
+                                                    switch ($query) {
+                                                        case "all":
+                                                            $listaEsami = Esame::selectAll();
+                                                            break;
+                                                        case "done":
+                                                            $listaEsami = Esame::selectFatti($_SESSION['idUtente']);
+                                                            break;
+                                                        case "todo":
+                                                            $listaEsami = Esame::selectDaFare($_SESSION['idUtente']);
+                                                            break;
+                                                        case "book":
+                                                            $listaEsami = Esame::selectDaPrenotare($_SESSION['idUtente']);
+                                                            break;
+                                                        default:    // sostituisce la validazione con if()
+                                                            $_SESSION['messaggio'] = "notifyError('Errore', 'Azione imprevista.')";
+                                                            header("Location: backend-esame.php?q=all");
+                                                    }
                                                     
-                                                    foreach ($listaEsami as $esame) {
-                                                        $id = $esame->getId(); // echo $some_var ? 'true': 'false';
+                                                    foreach ($listaEsami as $esameMio) {
+                                                        $id = $esameMio->getId(); // echo $some_var ? 'true': 'false';
                                                         echo "<tr role='row' class='" . (($id % 2 == 0) ? 'even' : 'odd') . "'>";
-                                                        echo "<td tabindex='0' class='sorting_1'>" . $esame->getNome() . "</td>";
-                                                        echo "<td>" . $esame->getDescrizione() . "</td>";
-                                                        echo "<td>" . $esame->getData() . "</td>";
-                                                        if (($_SESSION['amministratore'] == 0) && ($query=="book")) {
+                                                        echo "<td tabindex='0' class='sorting_1'>" . $esameMio->getNome() . "</td>";
+                                                        echo "<td>" . $esameMio->getDescrizione() . "</td>";
+                                                        echo "<td>" . $esameMio->getData() . "</td>";
+                                                        if (($_SESSION['amministratore'] == 0) && ($query == "book")) {
                                                             echo "<td>
                                                                     <div class='btn-group pull-right'>
                                                                         <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni
                                                                                 <i class='fa fa-angle-down'></i>
                                                                         </button>
                                                                         <ul class='dropdown-menu pull-right'>";
-                                                                                if (($_SESSION['amministratore'] == 0) && ($query=="book")) {
-                                                                                    echo "
+                                                            if (($_SESSION['amministratore'] == 0) && ($query == "book")) {
+                                                                echo "
                                                                                 <li>
                                                                                         <a href='backend-iscrizione-action.php?action=insert&id=$id'>
                                                                                                 <i class='fa fa-check'></i> Prenota </a>
-                                                                                </li> ";} elseif ($_SESSION['amministratore'] == 1) { echo "<li>
+                                                                                </li> ";
+                                                            } elseif ($_SESSION['amministratore'] == 1) {
+                                                                echo "<li>
                                                                                     <a href='backend-esame-form.php?action=update&id=$id'>
                                                                                                 <i class='fa fa-info'></i> Visualizza </a>
                                                                                 </li>
                                                                                 <li>
                                                                                         <a href='backend-esame-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
                                                                                                 <i class='fa fa-trash'></i> Elimina </a>
-                                                                                </li> ";};
+                                                                                </li> ";
+                                                            }
                                                             echo "</ul>
-                                                        </div></td>";};
-                                                        if (($_SESSION['amministratore'] == 1) && ($query!="book")) {
+                                                        </div></td>";
+                                                        }
+                                                        if (($_SESSION['amministratore'] == 1) && ($query != "book")) {
                                                             echo "<td>
                                                                     <div class='btn-group pull-right'>
                                                                         <button class='btn green btn-xs btn-outline dropdown-toggle' data-toggle='dropdown'>Azioni
                                                                                 <i class='fa fa-angle-down'></i>
                                                                         </button>
                                                                         <ul class='dropdown-menu pull-right'>";
-                                                                                if (($_SESSION['amministratore'] == 0) && ($query=="book")) {
-                                                                                    echo "
+                                                            if (($_SESSION['amministratore'] == 0) && ($query == "book")) {
+                                                                echo "
                                                                                 <li>
                                                                                         <a href='backend-iscrizione-action.php?action=insert&id=$id'>
                                                                                                 <i class='fa fa-check'></i> Prenota </a>
-                                                                                </li> ";} elseif ($_SESSION['amministratore'] == 1) { echo "<li>
+                                                                                </li> ";
+                                                            } elseif ($_SESSION['amministratore'] == 1) {
+                                                                echo "<li>
                                                                                     <a href='backend-esame-form.php?action=update&id=$id'>
                                                                                                 <i class='fa fa-info'></i> Visualizza </a>
                                                                                 </li>
                                                                                 <li>
                                                                                         <a href='backend-esame-action.php?action=delete&id=$id' onclick='return confirm(\'Sei sicuro?\');'>
                                                                                                 <i class='fa fa-trash'></i> Elimina </a>
-                                                                                </li> ";};
+                                                                                </li> ";
+                                                            }
                                                             echo "</ul>
-                                                        </div></td>";}
+                                                        </div></td>";
+                                                        }
                                                         echo "</tr>";
                                                     }
                                                     ?>

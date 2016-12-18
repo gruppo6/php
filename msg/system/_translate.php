@@ -10,7 +10,7 @@ $lang = array(
   "password"                              => "Password",
   "password_repeat"                       => "Password (ripeti)",
   "remember_me"                           => "Ricorda",
-  "sign_in"                               => "Accedi",
+  "sign_in"                               => "Prosegui",
   "create_member"                         => "Crea un membro",
   "you_were_logged_out"                   => "Sei stato disconnesso!",
   

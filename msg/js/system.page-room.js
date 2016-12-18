@@ -588,7 +588,7 @@ msg.active_room.update = function(input) {
         var html = "";
             if (result.data) {
                 for (id in result.data) {
-                    html += '<li data-id="'+ result.data[id].id +'" data-user-id="'+ result.data[id].user_id +'"><img src="'+ result.data[id].avatar +'" class="clickable avatar img-rounded img-polaroid" /><div class="msg"><div class="header clearfix"><div class="user clickable">'+ result.data[id].from +'</div> '+ (msg.system.level == "administrator" ? '<div class="pull-left">&nbsp;| <a href="#" class="msg_delete">Delete</a></div>' : '') + ' <div class="info">'+ result.data[id].time +'</div> <div class="attachment" style="float: right; margin-right: 15px;">'+ (result.data[id].attachment.name ? '<a href="'+ filename +'?todo=attachment&id='+ result.data[id].attachment.id +'" target="_self"><i class="icon-file"></i>' + result.data[id].attachment.name : "") +'</a></div>   </div><div class="text">'+ result.data[id].text +'</div></div></li>';
+                    html += '<li data-id="'+ result.data[id].id +'" data-user-id="'+ result.data[id].user_id +'"><img src="'+ result.data[id].avatar +'" class="avatar img-rounded img-polaroid" /><div class="msg"><div class="header clearfix"><div class="user">'+ result.data[id].from +'</div> '+ (msg.system.level == "administrator" ? '<div class="pull-left">&nbsp;| <a href="#" class="msg_delete">Delete</a></div>' : '') + ' <div class="info">'+ result.data[id].time +'</div> <div class="attachment" style="float: right; margin-right: 15px;">'+ (result.data[id].attachment.name ? '<a href="'+ filename +'?todo=attachment&id='+ result.data[id].attachment.id +'" target="_self"><i class="icon-file"></i>' + result.data[id].attachment.name : "") +'</a></div>   </div><div class="text">'+ result.data[id].text +'</div></div></li>';
                 }
             }
 
@@ -723,7 +723,7 @@ msg.refresh.functions.add(function() {
         if (result.online.todo == "update") {
             var html = "";
             if (result.online.data) for (id in result.online.data) {
-                html += '<li data-user-id="'+ result.online.data[id].id +'"><a href="#" class="clickable"><img src="'+ result.online.data[id].avatar +'" class="avatar img-rounded img-polaroid">'+ result.online.data[id].login +'</a></li>';
+                html += '<li data-user-id="'+ result.online.data[id].id +'"><img src="'+ result.online.data[id].avatar +'" class="avatar img-rounded img-polaroid">   '+ result.online.data[id].login +'</li>';
             }
 
             msg.el["list_users"].html(html);
@@ -1053,7 +1053,7 @@ msg.pms.update = function(data) {
 
     var html = "";
     if(data.messages) for (id in data.messages) {
-        html = '<li data-id="'+ data.messages[id].id +'" data-user-id="'+ data.messages[id].user_id +'"><img src="'+ data.messages[id].avatar +'" class="clickable avatar img-rounded img-polaroid"><div class="msg"><div class="header clearfix"><div class="user clickable">'+ data.messages[id].from +'</div> <div class="info">'+ data.messages[id].time +'</div> </div><div class="text">'+ data.messages[id].text +' '+( data.messages[id].attachment.id ? '<hr /><a href="'+ filename +'?todo=attachment&id='+ data.messages[id].attachment.id +'">'+ data.messages[id].attachment.name +'</a>' : '' )+'</div></div></li>' + html;
+        html = '<li data-id="'+ data.messages[id].id +'" data-user-id="'+ data.messages[id].user_id +'"><img src="'+ data.messages[id].avatar +'" class="avatar img-rounded img-polaroid"><div class="msg"><div class="header clearfix"><div class="user">'+ data.messages[id].from +'</div> <div class="info">'+ data.messages[id].time +'</div> </div><div class="text">'+ data.messages[id].text +' '+( data.messages[id].attachment.id ? '<hr /><a href="'+ filename +'?todo=attachment&id='+ data.messages[id].attachment.id +'">'+ data.messages[id].attachment.name +'</a>' : '' )+'</div></div></li>' + html;
     }
 
     if (data.first_id) msg.pms.list[data.user_id].first_id = data.first_id;
@@ -1361,7 +1361,7 @@ msg.manage_users.open = function(page) {
 
         var html = "";
         for (id in result.users) {
-          html += '<tr data-user-id="'+ result.users[id].id +'"><td>'+ result.users[id].id +'</td><td>'+ result.users[id].login +'</td><td>'+ result.users[id].level +'</td><td>'+ result.users[id].ban +'</td><td><a href="#" title="'+ msg.lang["profile"] +'" class="clickable"><i class="icon-align-left"></i></a> <a href="#" title="'+ msg.lang["edit"] +'" class="btn_edit"><i class="icon-pencil"></i></a> <a href="#" title="'+ msg.lang["delete"] +'" class="btn_delete"><i class="icon-trash"></i></a></td></tr>';
+          html += '<tr data-user-id="'+ result.users[id].id +'"><td>'+ result.users[id].id +'</td><td>'+ result.users[id].login +'</td><td>'+ result.users[id].level +'</td><td>'+ result.users[id].ban +'</td><td><a href="#" title="'+ msg.lang["profile"] +'" class=""><i class="icon-align-left"></i></a> <a href="#" title="'+ msg.lang["edit"] +'" class="btn_edit"><i class="icon-pencil"></i></a> <a href="#" title="'+ msg.lang["delete"] +'" class="btn_delete"><i class="icon-trash"></i></a></td></tr>';
         }
 
         msg.el["modal_mu_table"].html(html);

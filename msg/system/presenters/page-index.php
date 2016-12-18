@@ -103,7 +103,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
                     <div class="page-head">
                         <!-- BEGIN PAGE TITLE -->
                         <div class="page-title">
-                            <h1>Conferma il profilo
+                            <h1>Messaggistica
                             </h1>
                         </div>
                         <!-- END PAGE TITLE -->
@@ -141,13 +141,13 @@ if (isset($_SERVER['REQUEST_URI'])) {
                                     </ul>
 
                                     <div class="form-body">
-                                        <p>Per accedere alla sezione dei messaggi, conferma il tuo profilo.</p>
+                                        <p>Sei sicuro di voler proseguire?</p>
                                         <form method="post" action="./msg/system/presenters/ajax.php" id="login" onsubmit="send_form('login'); return false;">
                                             <input type="hidden" name="action" value="login">
-                                            <div class="form-group">
+                                            <div class="form-group hide">
                                                 <input value="<?php echo!empty($_SESSION['login_user']) ? $_SESSION['login_user'] : ''; ?>" type="text" name="login" class="form-control" placeholder="<?php __("login"); ?>">
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group hide">
                                                 <input value="<?php echo!empty($_SESSION['password']) ? $_SESSION['password'] : ''; ?>" type="password" name="password" class="form-control" placeholder="<?php __("password"); ?>">
                                             </div>
                                             <div class="form-group hide">
@@ -156,6 +156,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
                                                 </label>
                                             </div>
                                             <button class="btn btn-large btn-primary" type="submit"><?php __("sign_in"); ?></button>
+                                            <a href="backend.php" class="btn btn-large btn-warning" type="submit">Annulla</a>
                                         </form>
                                     </div>
                                 </div>

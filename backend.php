@@ -125,7 +125,7 @@ if (isset($_SERVER['REQUEST_URI'])){
                                 </div>
                                 <div class="progress-info">
                                     <div class="progress-info">
-                                        <a href="#" class="btn purple">Dettagli</a>
+                                        <a href="backend-messaggistica.php" class="btn purple">Dettagli</a>
                                     </div>
                                 </div>
                             </div>
