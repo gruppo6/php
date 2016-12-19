@@ -1,6 +1,7 @@
 <?php
 
 require_once "Helpers.php";
+require_once "session.php";
 
 /**
  * Description of Certificazione
@@ -77,12 +78,12 @@ class Certificazione {
      * @return bool Vero se la query è andata a buon fine, falso se ci sono stati errori
      */
     public function update() {
-        $sql = "UPDATE certificazioni 
-                SET id_organizzazione = '$this->id_organizzazione', 
-                nome = '$this->nome',
-                descrizione = '$this->descrizione',
-                logo = '$this->logo'
-                WHERE id = '$this->id'";
+        $sql = "UPDATE certificazioni " .
+                "SET id_organizzazione = $this->id_organizzazione, ".
+                "nome = '$this->nome', ".
+                "descrizione = '$this->descrizione', ".
+                "logo = '$this->logo' ".
+                "WHERE id = ".$_SESSION['id'];
         return Helpers::executeCommand($sql);
     }
     
@@ -109,6 +110,7 @@ class Certificazione {
         $row = mysqli_fetch_assoc($result);
         mysqli_close($link);
         if($row) {
+            $this->id = $row["id"];
             $this->id_organizzazione = $row["id_organizzazione"];
             $this->nome = $row["nome"];
             $this->descrizione = $row["descrizione"];

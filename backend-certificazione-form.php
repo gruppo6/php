@@ -33,8 +33,8 @@ if ($action == "update" && empty($_POST)) {
         $_SESSION['messaggio'] = "notifyError('Errore', 'Azione Non Prevista')";
         header("Location: backend-certificazione.php");
     }
-    $id = $_GET["id"];
-    $certificazione = new Certificazione($id);
+    $_SESSION["id"] = $_GET["id"];
+    $certificazione = new Certificazione($_SESSION["id"]);
     $esito = $certificazione->select();  // In base all'id riempio l'oggetto
     if ($esito === false) {
         $_SESSION['messaggio'] = "notifyError('Impossibile continuare', 'Errore in fase di lettura dal DB.')";
@@ -130,7 +130,7 @@ function eseguiInsert() {
 
 function eseguiUpdate() {
     extract($_POST);
-    $certificazione = new Certificazione($id, $id_organizzazione, $nome, $descrizione, $_FILES['logo']['name']);
+    $certificazione = new Certificazione($_SESSION["id"], $id_organizzazione, $nome, $descrizione, $_FILES['logo']['name']);
     return $certificazione->update();
 }
 
@@ -304,7 +304,6 @@ function validaImg() {
                                                 </div>
                                             </div>
                                             <div class="form-actions">
-                                                <input type="hidden" name="id" value="<?php echo $id; ?>">
                                                 <input name="submit" type="submit" value="Salva" class="btn blue" />
                                                 <a href="backend-certificazione.php" type="button" class="btn default">Cancella</a>
                                             </div>

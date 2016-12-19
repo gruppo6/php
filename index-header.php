@@ -23,14 +23,11 @@
                 <nav class="c-mega-menu c-pull-right c-mega-menu-dark c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold" data-onepage-animation-speed="700">
                     <!-- BEGIN: MEGA MENU -->
                     <ul class="nav navbar-nav c-theme-nav">
-                        <li class="c-active c-menu-type-classic">
+                        <li class="c-menu-type-classic">
                             <a href="index.php" class="c-link ">Home</a>
                         </li>
                         <li class="c-onepage-link">
                             <a href="pagina-certificazioni.php" class="c-link">Certificazioni</a>
-                        </li>
-                        <li class="c-onepage-link">
-                            <a href="esame-form.php" class="c-link">Prenota</a>
                         </li>
                         <li class="c-menu-type-classic">
                             <a href="pagina-contatti.php" class="c-link ">Contatti</a>

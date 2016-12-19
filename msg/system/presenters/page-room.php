@@ -85,60 +85,6 @@ echo str_replace("'", "\u0027", json_encode($settings));
                             <li class="separator hide"> </li>
                             <li><i class="icon-loading pull-right" id="page_loading_state" style="margin: 14px 10px 0 0; display: none;"></i></li>
                             <li class="separator hide"> </li>
-                            <!-- BEGIN INBOX DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
-                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <i class="fa fa-whatsapp"></i>
-                                    <?php if ($messaggiNuovi != 0): ?>
-                                        <span class="badge badge-danger"> <?php echo $messaggiNuovi; ?> </span>
-                                    <?php endif; ?>
-                                </a>
-                                <?php if ($messaggiNuovi != 0): ?>
-                                    <ul class="dropdown-menu">
-                                        <li class="external">
-                                            <h3>
-                                                <span class="bold"><?php echo $messaggiNuovi; ?> nuovi</span> messaggi</h3>
-                                            <a href="backend-messaggistica.php">Visualizza tutti</a>
-                                        </li>
-                                        <li>
-                                            <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-                                                <?php
-                                                $listaMessaggi = Messaggistica::selectNonLetti($_SESSION['idUtente']);
-                                                $i = 1;
-                                                foreach ($listaMessaggi as $messaggio) {
-                                                    $id = $messaggio->getId();
-                                                    $from = $messaggio->getFrom_id();
-                                                    $utente = new Utente(0);
-                                                    $utente->setId($from);
-                                                    $utente->select();
-                                                    if ($utente->getLogo() != NULL) {
-                                                        $userAvatar = "<span class='photo'><img class='img-circle' src='img/utente/" . $utente->getLogo() . "' /> </span>";
-                                                    } elseif ($utente->getLogo() == NULL) {
-                                                        $userAvatar = "<span class='photo'><img class='img-circle' src='assets/pages/media/profile/profile_user.jpg' /> </span>";
-                                                    }
-                                                    echo "<li>";
-                                                    echo "<a href='backend-messaggistica.php'>";
-                                                    echo $userAvatar;
-                                                    echo "<span class='subject'>";
-                                                    echo "<span class='from'>" . $utente->getNome() . "</span>";
-                                                    echo "<span class='time'>" . $messaggio->getTime() . "</span>";
-                                                    echo "</span>";
-                                                    echo "<span class='message'>" . $messaggio->getText() . "</span>";
-                                                    echo "</a>";
-                                                    echo "</li>";
-
-                                                    if ($i++ == 3)
-                                                        break;
-                                                }
-                                                ?>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                <?php endif; ?>
-                            </li>
-                            <!-- END INBOX DROPDOWN -->
-                            <li class="separator hide"> </li>
 
                             <!-- BEGIN USER LOGIN DROPDOWN -->
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->

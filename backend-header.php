@@ -28,19 +28,6 @@ $messaggiNuovi = count(Messaggistica::selectNonLetti($_SESSION['idUtente']));
         <!-- END RESPONSIVE MENU TOGGLER -->
         <!-- BEGIN PAGE TOP -->
         <div class="page-top">
-            <!-- BEGIN HEADER SEARCH BOX -->
-            <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-            <!-- <form class="search-form" action="page_general_search_2.html" method="GET">
-                <div class="input-group">
-                    <input type="text" class="form-control input-sm" placeholder="Search..." name="query">
-                    <span class="input-group-btn">
-                        <a href="javascript:;" class="btn submit">
-                            <i class="icon-magnifier"></i>
-                        </a>
-                    </span>
-                </div>
-            </form> -->
-            <!-- END HEADER SEARCH BOX -->
             <!-- BEGIN TOP NAVIGATION MENU -->
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
@@ -124,8 +111,8 @@ $messaggiNuovi = count(Messaggistica::selectNonLetti($_SESSION['idUtente']));
                                             $id = $esame->getId();
                                             echo "<li>";
                                             echo "<a href='javascript:;'>";
-                                            echo "<span class='from'>" . $esame->getNome() . "<br></span>";
-                                            echo "<span class='message'>" . $esame->getDescrizione() . "</span>";
+                                            echo "<span class='from'><h5>" . $esame->getNome() . "</h5></span>";
+                                            echo "<span class='message'><small>" . $esame->getDescrizione() . "</small></span>";
                                             echo "</a>";
                                             echo "</li>";
 

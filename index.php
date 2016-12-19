@@ -3,10 +3,10 @@ include('session.php');
 ?>
 <!DOCTYPE html>
 <html lang="it" dir="ltr">
-    <?php include 'index-head.php';?>
+    <?php include 'index-head.php'; ?>
     <body class="c-layout-header-fixed">
         <!-- BEGIN: LAYOUT/HEADERS/HEADER-1 -->
-        <?php include 'index-header.php';?>
+        <?php include 'index-header.php'; ?>
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->
         <!-- BEGIN: PAGE CONTAINER -->
         <div class="c-layout-page">
@@ -17,24 +17,43 @@ include('session.php');
                     <div class="tp-banner">
                         <ul>
                             <!--BEGIN: SLIDE #1 -->
-                            
+                            <li data-transition="fade" data-slotamount="1" data-masterspeed="1000">
+                                <img alt="" src="assets/base/img/adobe-slider.jpg" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                                <div class="caption customin customout tp-resizeme" data-x="center" data-y="center" data-hoffset="" data-voffset="-50" data-speed="500" data-start="1000" data-customin="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-easing="Back.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
+                                    <h3 class="c-block-bordered c-font-48 c-font-bold c-font-center c-font-uppercase c-font-white c-block">
+                                        CERTIFICAZIONE<br>
+                                        ADOBE </h3>
+                                </div>
+                                <div class="caption lft tp-resizeme" data-x="center" data-y="center" data-voffset="110" data-speed="900" data-start="2000" data-easing="easeOutExpo">
+                                    <a href="pagina-certificazioni.php" class="c-action-btn btn btn-lg c-btn-square c-theme-btn c-btn-bold c-btn-uppercase">Leggi di più</a>
+                                </div>
+                            </li>
                             <!--END -->
                             <!--BEGIN: SLIDE #2 -->
-                            
+                            <li data-transition="fade" data-slotamount="1" data-masterspeed="1000">
+                                <img alt="" src="assets/base/img/london-slider.jpg" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                                <div class="caption customin customout tp-resizeme" data-x="center" data-y="center" data-hoffset="" data-voffset="-50" data-speed="500" data-start="1000" data-customin="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-easing="Back.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
+                                    <h3 class="c-block-bordered c-font-48 c-font-bold c-font-center c-font-uppercase c-font-white c-block">
+                                        TRINITY COLLEGE <br>
+                                        OF LONDON </h3>
+                                </div>
+                                <div class="caption lft tp-resizeme" data-x="center" data-y="center" data-voffset="110" data-speed="900" data-start="2000" data-easing="easeOutExpo">
+                                    <a href="pagina-certificazioni.php" class="c-action-btn btn btn-lg c-btn-square c-theme-btn c-btn-bold c-btn-uppercase">Leggi di più</a>
+                                </div>
+                            </li>
                             <!--END -->
                             <!--BEGIN: SLIDE #3 -->
                             <li data-transition="fade" data-slotamount="1" data-masterspeed="700" data-delay="6000" data-thumb="">
                                 <!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
-                                <img src="assets/base/img/layout/sliders/revo-slider/base/blank.png" alt="">
-                                <div class="caption fulllscreenvideo tp-videolayer" data-x="0" data-y="0" data-speed="600" data-start="1000" data-easing="Power4.easeOut" data-endspeed="500" data-endeasing="Power4.easeOut" data-autoplay="true" data-autoplayonlyfirsttime="false" data-nextslideatend="true" data-videowidth="100%" data-videoheight="100%" data-videopreload="meta" data-videomp4="assets/base/media/video/video-2.mp4" data-videowebm="" data-videocontrols="none" data-forcecover="1" data-forcerewind="on" data-aspectratio="16:9" data-volume="mute" data-videoposter="assets/base/img/layout/sliders/revo-slider/base/blank.png">
-                                </div>
+                                <img src="assets/base/img/mos-slider.jpg" alt="">
+
                                 <div class="caption customin customout tp-resizeme" data-x="center" data-y="center" data-hoffset="" data-voffset="-30" data-speed="500" data-start="1000" data-customin="x:0;y:0;z:0;rotationX:0.5;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-customout="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0.75;scaleY:0.75;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-easing="Back.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600">
                                     <h3 class="c-block-bordered-square c-font-55 c-font-bold c-font-center c-font-uppercase c-font-white c-block">
-                                        Vi mostreremo <br>
-                                        possibilità illimitate </h3>
+                                        CERTIFICAZIONE<br>
+                                        MICROSOFT OFFICE SEPCIALIST </h3>
                                 </div>
                                 <div class="caption lft tp-resizeme" data-x="center" data-y="center" data-voffset="130" data-speed="900" data-start="2000" data-easing="easeOutExpo">
-                                    <a href="#" class="c-action-btn btn c-btn-square c-btn-border-2x c-btn-white c-btn-sbold c-btn-uppercase">Purchase</a>
+                                    <a href="pagina-certificazioni.php" class="c-action-btn btn c-btn-square c-btn-border-2x c-btn-white c-btn-sbold c-btn-uppercase">Scopri</a>
                                 </div>
                             </li>
                             <!--END -->
@@ -84,14 +103,14 @@ include('session.php');
             <!-- END: FEATURES 1 -->
             <!-- END: CONTENT/FEATURES/FEATURES-1 -->
             <!-- BEGIN: CONTENT/MISC/WHY-CHOOSE-US-1 -->
-            <div class="c-content-box c-size-lg c-bg-grey-1">
+            <div class="c-content-box c-size-lg c-bg-dark">
                 <div class="container">
                     <div class="">
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="c-content-feature-5">
                                     <div class="c-content-title-1">
-                                        <h3 class="c-left c-font-dark c-font-uppercase c-font-bold">Perchè <br/>Sceglierci?</h3>
+                                        <h3 class="c-left c-font-white c-font-uppercase c-font-bold">Perchè <br/>Sceglierci?</h3>
                                         <div class="c-line-left c-bg-blue-3 c-theme-bg">
                                         </div>
                                     </div>
@@ -153,165 +172,8 @@ include('session.php');
             </div>
             <!-- END: CONTENT/MISC/WHY-CHOOSE-US-1 -->
             <!-- BEGIN: CONTENT/TABS/TAB-1 -->
-            <a name="esamiecertificazioni"><div class="c-content-box c-size-md c-no-bottom-padding c-overflow-hide"></a>
-                <div class="c-container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="c-content-title-1">
-                                <h3 class="c-font-34 c-font-center c-font-bold c-font-uppercase c-margin-b-30">
-                                    ESAMI </h3>
-                                <div class="c-line-center c-theme-bg">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="c-content-tab-2 c-theme c-opt-1">
-                                <ul class="nav c-tab-icon-stack c-font-sbold c-font-uppercase">
-                                    <li class="active">
-                                        <a href="#c-tab2-opt1-1" data-toggle="tab">
-                                            <span class="" ><img src="img/icon-ecdl-grey.png" style="padding: 10px;"/></span>
-                                            <span class="c-title">Ecdl</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#c-tab2-opt1-2" data-toggle="tab">
-                                            <span class=""><img src="assets/base/img/icon-adobe-n.png" style="padding: 10px;"/></span>
-                                            <span class="c-title">Adobe</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#c-tab2-opt1-3" data-toggle="tab">
-                                            <span class=""><img src="img/icon-mos-grey.png" style="padding: 10px;"/></span>
-                                            <span class="c-title">Mos</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#c-tab2-opt1-4" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-20"></span>
-                                            <span class="c-title">Trinity</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#c-tab2-opt1-5" data-toggle="tab">
-                                            <span class="c-content-line-icon c-icon-33"></span>
-                                            <span class="c-title">PersonVue</span>
-                                        </a>
-                                        <div class="c-arrow">
-                                        </div>
-                                    </li>
-                                  
-                                </ul>
-                                <div class="c-tab-content">
-                                    <div class="c-bg-img-center1" style="background-image: url(assets/base/img/content/backgrounds/bg-62.jpg)">
-                                        <div class="container">
-                                            <div class="tab-content">
-                                                <div class="tab-pane fade in active" id="c-tab2-opt1-1">
-                                                    <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="img/ecdl.png" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Esame ECDL</h4>
-                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat exerci tation suscipit lobortis nisl ut laoreet dolore magna aliquam ut aliquip ex ea commodo consequat.
-                                                        </p>
-                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                                PRENOTA </button></a>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="c-tab2-opt1-2">
-                                                    <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="img/adobe.png" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Certificazione Adobe</h4>
-                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                                                        </p>
-                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                                PRENOTA </button></a>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="c-tab2-opt1-3">
-                                                    <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="img/mos.png" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Esame Mos</h4>
-                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit enim ad minim veniam lobortis nisl ut aliquip ex ea commodo consequat exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                                                        </p>
-                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                                PRENOTA </button></a>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="c-tab2-opt1-4">
-                                                    <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="img/trinity.png" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Esame Trinity</h4>
-                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut enim ad minim veniam laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                                                        </p>
-                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                                PRENOTA </button></a>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="c-tab2-opt1-5">
-                                                    <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="assets/base/img/pearsonvue.png" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Unlimited Flexible Multi-purpose Layouts & Components</h4>
-                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
-                                                        </p>
-                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                                PRENOTA </button></a>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="c-tab2-opt1-6">
-                                                    <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="img/phponmysql.png" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">PhponMySql</h4>
-                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
-                                                        </p>
-                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                                PRENOTA </button></a>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="c-tab2-opt1-7">
-                                                    <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="img/autodesk.png" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Certificazione Autodesk</h4>
-                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
-                                                        </p>
-                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                                PRENOTA </button></a>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="c-tab2-opt1-8">
-                                                    <div class="c-tab-pane">
-                                                        <img class="img-responsive" src="img/autodesk.png" alt=""/>
-                                                        <h4 class="c-font-30 c-font-thin c-font-uppercase c-font-bold">Certificazione Oracle</h4>
-                                                        <p class="c-font-17 c-margin-b-20 c-margin-t-20 c-font-thin ">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed enim ad minim veniam diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, exerci tation suscipit lobortis nisl ut aliquip ex ea commodo consequat enim ad minim veniam.
-                                                        </p>
-                                                        <a href="esame-form.php"><button class="btn btn-sm c-theme-btn c-btn-square c-btn-bold">
-                                                                PRENOTA </button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
             <!-- END: CONTENT/TABS/TAB-1 -->
             <!-- BEGIN: CONTENT/MISC/LATEST-ITEMS-1 -->
             <div class="c-content-box c-size-md c-bg-grey-1">
@@ -354,7 +216,7 @@ include('session.php');
                                 <div class="c-wrapper">
                                     <div class="c-body c-center">
                                         <h3 class="c-font-25 c-line-height-34 c-font-white c-font-uppercase c-font-bold">
-                                            SEI UN TIPO DESIDEROSO DI AFFERMARTI? SCEGLI IL MASTER CHE FA PER TE.</h3>
+                                            SEI UN TIPO DESIDEROSO DI AFFERMARTI? SCEGLI LA CERTIFICAZIONE CHE FA PER TE.</h3>
                                     </div>
                                 </div>
                             </div>
@@ -454,7 +316,7 @@ include('session.php');
             </div>
             <!-- END: CONTENT/MISC/LATEST-ITEMS-1 -->
             <!-- BEGIN: CONTENT/BARS/BAR-5 -->
-            
+
             <!-- END: CONTENT/BARS/BAR-5 -->
             <!-- BEGIN: CONTENT/MISC/SUBSCRIBE-FORM-1 -->
             <div class="c-content-box c-size-sm c-bg-white">
@@ -481,12 +343,12 @@ include('session.php');
                     </div>
                 </div>
             </div>
-            
-            
-            
-            
+
+
+
+
         </div>
         <!-- END: PAGE CONTAINER -->
-        <?php include 'index-footer.php';?>
+        <?php include 'index-footer.php'; ?>
     </body>
 </html>

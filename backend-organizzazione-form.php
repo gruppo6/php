@@ -266,7 +266,7 @@ function validaImg() {
                                                 </div>
                                             </div>
                                             <div class="form-actions">
-                                                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                                <input type="hidden" name="id" value="<?php echo!empty($id) ? $id : ''; ?>">
                                                 <input name="submit" type="submit" value="Salva" class="btn blue" />
                                                 <a href="backend-organizzazione.php" type="button" class="btn default">Cancella</a>
                                             </div>

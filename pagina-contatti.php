@@ -1,6 +1,3 @@
-<?php
-include('session.php');
-?>
 <!DOCTYPE html>
 <html lang="it_IT" dir="ltr">
     <?php include 'index-head.php'; ?>
